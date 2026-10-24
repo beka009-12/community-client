@@ -16,15 +16,14 @@
   container-type: size;
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--color-accent) 24%, var(--color-surface)),
-    var(--color-surface-2)
+    color-mix(in srgb, var(--color-accent) 20%, var(--color-field)),
+    var(--color-ink)
   );
-  color: var(--color-accent-soft);
+  color: var(--color-paper);
 }
 
 .fallback__text {
-  font-family: var(--font-display);
-  font-size: 36cqmin;
+  font-size: 34cqmin;
+  font-weight: 500;
   line-height: 1;
-  letter-spacing: 0.02em;
 }

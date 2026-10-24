@@ -1,21 +1,7 @@
 .frame {
-  border-radius: 24px;
-  border: 1px solid var(--color-border);
-  overflow: hidden;
-  margin-bottom: 32px;
-  background: var(--color-surface-2);
-}
-
-.image {
   position: relative;
-  display: block;
-  width: 100%;
   aspect-ratio: 16 / 9;
-  will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .image {
-    transform: none !important;
-  }
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--color-field);
 }
