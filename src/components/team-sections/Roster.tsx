@@ -4,7 +4,6 @@ import { FC, useMemo, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { springs } from "@/src/lib/motion-tokens";
-import Button from "@/src/ui/Button";
 import Select from "@/src/ui/Select";
 import Avatar from "@/src/ui/Avatar";
 import { POSITIONS, type Position } from "@/src/lib/api-enums";
@@ -46,8 +45,6 @@ const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
   return (
     <section className={scss.roster}>
       <div className={`container ${scss.roster__inner}`}>
-        <h2 className={scss.roster__title}>Участники</h2>
-
         <div className={scss.filters}>
           <Select
             options={DIRECTION_OPTIONS}
@@ -60,7 +57,7 @@ const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
         <div className={scss.frame}>
           <div className={scss.frame__grid}>
             <AnimatePresence mode="popLayout">
-              {visible.map((member, index) => {
+              {visible.map((member) => {
                 const name = fullName(member);
                 const position = positionLabel(member.position);
                 return (
@@ -78,9 +75,6 @@ const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
                       aria-label={position ? `${name}, ${position}` : name}
                     >
                       <Avatar src={member.avatar} name={name} imageClassName={scss.cell__img} />
-                      <span className={scss.cell__index}>
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
                       <span className={scss.cell__scrim} aria-hidden="true" />
                       <div className={scss.cell__caption}>
                         <span className={scss.cell__role}>{name}</span>
@@ -94,17 +88,6 @@ const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
           </div>
         </div>
 
-        <div className={scss.footer}>
-          <p className={scss.footer__text}>Нужна команда под ваш проект?</p>
-          <div className={scss.footer__actions}>
-            <Button href="/contact" variant="primary">
-              Обсудить проект
-            </Button>
-            <Button href="https://motion.kg" variant="link" external>
-              Присоединиться к сообществу
-            </Button>
-          </div>
-        </div>
       </div>
     </section>
   );

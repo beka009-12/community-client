@@ -3,7 +3,6 @@ import Button from "@/src/ui/Button";
 import Avatar from "@/src/ui/Avatar";
 import { positionLabel } from "@/src/lib/api-labels";
 import { fullName } from "@/src/lib/people";
-import { plural } from "@/src/lib/plural";
 import type { MemberDetail } from "@/src/server/api/schemas";
 import scss from "./ProfileCard.module.scss";
 
@@ -17,7 +16,6 @@ interface ProfileLink {
 const ProfileCard: FC<{ member: MemberDetail }> = ({ member }) => {
   const name = fullName(member);
   const position = positionLabel(member.position);
-  const projectCount = member.projects.length;
 
   // Only links the member actually filled in — no dead buttons.
   const links = [
@@ -41,15 +39,6 @@ const ProfileCard: FC<{ member: MemberDetail }> = ({ member }) => {
       </div>
 
       <div className={scss.body}>
-        {projectCount > 0 && (
-          <dl className={scss.facts}>
-            <div>
-              <dt>{plural(projectCount, "проект", "проекта", "проектов")}</dt>
-              <dd>{projectCount}</dd>
-            </div>
-          </dl>
-        )}
-
         {links.length > 0 && (
           <ul className={scss.links}>
             {links.map((link) => (

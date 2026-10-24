@@ -48,24 +48,19 @@
 .section + .section {
   margin-top: 40px;
   padding-top: 32px;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-line);
 }
 
-.section__label {
+.section__title {
   margin-bottom: 16px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-accent);
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .bio {
   max-width: 620px;
   font-size: 17px;
-  line-height: 1.7;
-  color: var(--color-paper);
+  line-height: 1.65;
 }
 
 .skills {
@@ -75,11 +70,10 @@
   list-style: none;
 
   li {
-    padding: 7px 12px;
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    font-family: var(--font-mono);
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: var(--color-field);
+    font-size: 14px;
     color: var(--color-mist);
   }
 }

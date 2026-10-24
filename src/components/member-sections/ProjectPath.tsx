@@ -1,45 +1,12 @@
-"use client";
-
 import { FC } from "react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "motion/react";
-import { motionTokens } from "@/src/lib/motion-tokens";
 import ProjectCover from "@/src/ui/ProjectCover";
-import { MEMBERSHIP_ROLE_LABELS, PROJECT_STATUS_LABELS, PROJECT_STATUS_TONE } from "@/src/lib/api-labels";
+import { MEMBERSHIP_ROLE_LABELS, PROJECT_STATUS_LABELS } from "@/src/lib/api-labels";
 import type { MemberProject } from "@/src/server/api/schemas";
 import scss from "./ProjectPath.module.scss";
 
-const STAGGER = 0.1;
-
-const listVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: STAGGER, delayChildren: STAGGER } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0.25 },
-  visible: {
-    opacity: 1,
-    transition: { duration: motionTokens.duration.normal },
-  },
-};
-
-const railVariants = {
-  hidden: { scaleY: 0 },
-  visible: {
-    scaleY: 1,
-    transition: {
-      duration: motionTokens.duration.slow,
-      ease: motionTokens.easing.smooth,
-    },
-  },
-};
-
-// Same rail-and-nodes motif as the /login path panel, here as this
-// member's track record, with their role in each project.
+// The member's projects with their role in each.
 const ProjectPath: FC<{ projects: MemberProject[] }> = ({ projects }) => {
-  const reduce = useReducedMotion();
-
   if (projects.length === 0) {
     return (
       <p className={scss.empty}>
@@ -49,41 +16,21 @@ const ProjectPath: FC<{ projects: MemberProject[] }> = ({ projects }) => {
   }
 
   return (
-    <motion.ol
-      className={scss.path}
-      variants={listVariants}
-      initial={reduce ? false : "hidden"}
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-    >
-      <motion.span
-        className={scss.path__rail}
-        aria-hidden="true"
-        variants={railVariants}
-      />
-      {projects.map((project) => {
-        const tone = PROJECT_STATUS_TONE[project.status];
-        return (
-          <motion.li key={project.id} className={scss.step} variants={itemVariants}>
-            <span className={`${scss.step__node} ${scss[`tone--${tone}`]}`} aria-hidden="true" />
-            <Link href={`/projects/${project.id}`} className={scss.step__link}>
-              <div className={scss.step__body}>
-                <div className={scss.step__meta}>
-                  <span className={scss[`tone--${tone}`]}>
-                    {PROJECT_STATUS_LABELS[project.status]}
-                  </span>
-                  <span className={scss.step__role}>{MEMBERSHIP_ROLE_LABELS[project.role]}</span>
-                </div>
-                <h3 className={scss.step__name}>{project.name}</h3>
-              </div>
-              <span className={scss.step__thumb}>
-                <ProjectCover src={project.image} name={project.name} />
-              </span>
-            </Link>
-          </motion.li>
-        );
-      })}
-    </motion.ol>
+    <ul className={scss.list}>
+      {projects.map((project) => (
+        <li key={project.id}>
+          <Link href={`/projects/${project.id}`} className={scss.row}>
+            <span className={scss.row__thumb}>
+              <ProjectCover src={project.image} name={project.name} />
+            </span>
+            <span className={scss.row__name}>{project.name}</span>
+            <span className={scss.row__meta}>
+              {MEMBERSHIP_ROLE_LABELS[project.role]}, {PROJECT_STATUS_LABELS[project.status].toLowerCase()}
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 };
 

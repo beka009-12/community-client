@@ -1,6 +1,5 @@
 import { FC } from "react";
 import Link from "next/link";
-import ArrowIcon from "@/src/ui/ArrowIcon";
 import ProfileCard from "@/src/components/member-sections/ProfileCard";
 import ProjectPath from "@/src/components/member-sections/ProjectPath";
 import { splitSkills } from "@/src/server/api/joins";
@@ -15,10 +14,9 @@ const MemberProfile: FC<{ member: MemberDetail }> = ({ member }) => {
 
   return (
     <article className={`container ${scss.profile}`}>
-      <div className={scss.inner}>
+      <div>
         <Link href="/team" className={scss.back}>
-          <ArrowIcon direction="left" />
-          Все участники
+          Вся команда
         </Link>
 
         <div className={scss.layout}>
@@ -26,7 +24,7 @@ const MemberProfile: FC<{ member: MemberDetail }> = ({ member }) => {
 
           <div className={scss.content}>
             <section className={scss.section}>
-              <h2 className={scss.section__label}>О себе</h2>
+              <h2 className={scss.section__title}>О себе</h2>
               <p className={scss.bio}>
                 {member.bio || "Участник пока ничего не рассказал о себе."}
               </p>
@@ -34,7 +32,7 @@ const MemberProfile: FC<{ member: MemberDetail }> = ({ member }) => {
 
             {skills.length > 0 && (
               <section className={scss.section}>
-                <h2 className={scss.section__label}>Навыки</h2>
+                <h2 className={scss.section__title}>Навыки</h2>
                 <ul className={scss.skills}>
                   {skills.map((skill) => (
                     <li key={skill}>{skill}</li>
@@ -44,7 +42,7 @@ const MemberProfile: FC<{ member: MemberDetail }> = ({ member }) => {
             )}
 
             <section className={scss.section}>
-              <h2 className={scss.section__label}>Путь в проектах</h2>
+              <h2 className={scss.section__title}>Проекты</h2>
               <ProjectPath projects={member.projects} />
             </section>
           </div>
