@@ -3,7 +3,6 @@ import Button from "@/src/ui/Button";
 import { TELEGRAM_URL } from "@/src/data/socials";
 import scss from "./FinalCall.module.scss";
 
-// `eyebrow` is the home page's section label; other pages leave it out.
 const FinalCall: FC<{ eyebrow?: string }> = ({ eyebrow }) => (
   <section className={`container ${scss.call}`}>
     <div className={scss.call__block}>

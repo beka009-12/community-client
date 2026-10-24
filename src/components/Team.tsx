@@ -1,6 +1,5 @@
 import PageIntro from "@/src/ui/PageIntro";
 import Roster from "@/src/components/team-sections/Roster";
-import FinalCall from "@/src/components/hero-sections/FinalCall";
 import { getMembers } from "@/src/server/api/members";
 import { plural } from "@/src/lib/plural";
 
@@ -19,7 +18,6 @@ const Team = async () => {
         lead="Разработчики, дизайнеры и тимлиды, которые делают наши проекты."
       />
       <Roster members={members} />
-      <FinalCall />
     </>
   );
 };
