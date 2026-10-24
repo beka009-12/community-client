@@ -7,6 +7,7 @@ import { visibleSocials } from "@/src/data/socials";
 import scss from "./Footer.module.scss";
 
 const NAV_LINKS = [
+  { href: "/", label: "Главная" },
   { href: "/projects", label: "Проекты" },
   { href: "/team", label: "Команда" },
   { href: "/contact", label: "Контакты" },

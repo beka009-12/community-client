@@ -10,14 +10,16 @@ import { motionTokens } from "@/src/lib/motion-tokens";
 import scss from "./Header.module.scss";
 
 const NAV_LINKS = [
+  { href: "/", label: "Главная" },
   { href: "/projects", label: "Проекты" },
   { href: "/team", label: "Команда" },
   { href: "/contact", label: "Контакты" },
 ];
 
-// A section link stays active on its nested pages (/projects/12).
+// A section link stays active on its nested pages (/projects/12); home only
+// on itself.
 const isActive = (pathname: string, href: string) =>
-  pathname === href || pathname.startsWith(`${href}/`);
+  pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
 const Header: FC = () => {
   const pathname = usePathname();
