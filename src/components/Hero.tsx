@@ -1,48 +1,39 @@
 import Welcome from "./hero-sections/Welcome";
-import Showcase from "./hero-sections/Showcase";
+import HomeSection from "./hero-sections/HomeSection";
 import ServiceRows from "./hero-sections/ServiceRows";
 import Process from "./hero-sections/Process";
-import StatsStatement from "./hero-sections/StatsStatement";
-import Leads from "./hero-sections/Leads";
-import Doors from "./hero-sections/Doors";
-import { getProjectsWithMembers } from "@/src/server/api/projects";
+import FinalCall from "./hero-sections/FinalCall";
+import ProjectListing from "./projects-sections/ProjectListing";
+import Button from "@/src/ui/Button";
+import { getProjects } from "@/src/server/api/projects";
 import { getStats } from "@/src/server/api/stats";
-import { getTeamLeads } from "@/src/server/api/home";
+import { statsSentence } from "@/src/lib/stats-sentence";
 
-// Keeps the company path to the services and «Заказать проект» short as
-// the catalogue grows; «Все проекты» carries the rest.
-const SHOWCASE_LIMIT = 6;
+// The rest of the catalogue is one click away on /projects.
+const HOME_PROJECTS_LIMIT = 6;
 
 const Home = async () => {
-  const [stats, projects, leads] = await Promise.all([
-    getStats(),
-    // Details carry the description; the leads reuse the same cached requests.
-    getProjectsWithMembers(),
-    getTeamLeads(),
-  ]);
+  const [stats, projects] = await Promise.all([getStats(), getProjects()]);
   return (
-    <div>
-      <Welcome />
+    <>
+      <Welcome stats={statsSentence(stats)} />
       {projects.length > 0 && (
-        <Showcase
-          projects={projects
-            .slice(0, SHOWCASE_LIMIT)
-            .map(({ id, name, category, status, image, description }) => ({
-              id,
-              name,
-              category,
-              status,
-              image,
-              description,
-            }))}
-        />
+        <HomeSection
+          title="Проекты"
+          action={
+            <Button href="/projects" variant="link">
+              Все проекты
+            </Button>
+          }
+        >
+          <ProjectListing projects={projects.slice(0, HOME_PROJECTS_LIMIT)} />
+        </HomeSection>
       )}
-      <StatsStatement stats={stats} />
       <ServiceRows />
       <Process />
-      {leads.length > 0 && <Leads leads={leads} />}
-      <Doors />
-    </div>
+      <FinalCall />
+    </>
   );
 };
+
 export default Home;

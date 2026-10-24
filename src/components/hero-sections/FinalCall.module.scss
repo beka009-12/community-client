@@ -1,0 +1,32 @@
+.call {
+  padding-top: clamp(72px, 10vw, 128px);
+}
+
+.call__title {
+  max-width: 22ch;
+  font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.call__cta {
+  margin-top: 28px;
+}
+
+.students {
+  margin-top: 32px;
+  font-size: 15px;
+  color: var(--color-mist);
+}
+
+.students__link {
+  color: var(--color-paper);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}
