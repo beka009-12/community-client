@@ -1,37 +1,32 @@
 import type { Metadata } from "next";
-import { Unbounded, Inter, JetBrains_Mono } from "next/font/google";
+import { Unbounded, Onest } from "next/font/google";
 import "./globals.scss";
 
 const displayFont = Unbounded({
   variable: "--font-unbounded",
   subsets: ["latin", "cyrillic"],
-  weight: ["600", "700", "800"],
+  weight: ["600"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const onest = Onest({
+  variable: "--font-onest",
   subsets: ["latin", "cyrillic"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
   weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
   title: "Motion Community",
   description:
-    "Сообщество разработчиков Бишкека: находим специалистов frontend, backend и AI/ML, помогаем компаниям нанимать проверенных людей.",
+    "Сообщество разработчиков Motion из Бишкека: сайты, веб-системы, Telegram-боты и AI-интеграции под ваш проект.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ru"
-      className={`${displayFont.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${displayFont.variable} ${onest.variable}`}
     >
-      <body>{children}</body>
+      <body cz-shortcut-listen="true">{children}</body>
     </html>
   );
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 import scss from "./Button.module.scss";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "ghost";
+  variant?: "primary" | "link";
   href?: string;
   external?: boolean;
 }

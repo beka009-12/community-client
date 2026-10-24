@@ -68,7 +68,7 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, team, adjacent }) => {
               </Button>
             )}
             {project.github_url && (
-              <Button href={project.github_url} variant="ghost" external>
+              <Button href={project.github_url} variant="link" external>
                 GitHub
               </Button>
             )}

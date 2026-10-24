@@ -39,7 +39,7 @@ const Doors: FC = () => (
               <li key={point}>{point}</li>
             ))}
           </ul>
-          <Button href={TELEGRAM_URL} external variant="ghost" className={scss.door__cta}>
+          <Button href={TELEGRAM_URL} external variant="link" className={scss.door__cta}>
             Подать заявку в Telegram
           </Button>
         </div>

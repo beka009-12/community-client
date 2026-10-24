@@ -100,7 +100,7 @@ const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
             <Button href="/contact" variant="primary">
               Обсудить проект
             </Button>
-            <Button href="https://motion.kg" variant="ghost" external>
+            <Button href="https://motion.kg" variant="link" external>
               Присоединиться к сообществу
             </Button>
           </div>

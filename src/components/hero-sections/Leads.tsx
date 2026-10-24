@@ -100,7 +100,7 @@ const Leads: FC<{ leads: LeadProfile[] }> = ({ leads }) => {
                     </ul>
                   )}
 
-                  <Button href={`/team/${active.member.id}`} variant="ghost" className={scss.info__cta}>
+                  <Button href={`/team/${active.member.id}`} variant="link" className={scss.info__cta}>
                     Открыть профиль
                   </Button>
                 </div>

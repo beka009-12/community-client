@@ -126,7 +126,7 @@ const Showcase: FC<{ projects: ShowcaseProject[] }> = ({ projects }) => {
             а компании видят, как мы работаем.
           </p>
         </div>
-        <Button href="/projects" variant="ghost">
+        <Button href="/projects" variant="link">
           Все проекты
         </Button>
       </div>

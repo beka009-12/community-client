@@ -1,0 +1,10 @@
+.intro {
+  padding-top: clamp(40px, 6vw, 72px);
+}
+
+.intro__lead {
+  max-width: 46ch;
+  margin-top: 16px;
+  font-size: 17px;
+  color: var(--color-mist);
+}

@@ -200,7 +200,7 @@ const Header: FC<HeaderProps> = ({ loginHref }) => {
           </div>
 
           <div className={`${scss.island} ${scss.island__auth}`}>
-            <Button href={loginHref} variant="ghost">
+            <Button href={loginHref} variant="link">
               Войти
             </Button>
           </div>
@@ -282,7 +282,7 @@ const Header: FC<HeaderProps> = ({ loginHref }) => {
                 </div>
 
                 <div className={scss.mobileMenu__auth}>
-                  <Button href={loginHref} variant="ghost">
+                  <Button href={loginHref} variant="link">
                     Войти
                   </Button>
                 </div>
