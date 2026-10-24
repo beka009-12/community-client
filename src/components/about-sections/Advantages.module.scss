@@ -1,0 +1,115 @@
+.advantages {
+  padding: 56px 0;
+}
+
+.advantages__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.advantages__index {
+  color: var(--color-mist);
+}
+
+.advantages__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  font-weight: 700;
+  margin-bottom: 28px;
+}
+
+.advantages__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+.advantage {
+  position: relative;
+  aspect-ratio: auto;
+  min-height: 0;
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-surface);
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: rgba(86, 187, 255, 0.35);
+  }
+
+  // Edge-glow that follows the cursor — coordinates written by
+  // GlobalSpotlight (src/animation/MagicBento.tsx), same as Pillars.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: radial-gradient(
+      var(--glow-radius, 220px) circle at var(--glow-x, 50%) var(--glow-y, 50%),
+      rgba(86, 187, 255, calc(var(--glow-intensity, 0) * 0.9)) 0%,
+      rgba(86, 187, 255, calc(var(--glow-intensity, 0) * 0.35)) 35%,
+      transparent 65%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+// MagicBento.css ships global, unscoped nth-child(3)/(4)/(6) grid-span
+// rules for its own 6-card demo layout — they leak onto any
+// .magic-bento-card, including ours. Neutralize them at higher
+// specificity than its `.magic-bento-card:nth-child()` (2 classes) so
+// this stays a plain 3-column grid regardless of stylesheet load order.
+.advantages .advantages__grid .advantage {
+  grid-column: auto;
+  grid-row: auto;
+}
+
+.advantage__icon {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  margin-bottom: 12px;
+  color: var(--color-accent);
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.advantage__title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.advantage__description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-mist);
+}
