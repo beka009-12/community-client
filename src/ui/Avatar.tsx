@@ -6,6 +6,7 @@ interface AvatarProps {
   src: string | null;
   name: string;
   imageClassName?: string;
+  fallbackClassName?: string;
   // Above-the-fold portraits load right away.
   eager?: boolean;
 }
@@ -13,7 +14,7 @@ interface AvatarProps {
 // Fills its positioned parent: the API photo when there is one, otherwise
 // the person's initials, scaled to the box. API media lives on the backend
 // host, so a plain <img> like the project previews.
-const Avatar: FC<AvatarProps> = ({ src, name, imageClassName, eager }) =>
+const Avatar: FC<AvatarProps> = ({ src, name, imageClassName, fallbackClassName, eager }) =>
   src ? (
     <img
       src={src}
@@ -22,7 +23,7 @@ const Avatar: FC<AvatarProps> = ({ src, name, imageClassName, eager }) =>
       className={`${scss.image} ${imageClassName ?? ""}`}
     />
   ) : (
-    <span className={scss.fallback} aria-hidden="true">
+    <span className={`${scss.fallback} ${fallbackClassName ?? ""}`} aria-hidden="true">
       <span className={scss.fallback__text}>{initials(name)}</span>
     </span>
   );

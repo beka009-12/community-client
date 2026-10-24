@@ -13,8 +13,9 @@ import scss from "./Roster.module.scss";
 
 type FilterKey = "all" | Position;
 
-// Portrait cards: greyscale photos turn colour on hover/focus. Filters list
-// only the directions someone actually has, with a count each.
+// Contact sheet: one grid of hairlines, a square portrait per person with the
+// name and position always visible. Hover lights the portrait up (a photo
+// goes from greyscale to colour). Filters list only directions someone has.
 const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
   const reduce = useReducedMotion();
   const [filter, setFilter] = useState<FilterKey>("all");
@@ -50,7 +51,7 @@ const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
         </div>
       )}
 
-      <ul className={scss.grid}>
+      <ul className={scss.sheet}>
         <AnimatePresence mode="popLayout" initial={false}>
           {visible.map((member) => {
             const name = fullName(member);
@@ -59,21 +60,27 @@ const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
               <motion.li
                 key={member.id}
                 layout={!reduce}
-                initial={{ opacity: 0, y: reduce ? 0 : motionTokens.distance.sm }}
-                animate={{ opacity: 1, y: 0 }}
+                className={scss.cell}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0, transition: { duration: motionTokens.duration.fast } }}
                 transition={springs.gentle}
               >
-                <Link href={`/team/${member.id}`} className={scss.card}>
-                  <span className={scss.card__photo}>
-                    <Avatar src={member.avatar} name={name} imageClassName={scss.card__img} />
+                <Link href={`/team/${member.id}`} className={scss.cell__link}>
+                  <span className={scss.cell__portrait}>
+                    <Avatar
+                      src={member.avatar}
+                      name={name}
+                      imageClassName={scss.cell__img}
+                      fallbackClassName={scss.cell__initials}
+                    />
                   </span>
-                  <span className={scss.card__body}>
-                    <span className={scss.card__text}>
-                      <span className={scss.card__name}>{name}</span>
-                      <span className={scss.card__position}>{position}</span>
+                  <span className={scss.cell__meta}>
+                    <span className={scss.cell__text}>
+                      <span className={scss.cell__name}>{name}</span>
+                      <span className={scss.cell__position}>{position}</span>
                     </span>
-                    <span className={scss.card__arrow} aria-hidden="true">
+                    <span className={scss.cell__arrow} aria-hidden="true">
                       <svg
                         viewBox="0 0 24 24"
                         fill="none"
