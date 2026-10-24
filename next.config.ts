@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // The about page was academy copy; its old links land on the home page.
+  async redirects() {
+    return [{ source: "/about", destination: "/", permanent: true }];
+  },
   // Uploaded files (avatars, project covers) come from the API host: see src/lib/media.ts.
   async rewrites() {
     const api = process.env.API_URL?.replace(/\/+$/, "");

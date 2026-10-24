@@ -12,7 +12,6 @@ import scss from "./Header.module.scss";
 const NAV_LINKS = [
   { href: "/", label: "Главная" },
   { href: "/projects", label: "Проекты" },
-  { href: "/about", label: "О нас" },
   { href: "/team", label: "Команда" },
   { href: "/contact", label: "Контакты" },
 ];

@@ -16,7 +16,6 @@ const NAV_COLUMNS = [
   {
     title: "Академия",
     links: [
-      { href: "/about", label: "О нас" },
       { href: "https://motion.kg", label: "Вступить" },
     ],
   },
