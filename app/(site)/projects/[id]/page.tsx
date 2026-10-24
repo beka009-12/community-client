@@ -7,6 +7,10 @@ import { withPeople } from "@/src/server/api/joins";
 import { getMembers } from "@/src/server/api/members";
 import { getProject, getProjects } from "@/src/server/api/projects";
 
+// The header reads the pathname, which a shell for unknown params doesn't
+// have: these pages may block on navigation instead of failing the build.
+export const instant = false;
+
 const load = async (rawId: string) => {
   const id = parseId(rawId);
   return id === null ? null : getProject(id);
@@ -23,8 +27,6 @@ export async function generateMetadata({
   };
 }
 
-// cacheComponents: params are request data, so they are read inside the
-// Suspense boundary and the route still gets a static shell.
 const Project = async ({ params }: Pick<PageProps<"/projects/[id]">, "params">) => {
   const project = await load((await params).id);
   if (!project) notFound();
