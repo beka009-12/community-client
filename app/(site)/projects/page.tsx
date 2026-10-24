@@ -5,7 +5,7 @@ import { getProjects } from "@/src/server/api/projects";
 export const metadata: Metadata = {
   title: "Проекты — Motion Community",
   description:
-    "Проекты, которые сообщество Motion Community делает для себя, и проекты в разработке на заказ.",
+    "Проекты сообщества Motion: что мы делаем и что уже в работе.",
 };
 
 const Page = async () => <Projects projects={await getProjects()} />;

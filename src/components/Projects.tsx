@@ -2,8 +2,7 @@
 
 import { FC, useMemo, useState } from "react";
 import Header from "@/src/components/projects-sections/Header";
-import Grid from "@/src/components/projects-sections/Grid";
-import EditorialList from "@/src/components/projects-sections/EditorialList";
+import ProjectListing from "@/src/components/projects-sections/ProjectListing";
 import type { ProjectStatus } from "@/src/lib/api-enums";
 import type { ProjectListItem } from "@/src/server/api/schemas";
 
@@ -33,8 +32,9 @@ const Projects: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
         status={status}
         onStatusChange={setStatus}
       />
-      <Grid projects={visible} />
-      <EditorialList projects={visible} />
+      <div className="container">
+        <ProjectListing projects={visible} />
+      </div>
     </div>
   );
 };

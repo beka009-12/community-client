@@ -10,9 +10,8 @@ import {
   useReducedMotion,
   useSpring,
 } from "motion/react";
-import ArrowIcon from "@/src/ui/ArrowIcon";
 import ProjectCover from "@/src/ui/ProjectCover";
-import { PROJECT_STATUS_LABELS, PROJECT_STATUS_TONE } from "@/src/lib/api-labels";
+import { projectMeta } from "@/src/lib/api-labels";
 import type { ProjectListItem } from "@/src/server/api/schemas";
 import scss from "./EditorialList.module.scss";
 
@@ -39,7 +38,7 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
 
   if (projects.length === 0) {
     return (
-      <div className={`container ${scss.listWrap}`}>
+      <div className={scss.listWrap}>
         <p className={scss.empty}>
           Под этот фильтр пока ничего не попадает — попробуйте другое
           сочетание.
@@ -49,13 +48,13 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
   }
 
   return (
-    <div className={`container ${scss.listWrap}`}>
+    <div className={scss.listWrap}>
       <div
         className={scss.list}
         onMouseMove={reduce ? undefined : handleMouseMove}
         onMouseLeave={() => setHovered(null)}
       >
-        {projects.map((project, index) => (
+        {projects.map((project) => (
           <Link
             key={project.id}
             href={`/projects/${project.id}`}
@@ -63,10 +62,6 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
             data-dimmed={hovered !== null && hovered !== project.id}
             onMouseEnter={() => setHovered(project.id)}
           >
-            <span className={scss.row__index}>
-              {String(index + 1).padStart(2, "0")}
-            </span>
-
             <span
               className={`${scss.row__name} ${hovered === project.id ? scss["row__name--active"] : ""}`}
             >
@@ -74,15 +69,8 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
             </span>
 
             <span className={scss.row__meta}>
-              <span
-                className={`${scss.status} ${scss[`status--${PROJECT_STATUS_TONE[project.status]}`]}`}
-              >
-                {PROJECT_STATUS_LABELS[project.status]}
-              </span>
-              <span>{project.category}</span>
+              {projectMeta(project.status, project.category)}
             </span>
-
-            <ArrowIcon direction="right" className={scss.row__arrow} />
           </Link>
         ))}
 
