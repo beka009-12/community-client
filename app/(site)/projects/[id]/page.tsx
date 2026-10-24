@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import ProjectDetail from "@/src/components/projects-sections/ProjectDetail";
 import { parseId } from "@/src/lib/route-id";
@@ -8,8 +7,18 @@ import { getMembers } from "@/src/server/api/members";
 import { getProject, getProjects } from "@/src/server/api/projects";
 
 // The header reads the pathname, which a shell for unknown params doesn't
-// have: these pages may block on navigation instead of failing the build.
+// have, and an unknown id must answer 404 before anything streams: these
+// pages block on navigation instead.
 export const instant = false;
+// Without it, Partial Prefetching streams the shell for an id the build
+// didn't see, and notFound() can only answer 200 + noindex.
+export const ensureStatic = "navigation";
+
+// The route needs at least one id; an empty catalogue prerenders the 404.
+export async function generateStaticParams(): Promise<{ id: string }[]> {
+  const projects = await getProjects();
+  return projects.length > 0 ? projects.map((project) => ({ id: String(project.id) })) : [{ id: "0" }];
+}
 
 const load = async (rawId: string) => {
   const id = parseId(rawId);
@@ -27,7 +36,7 @@ export async function generateMetadata({
   };
 }
 
-const Project = async ({ params }: Pick<PageProps<"/projects/[id]">, "params">) => {
+const Page = async ({ params }: PageProps<"/projects/[id]">) => {
   const project = await load((await params).id);
   if (!project) notFound();
 
@@ -45,11 +54,5 @@ const Project = async ({ params }: Pick<PageProps<"/projects/[id]">, "params">) 
     <ProjectDetail project={project} team={withPeople(project.members, roster)} adjacent={adjacent} />
   );
 };
-
-const Page = ({ params }: PageProps<"/projects/[id]">) => (
-  <Suspense fallback={null}>
-    <Project params={params} />
-  </Suspense>
-);
 
 export default Page;
