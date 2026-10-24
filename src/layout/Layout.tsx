@@ -13,9 +13,9 @@ const LOGIN_HREF = `${process.env.SERVICE_URL ?? ""}/login`;
 const Layout: FC<ILayoutProps> = ({ children }) => {
   return (
     <div className={scss.Layout}>
-      <Header loginHref={LOGIN_HREF} />
+      <Header />
       <main>{children}</main>
-      <Footer />
+      <Footer loginHref={LOGIN_HREF} />
     </div>
   );
 };

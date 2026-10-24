@@ -3,14 +3,18 @@ export interface SocialLink {
   label: string;
 }
 
-// TODO: placeholder URLs — swap for the real community accounts.
+// TODO: fill in the community's real links. An empty href hides the link
+// everywhere (footer, contact page, the students line on the home page).
 export const SOCIAL_LINKS: SocialLink[] = [
-  { href: "https://wa.me/", label: "WhatsApp" },
-  { href: "https://t.me/", label: "Telegram" },
-  { href: "https://instagram.com/", label: "Instagram" },
-  { href: "https://linkedin.com/", label: "LinkedIn" },
+  { href: "", label: "Telegram" },
+  { href: "", label: "WhatsApp" },
+  { href: "", label: "Instagram" },
+  { href: "", label: "LinkedIn" },
 ];
 
-// Students apply through Telegram; swap the placeholder above to change it everywhere.
+// Students apply through Telegram.
 export const TELEGRAM_URL =
-  SOCIAL_LINKS.find((link) => link.label === "Telegram")?.href ?? "https://t.me/";
+  SOCIAL_LINKS.find((link) => link.label === "Telegram")?.href ?? "";
+
+export const visibleSocials = (): SocialLink[] =>
+  SOCIAL_LINKS.filter((link) => link.href !== "");

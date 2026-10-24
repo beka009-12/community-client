@@ -1,24 +1,14 @@
+import { FC } from "react";
 import Image from "next/image";
 import { cacheLife } from "next/cache";
 import Link from "next/link";
-import { SOCIAL_LINKS } from "@/src/data/socials";
+import { visibleSocials } from "@/src/data/socials";
 import scss from "./Footer.module.scss";
 
-const NAV_COLUMNS = [
-  {
-    title: "Сообщество",
-    links: [
-      { href: "#community", label: "Специалисты" },
-      { href: "#portfolio", label: "Проекты" },
-      { href: "#pillars", label: "Как это работает" },
-    ],
-  },
-  {
-    title: "Академия",
-    links: [
-      { href: "https://motion.kg", label: "Вступить" },
-    ],
-  },
+const NAV_LINKS = [
+  { href: "/projects", label: "Проекты" },
+  { href: "/team", label: "Команда" },
+  { href: "/contact", label: "Контакты" },
 ];
 
 // cacheComponents won't prerender a bare `new Date()`; the year goes into
@@ -29,8 +19,13 @@ async function currentYear(): Promise<number> {
   return new Date().getFullYear();
 }
 
-const Footer = async () => {
+interface FooterProps {
+  loginHref: string;
+}
+
+const Footer: FC<FooterProps> = async ({ loginHref }) => {
   const year = await currentYear();
+  const socials = visibleSocials();
 
   return (
     <footer className={scss.footer}>
@@ -41,52 +36,38 @@ const Footer = async () => {
             alt="Motion Community"
             width={253}
             height={134}
-            className={scss.logoImage}
+            className={scss.logo}
           />
-          <p className={scss.footer__tagline}>
-            Сообщество разработчиков в Бишкеке. Растим специалистов, находим им дело.
-          </p>
+          <p className={scss.muted}>Сообщество разработчиков, Бишкек</p>
         </div>
 
-        <div className={scss.footer__columns}>
-          {NAV_COLUMNS.map((col) => (
-            <div key={col.title} className={scss.footer__column}>
-              <h3>{col.title}</h3>
-              <ul>
-                {col.links.map((link) => (
-                  <li key={link.href}>
-                    {link.href.startsWith("http") ? (
-                      <a href={link.href} target="_blank" rel="noreferrer">
-                        {link.label}
-                      </a>
-                    ) : (
-                      <Link href={link.href}>{link.label}</Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <ul className={scss.footer__list}>
+          {NAV_LINKS.map((link) => (
+            <li key={link.href}>
+              <Link href={link.href}>{link.label}</Link>
+            </li>
           ))}
-        </div>
+          <li>
+            <a href={loginHref} className={scss.muted}>
+              Войти для участников
+            </a>
+          </li>
+        </ul>
 
-        <div className={scss.footer__social}>
-          <h3>Связаться</h3>
-          <ul>
-            {SOCIAL_LINKS.map((social) => (
-              <li key={social.href}>
+        {socials.length > 0 && (
+          <ul className={scss.footer__list}>
+            {socials.map((social) => (
+              <li key={social.label}>
                 <a href={social.href} target="_blank" rel="noreferrer">
                   {social.label}
                 </a>
               </li>
             ))}
           </ul>
-        </div>
+        )}
       </div>
 
-      <div className={`container ${scss.footer__bottom}`}>
-        <span>© {year} Motion Community</span>
-        <span>Бишкек, Кыргызстан</span>
-      </div>
+      <div className={`container ${scss.footer__bottom}`}>© {year} Motion Community</div>
     </footer>
   );
 };
