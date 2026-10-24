@@ -74,6 +74,26 @@ request form on `/contact`.
 - Breaking the hero particles, the projects hover list or the team contact
   sheet.
 
+## Update 2026-10-25: the user's own mockup replaces direction C
+
+The user then shared a home-page mockup (Claude Design canvas «Motion
+Community — главная (клиенты)») and asked for the site to look roughly like
+it. Where it differs from direction C below, the mockup wins:
+
+- Accent `#54BBFF`, ink `#0A0C10`, paper `#EEF1F5`, mist `#A3AAB6`, lines
+  `#1F242D`, surfaces `#0E1116`.
+- Unbounded (700/800) for page and section titles, cards and step titles, not
+  only the `h1`; Onest for body; JetBrains Mono for section labels
+  («01 / Портфолио») and footer column labels.
+- Dot-grid hero with a status badge, an accent word in the headline, pill
+  buttons with an arrow circle, rings around the particle logo, a three-cell
+  numbers strip; numbered project rows with status pills; service cards with
+  icons; process steps in circles; an accent call-to-action block; a footer
+  with a dotted COMMUNITY wordmark.
+- Kept from the brief: the particle animation (the mockup's static dotted
+  «m» stands in for it), «проектов» instead of «собственных продуктов» in
+  the numbers, the cursor-following project preview.
+
 ## Visual system — direction C (picked by the user in the mockups)
 
 Dark background as today, the brand display face in exactly one place (the
