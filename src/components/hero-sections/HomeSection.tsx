@@ -2,16 +2,22 @@ import { FC, ReactNode } from "react";
 import scss from "./HomeSection.module.scss";
 
 interface HomeSectionProps {
+  // «01 / Портфолио»: the section's place on the page.
+  eyebrow: string;
   title: string;
-  // A link on the heading's line, e.g. «Все проекты».
+  id?: string;
+  // A button on the heading's line, e.g. «Все проекты».
   action?: ReactNode;
   children: ReactNode;
 }
 
-const HomeSection: FC<HomeSectionProps> = ({ title, action, children }) => (
-  <section className={`container ${scss.section}`}>
+const HomeSection: FC<HomeSectionProps> = ({ eyebrow, title, id, action, children }) => (
+  <section id={id} className={`container ${scss.section}`}>
     <div className={scss.section__head}>
-      <h2 className={scss.section__title}>{title}</h2>
+      <div className={scss.section__titles}>
+        <span className="eyebrow">{eyebrow}</span>
+        <h2 className="section-title">{title}</h2>
+      </div>
       {action}
     </div>
     {children}

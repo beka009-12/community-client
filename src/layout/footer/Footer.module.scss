@@ -1,41 +1,61 @@
 .footer {
-  margin-top: clamp(64px, 10vw, 120px);
-  border-top: 1px solid var(--color-line);
-  font-size: 15px;
+  margin-top: clamp(80px, 9vw, 128px);
+  overflow: hidden;
 }
 
-.footer__inner {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 32px;
-  padding-top: 48px;
+.footer__top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
   padding-bottom: 40px;
+  border-bottom: 1px solid var(--color-line);
+}
 
-  @media (max-width: 767px) {
-    grid-template-columns: 1fr 1fr;
-
-    .footer__brand {
-      grid-column: 1 / -1;
-    }
-  }
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 340px;
 }
 
 .logo {
   display: block;
+  align-self: flex-start;
   width: auto;
-  height: 24px;
-  margin-bottom: 14px;
+  height: 40px;
 }
 
 .muted {
   color: var(--color-mist);
 }
 
-.footer__list {
+.footer__columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 56px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.column__label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.links {
   list-style: none;
 
   a {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     min-height: 36px;
     transition: color 0.2s ease;
@@ -47,8 +67,28 @@
 }
 
 .footer__bottom {
-  padding-top: 20px;
-  padding-bottom: 32px;
-  font-size: 13px;
-  color: var(--color-mist);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 24px 0;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+// Decorative dotted wordmark bleeding off the bottom edge.
+.wordmark {
+  margin-bottom: -0.1em;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(64px, 13vw, 200px);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: transparent;
+  background-image: radial-gradient(circle, #2a3140 1.6px, transparent 2px);
+  background-size: 7px 7px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  user-select: none;
 }

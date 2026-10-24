@@ -9,11 +9,11 @@
 .fallback {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(
-      120% 90% at 85% 10%,
-      color-mix(in srgb, var(--color-accent) 28%, transparent),
-      transparent 60%
-    ),
-    linear-gradient(160deg, var(--color-field), var(--color-ink));
+  background-color: #121620;
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-accent) 35%, transparent) 1.2px,
+    transparent 1.6px
+  );
+  background-size: 12px 12px;
 }

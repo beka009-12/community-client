@@ -5,12 +5,13 @@ import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { motionTokens, springs } from "@/src/lib/motion-tokens";
 import ProjectCover from "@/src/ui/ProjectCover";
-import { projectMeta } from "@/src/lib/api-labels";
+import StatusPill from "@/src/ui/StatusPill";
 import type { ProjectListItem } from "@/src/server/api/schemas";
 import scss from "./Grid.module.scss";
 
 // Cards render in place on load (AnimatePresence initial={false}), so the
-// server HTML is the final state; only filter changes animate.
+// server HTML is the final state; only filter changes animate. A card shows
+// a photo only when the project has one.
 const Grid: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
   const reduce = useReducedMotion();
   const offset = reduce ? 0 : motionTokens.distance.sm;
@@ -41,15 +42,22 @@ const Grid: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
               className={scss.card}
             >
               <Link href={`/projects/${project.id}`} className={scss.card__link}>
-                <div className={scss.card__photo}>
-                  <ProjectCover
-                    src={project.image}
-                    name={project.name}
-                    imageClassName={scss.card__image}
-                  />
+                {project.image && (
+                  <div className={scss.card__photo}>
+                    <ProjectCover
+                      src={project.image}
+                      name={project.name}
+                      imageClassName={scss.card__image}
+                    />
+                  </div>
+                )}
+                <div className={scss.card__body}>
+                  <h3 className={scss.card__name}>{project.name}</h3>
+                  <div className={scss.card__meta}>
+                    <StatusPill status={project.status} />
+                    <span>{project.category}</span>
+                  </div>
                 </div>
-                <h3 className={scss.card__name}>{project.name}</h3>
-                <p className={scss.card__meta}>{projectMeta(project.status, project.category)}</p>
               </Link>
             </motion.div>
           ))}

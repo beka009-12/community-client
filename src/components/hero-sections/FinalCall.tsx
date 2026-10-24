@@ -5,10 +5,15 @@ import scss from "./FinalCall.module.scss";
 
 const FinalCall: FC = () => (
   <section className={`container ${scss.call}`}>
-    <h2 className={scss.call__title}>Расскажите о задаче — предложим команду и сроки</h2>
-    <Button href="/contact" className={scss.call__cta}>
-      Обсудить проект
-    </Button>
+    <div className={scss.call__block}>
+      <div className={scss.call__titles}>
+        <span className={scss.call__eyebrow}>04 / Старт</span>
+        <h2 className={scss.call__title}>Расскажите о задаче — предложим команду и сроки</h2>
+      </div>
+      <Button href="/contact" variant="dark" size="lg" arrow>
+        Обсудить проект
+      </Button>
+    </div>
     {TELEGRAM_URL && (
       <p className={scss.students}>
         Разработчик и хотите в сообщество?{" "}

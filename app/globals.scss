@@ -1,17 +1,22 @@
 :root {
-  --color-ink: #0a0c11;
-  --color-paper: #eceef2;
-  --color-mist: #8b91a0;
-  --color-line: #1c2029;
-  --color-field: #12151c;
-  --color-field-border: #222734;
-  --color-accent: #389fff;
-  --color-accent-hover: #6cb8ff;
-  --color-on-accent: #04101f;
+  --color-ink: #0a0c10;
+  --color-paper: #eef1f5;
+  --color-mist: #a3aab6;
+  --color-muted: #7d8593;
+  --color-line: #1f242d;
+  --color-surface: #0e1116;
+  --color-surface-raised: #1a1f28;
+  --color-border: #2e3440;
+  --color-field: #10131a;
+  --color-field-border: #262b35;
+  --color-accent: #54bbff;
+  --color-accent-hover: #86cfff;
+  --color-on-accent: #0a0c10;
   --color-danger: #f87171;
 
   --font-display: var(--font-unbounded), system-ui, sans-serif;
   --font-body: var(--font-onest), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
   // Next.js already scrolls to the top on route change (e.g. clicking
   // the prev/next project pager) — this is what makes that jump glide
@@ -36,7 +41,7 @@ body {
   background-color: var(--color-ink);
   color: var(--color-paper);
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
@@ -48,13 +53,30 @@ body {
   padding-inline: clamp(20px, 4vw, 48px);
 }
 
-// The brand face appears once per page, on its h1.
 .page-title {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(2rem, 1.3rem + 2.4vw, 3.25rem);
-  line-height: 1.12;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 1.6rem + 3vw, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
   overflow-wrap: anywhere;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 1.4rem + 2vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
+}
+
+// «01 / Портфолио» above a section title.
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-accent);
 }
 
 button,

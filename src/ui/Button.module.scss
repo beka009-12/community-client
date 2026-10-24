@@ -2,36 +2,72 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.15s ease;
+    transform 0.25s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.button--md {
+  min-height: 48px;
+  padding: 0 24px;
+  font-size: 16px;
+}
+
+.button--lg {
+  min-height: 58px;
+  padding: 0 28px;
+  font-size: 17px;
+}
+
+.button--primary,
+.button--outline,
+.button--dark {
+  border-radius: 999px;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 }
 
 .button--primary {
-  height: 44px;
-  padding: 0 22px;
-  border-radius: 999px;
   background: var(--color-accent);
   color: var(--color-on-accent);
 
   &:hover {
     background: var(--color-accent-hover);
   }
+}
 
-  &:active {
-    transform: scale(0.97);
+.button--dark {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.button--outline {
+  border: 1px solid var(--color-border);
+  color: var(--color-paper);
+
+  &:hover {
+    border-color: var(--color-mist);
   }
 }
 
 .button--link {
   min-height: 44px;
+  padding: 0;
   background: none;
+  font-weight: 500;
   color: var(--color-paper);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -40,4 +76,53 @@
   &:hover {
     color: var(--color-accent);
   }
+}
+
+.button__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+// Filled buttons: the arrow sits in a circle at the right edge.
+.button--arrow.button--primary,
+.button--arrow.button--dark {
+  gap: 14px;
+  padding-right: 8px;
+
+  .button__arrow {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.button--arrow.button--md.button--primary,
+.button--arrow.button--md.button--dark {
+  padding-right: 6px;
+
+  .button__arrow {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.button--arrow.button--primary .button__arrow {
+  background: var(--color-ink);
+  color: var(--color-accent);
+}
+
+.button--arrow.button--dark .button__arrow {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
 }

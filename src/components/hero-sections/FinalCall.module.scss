@@ -1,22 +1,46 @@
 .call {
-  padding-top: clamp(72px, 10vw, 128px);
+  padding-top: clamp(96px, 10vw, 144px);
+}
+
+.call__block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  padding: clamp(28px, 6vw, 80px);
+  border-radius: clamp(24px, 3vw, 36px);
+  background-color: var(--color-accent);
+  background-image: radial-gradient(circle, rgba(10, 12, 16, 0.16) 1.3px, transparent 1.7px);
+  background-size: 16px 16px;
+  color: var(--color-on-accent);
+}
+
+.call__titles {
+  flex: 999 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.call__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .call__title {
-  max-width: 22ch;
-  font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-.call__cta {
-  margin-top: 28px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(28px, 4.2vw + 8px, 68px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  overflow-wrap: break-word;
 }
 
 .students {
-  margin-top: 32px;
-  font-size: 15px;
+  margin-top: 28px;
   color: var(--color-mist);
 }
 

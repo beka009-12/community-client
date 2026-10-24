@@ -1,33 +1,66 @@
 .steps {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px 32px;
-  padding-top: 20px;
-  border-top: 1px solid var(--color-accent);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px 0;
   list-style: none;
+}
 
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-right: 24px;
+}
 
-  @media (max-width: 560px) {
-    grid-template-columns: 1fr;
-  }
+.step__head {
+  display: flex;
+  align-items: center;
 }
 
 .step__number {
-  font-size: 14px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 1.5px solid var(--color-accent);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
   color: var(--color-accent);
 }
 
+.step__number--current {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.step__line {
+  flex: 1;
+  height: 1px;
+  margin-right: -24px;
+  background: #2a303b;
+
+  // Stacked steps don't connect sideways.
+  @media (max-width: 560px) {
+    display: none;
+  }
+}
+
+.step__line--current {
+  background: color-mix(in srgb, var(--color-accent) 50%, transparent);
+}
+
 .step__title {
-  margin-top: 8px;
-  font-size: 17px;
-  font-weight: 500;
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.02em;
 }
 
 .step__text {
-  margin-top: 6px;
-  font-size: 15px;
   color: var(--color-mist);
 }

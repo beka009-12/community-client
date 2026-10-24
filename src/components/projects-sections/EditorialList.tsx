@@ -11,13 +11,12 @@ import {
   useSpring,
 } from "motion/react";
 import ProjectCover from "@/src/ui/ProjectCover";
-import { projectMeta } from "@/src/lib/api-labels";
+import StatusPill from "@/src/ui/StatusPill";
 import type { ProjectListItem } from "@/src/server/api/schemas";
 import scss from "./EditorialList.module.scss";
 
-// Desktop-only (≥960px, toggled purely in CSS — see .list). Mobile/tablet
-// keep the plain card grid; a cursor-follow preview has no touch
-// equivalent, so it isn't worth forking the interaction for small screens.
+// Desktop-only (≥1024px, toggled in CSS). Touch screens keep the card grid:
+// a cursor-follow preview has no touch equivalent.
 const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
   const reduce = useReducedMotion();
   const [hovered, setHovered] = useState<number | null>(null);
@@ -27,7 +26,7 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
   const springX = useSpring(mvX, { stiffness: 300, damping: 30, mass: 0.5 });
   const springY = useSpring(mvY, { stiffness: 300, damping: 30, mass: 0.5 });
 
-  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (event: MouseEvent<HTMLUListElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     // Offset up-and-right so the preview never sits under the pointer.
     mvX.set(event.clientX - rect.left + 28);
@@ -49,38 +48,47 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
 
   return (
     <div className={scss.listWrap}>
-      <div
+      <ul
         className={scss.list}
         onMouseMove={reduce ? undefined : handleMouseMove}
         onMouseLeave={() => setHovered(null)}
       >
-        {projects.map((project) => (
-          <Link
-            key={project.id}
-            href={`/projects/${project.id}`}
-            className={scss.row}
-            data-dimmed={hovered !== null && hovered !== project.id}
-            onMouseEnter={() => setHovered(project.id)}
-          >
-            <span
-              className={`${scss.row__name} ${hovered === project.id ? scss["row__name--active"] : ""}`}
+        {projects.map((project, index) => (
+          <li key={project.id}>
+            <Link
+              href={`/projects/${project.id}`}
+              className={scss.row}
+              data-active={hovered === project.id}
+              onMouseEnter={() => setHovered(project.id)}
             >
-              {project.name}
-            </span>
-
-            <span className={scss.row__meta}>
-              {projectMeta(project.status, project.category)}
-            </span>
-          </Link>
+              <span className={scss.row__index}>{String(index + 1).padStart(2, "0")}</span>
+              <span className={scss.row__name}>{project.name}</span>
+              <StatusPill status={project.status} />
+              <span className={scss.row__category}>{project.category}</span>
+              <span className={scss.row__arrow} aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M7 17 17 7M8 7h9v9" />
+                </svg>
+              </span>
+            </Link>
+          </li>
         ))}
 
         {!reduce && (
           <AnimatePresence>
             {hoveredProject && (
-              <motion.div
+              <motion.li
                 key={hoveredProject.id}
+                aria-hidden="true"
                 className={scss.preview}
-                style={{ x: springX, y: springY }}
+                style={{ x: springX, y: springY, rotate: -4 }}
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.92 }}
@@ -91,11 +99,11 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
                   name={hoveredProject.name}
                   imageClassName={scss.preview__image}
                 />
-              </motion.div>
+              </motion.li>
             )}
           </AnimatePresence>
         )}
-      </div>
+      </ul>
     </div>
   );
 };

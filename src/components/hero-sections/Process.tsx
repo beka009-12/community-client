@@ -23,11 +23,23 @@ const STEPS = [
 ];
 
 const Process: FC = () => (
-  <HomeSection title="Как работаем">
+  <HomeSection eyebrow="03 / Процесс" title="Как работаем">
     <ol className={scss.steps}>
       {STEPS.map((step, index) => (
         <li key={step.title} className={scss.step}>
-          <span className={scss.step__number}>{index + 1}</span>
+          <div className={scss.step__head}>
+            <span
+              className={`${scss.step__number} ${index === 0 ? scss["step__number--current"] : ""}`}
+            >
+              {index + 1}
+            </span>
+            {index < STEPS.length - 1 && (
+              <span
+                className={`${scss.step__line} ${index === 0 ? scss["step__line--current"] : ""}`}
+                aria-hidden="true"
+              />
+            )}
+          </div>
           <h3 className={scss.step__title}>{step.title}</h3>
           <p className={scss.step__text}>{step.description}</p>
         </li>

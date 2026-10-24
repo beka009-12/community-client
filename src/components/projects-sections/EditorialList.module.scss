@@ -9,6 +9,8 @@
 
 .list {
   position: relative;
+  list-style: none;
+  border-top: 1px solid var(--color-line);
 }
 
 .empty {
@@ -19,45 +21,73 @@
 .row {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: baseline;
-  gap: 32px;
-  padding: 24px 0;
-  border-top: 1px solid var(--color-line);
-  transition: opacity 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px 28px;
+  min-height: 112px;
+  padding: 20px 8px;
+  border-bottom: 1px solid var(--color-line);
+}
 
-  &:last-child {
-    border-bottom: 1px solid var(--color-line);
-  }
-
-  &[data-dimmed="true"] {
-    opacity: 0.35;
-  }
+.row__index {
+  width: 40px;
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-muted);
+  transition: color 0.2s ease;
 }
 
 .row__name {
-  // Lets the 1fr track shrink below the name's width instead of
-  // pushing the meta out of the row.
+  flex: 1;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-family: var(--font-display);
   font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  font-size: clamp(24px, 3vw, 42px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
   transition: color 0.2s ease;
 }
 
-.row__name--active {
-  color: var(--color-accent);
+.row__category {
+  min-width: 112px;
+  font-size: 14px;
+  color: #8f97a4;
 }
 
-.row__meta {
-  font-size: 14px;
-  color: var(--color-mist);
-  white-space: nowrap;
+.row__arrow {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: var(--color-muted);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.row[data-active="true"],
+.row:focus-visible {
+  .row__index,
+  .row__name {
+    color: var(--color-accent);
+  }
+
+  .row__arrow {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
 }
 
 // Cursor-follow preview — decorative only, so it never intercepts clicks
@@ -67,11 +97,13 @@
   top: 0;
   left: 0;
   z-index: 2;
-  width: 320px;
-  height: 220px;
-  border-radius: 12px;
+  width: 300px;
+  height: 196px;
   overflow: hidden;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background: var(--color-field);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
   pointer-events: none;
 }
 

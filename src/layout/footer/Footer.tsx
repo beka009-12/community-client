@@ -2,6 +2,7 @@ import { FC } from "react";
 import Image from "next/image";
 import { cacheLife } from "next/cache";
 import Link from "next/link";
+import Button from "@/src/ui/Button";
 import { visibleSocials } from "@/src/data/socials";
 import scss from "./Footer.module.scss";
 
@@ -28,8 +29,8 @@ const Footer: FC<FooterProps> = async ({ loginHref }) => {
   const socials = visibleSocials();
 
   return (
-    <footer className={scss.footer}>
-      <div className={`container ${scss.footer__inner}`}>
+    <footer className={`container ${scss.footer}`}>
+      <div className={scss.footer__top}>
         <div className={scss.footer__brand}>
           <Image
             src="/brand/motion-logo.svg"
@@ -41,33 +42,50 @@ const Footer: FC<FooterProps> = async ({ loginHref }) => {
           <p className={scss.muted}>Сообщество разработчиков, Бишкек</p>
         </div>
 
-        <ul className={scss.footer__list}>
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <Link href={link.href}>{link.label}</Link>
-            </li>
-          ))}
-          <li>
-            <a href={loginHref} className={scss.muted}>
-              Войти для участников
-            </a>
-          </li>
-        </ul>
+        <div className={scss.footer__columns}>
+          <nav aria-label="Навигация в подвале" className={scss.column}>
+            <span className={scss.column__label}>Навигация</span>
+            <ul className={scss.links}>
+              {NAV_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        {socials.length > 0 && (
-          <ul className={scss.footer__list}>
-            {socials.map((social) => (
-              <li key={social.label}>
-                <a href={social.href} target="_blank" rel="noreferrer">
-                  {social.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
+          {socials.length > 0 && (
+            <div className={scss.column}>
+              <span className={scss.column__label}>Соцсети</span>
+              <ul className={scss.links}>
+                {socials.map((social) => (
+                  <li key={social.label}>
+                    <a href={social.href} target="_blank" rel="noreferrer">
+                      {social.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div className={scss.column}>
+            <span className={scss.column__label}>Для участников</span>
+            <Button href={loginHref} variant="outline" arrow>
+              Войти в портал
+            </Button>
+          </div>
+        </div>
       </div>
 
-      <div className={`container ${scss.footer__bottom}`}>© {year} Motion Community</div>
+      <div className={scss.footer__bottom}>
+        <span>© {year} Motion Community</span>
+        <span>Бишкек, Кыргызстан</span>
+      </div>
+
+      <div className={scss.wordmark} aria-hidden="true">
+        COMMUNITY
+      </div>
     </footer>
   );
 };

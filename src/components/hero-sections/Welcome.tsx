@@ -1,55 +1,74 @@
 "use client";
 
 import { FC } from "react";
-import Image from "next/image";
 import HeroLogoParticles from "@/src/animation/HeroLogoParticles";
 import Button from "@/src/ui/Button";
 import { useMediaQuery } from "@/src/hooks/useMediaQuery";
+import type { StatCell } from "@/src/lib/stats-cells";
 import scss from "./Welcome.module.scss";
 
-// `stats` is the ready sentence; empty when there is nothing to count yet.
-const Welcome: FC<{ stats: string }> = ({ stats }) => {
-  // ≤1024px the particle canvas has no room next to the headline, so a
-  // static, blurred logo sits behind the text instead.
+const Welcome: FC<{ stats: StatCell[] }> = ({ stats }) => {
+  // ≤1024px the hero stacks; a CSS dotted logo stands in for the particle
+  // canvas so phones don't run the animation.
   const isCompact = useMediaQuery("(max-width: 1024px)");
 
   return (
     <section className={scss.hero}>
       <div className={`container ${scss.hero__grid}`}>
         <div className={scss.copy}>
-          {isCompact && (
-            <Image
-              src="/brand/motion-logo-particles.png"
-              alt=""
-              aria-hidden="true"
-              width={85}
-              height={57}
-              className={scss.glyph}
-            />
-          )}
-
-          <h1 className={`page-title ${scss.title}`}>
-            Соберём команду разработчиков под ваш проект
+          <span className={scss.badge}>
+            <span className={scss.badge__dot} aria-hidden="true" />
+            Сообщество разработчиков Motion, Бишкек
+          </span>
+          <h1 className={scss.title}>
+            Соберём <span className={scss.title__accent}>команду</span> разработчиков под
+            ваш проект
           </h1>
           <p className={scss.lead}>
-            Сайты, веб-системы, Telegram-боты и AI-интеграции. Сообщество
-            разработчиков Motion, Бишкек.
+            Сайты, веб-системы, Telegram-боты и AI-интеграции — от идеи до запуска и
+            поддержки.
           </p>
           <div className={scss.actions}>
-            <Button href="/contact">Обсудить проект</Button>
-            <Button href="/projects" variant="link">
+            <Button href="/contact" size="lg" arrow>
+              Обсудить проект
+            </Button>
+            <Button href="/projects" variant="outline" size="lg">
               Наши проекты
             </Button>
           </div>
-          {stats && <p className={scss.stats}>{stats}</p>}
         </div>
 
-        {!isCompact && (
-          <div className={scss.stage}>
-            <HeroLogoParticles className={scss.stage__marks} ariaLabel="Motion Community" />
-          </div>
-        )}
+        <div className={scss.mark} aria-hidden="true">
+          <span className={scss.mark__ring} />
+          <span className={`${scss.mark__ring} ${scss["mark__ring--outer"]}`} />
+          {isCompact ? (
+            <span className={scss.mark__dots} />
+          ) : (
+            <HeroLogoParticles className={scss.mark__canvas} ariaLabel="Motion Community" />
+          )}
+        </div>
       </div>
+
+      {stats.length > 0 && (
+        <div className={`container ${scss.stats__wrap}`}>
+          <dl className={scss.stats}>
+            {stats.map((cell, index) => (
+              <div key={cell.label.join(" ")} className={scss.stat}>
+                <dt className={scss.stat__label}>
+                  {cell.label[0]}
+                  <br />
+                  {cell.label[1]}
+                </dt>
+                <dd
+                  className={`${scss.stat__value} ${index === 0 ? scss["stat__value--accent"] : ""}`}
+                >
+                  {cell.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
     </section>
   );
 };
