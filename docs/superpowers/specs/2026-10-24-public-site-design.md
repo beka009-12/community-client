@@ -89,16 +89,20 @@ Media URLs come back absolute on the API host (`http://…/media/…`).
   (`src/data/*`, `src/lib/*` helpers, `src/ui/*`, `src/animation/*`,
   `src/hooks/*`) are copied as-is and only edited where the data shape changed.
   Copy only what the public pages import.
-- **Data layer** (my call): orval generates types and plain fetch functions
-  from the live Swagger for the public endpoints only (`projects`, `members`,
-  `stats`, `choices`, `client-requests` create), same transformer as the
-  service (drop `/api/{lang}` prefix and `api_` operationId prefix), with a
-  custom fetch mutator that prefixes `${API_URL}/api/ru`. Nested arrays that
-  Swagger leaves untyped (`members`, `teams`, `projects`, `work`, …) get
-  hand-written types next to the getters. Getters live in `src/api/` and are
-  cached with `"use cache"` + `cacheLife` (about a minute, like the old
-  `PUBLIC_REVALIDATE_SECONDS = 60`) + `cacheTag` per resource
-  (`cacheComponents: true`, as in the service).
+- **Data layer** (my call, revised while planning): no orval here. The old
+  app's server-side layer (`src/server/api/http.ts`, `errors.ts`, zod
+  `schemas.ts`) is ported and its schemas rewritten for the new shapes. Why:
+  orval's models mark every read-only field optional (`readonly id?: number`),
+  so every copied component would need edits for "maybe undefined"; the zod
+  schemas give the components required fields, map media URLs in one place
+  and drop a malformed row instead of failing the page, with five public
+  endpoints to describe. Requests go to `${API_URL}/api/ru…` without a token.
+  Getters are cached with `"use cache"` + `cacheLife("minutes")` (revalidate
+  1 minute, like the old `PUBLIC_REVALIDATE_SECONDS = 60`) + `cacheTag` per
+  resource (`cacheComponents: true`, as in the service).
+- **Labels**: the hard-coded Russian label maps in `src/lib/api-labels.ts`
+  stay (Russian only); enums are updated to the new values
+  (`UI_UX_Designer`, member role `Member` → «Участник»).
 - **Lists**: getters follow `next` until the list is complete, so the site
   never silently shows only the first 20.
 - **Data the list endpoints lack** (my call): the home showcase (description),
@@ -117,7 +121,10 @@ Media URLs come back absolute on the API host (`http://…/media/…`).
   field errors, values echoed back on error, 429 shown as «слишком много
   заявок, попробуйте позже», `stats` tag invalidated on success.
   `project_type` is free text in the API; the select keeps the old
-  `PROJECT_TYPES` list (services + «Другое»).
+  `PROJECT_TYPES` list (services + «Другое»). The API limits requests per
+  address, but every request now comes from the Next server: the action
+  forwards the visitor's IP as `X-Forwarded-For`, and the backend must trust
+  it (or all visitors share 10 requests an hour).
 - **Member and project 404**: `members/{id}/` or `projects/{id}/` returning
   404 → `notFound()`.
 
@@ -128,5 +135,3 @@ Media URLs come back absolute on the API host (`http://…/media/…`).
   about → contact form).
 - Error boundary and not-found pages: reuse `LoadError` and the old
   `(site)/error.tsx`.
-- Whether `src/lib/api-labels.ts` reads labels from `choices/` or keeps the
-  old hard-coded maps (both fine while the site is Russian only).
