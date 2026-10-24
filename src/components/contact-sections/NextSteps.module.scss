@@ -1,75 +1,50 @@
 .steps {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
 }
 
 .steps__title {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .steps__list {
-  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   list-style: none;
-
-  // Vertical rail joining the step numbers — the steps are a sequence.
-  &::before {
-    content: "";
-    position: absolute;
-    top: 14px;
-    bottom: 14px;
-    left: 13px;
-    width: 1px;
-    background: var(--color-border);
-  }
 }
 
 .step {
-  position: relative;
   display: grid;
-  grid-template-columns: 28px 1fr;
-  gap: 16px;
+  grid-template-columns: 20px 1fr;
+  gap: 12px;
 }
 
 .step__number {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--color-accent);
-  border-radius: 50%;
-  background: var(--color-ink);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.5;
   color: var(--color-accent);
 }
 
 .step__title {
-  margin-bottom: 4px;
   font-size: 15px;
-  font-weight: 600;
-  line-height: 28px;
+  font-weight: 500;
 }
 
 .step__text {
+  margin-top: 2px;
   font-size: 14px;
-  line-height: 1.6;
   color: var(--color-mist);
 }
 
 .direct {
-  padding-top: 24px;
-  border-top: 1px solid var(--color-border);
+  padding-top: 20px;
+  border-top: 1px solid var(--color-line);
 }
 
 .direct__text {
-  margin-bottom: 12px;
   font-size: 14px;
   color: var(--color-mist);
 }
@@ -77,25 +52,19 @@
 .direct__list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  column-gap: 20px;
   list-style: none;
 
   a {
     display: inline-flex;
     align-items: center;
-    min-height: 40px;
-    padding: 0 18px;
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    background: var(--color-surface);
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color-paper);
-    transition: border-color 0.2s ease;
+    min-height: 44px;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
 
-    &:hover,
-    &:focus-visible {
-      border-color: var(--color-accent);
+    &:hover {
+      color: var(--color-accent);
     }
   }
 }

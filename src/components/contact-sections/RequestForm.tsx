@@ -14,7 +14,6 @@ import scss from "./RequestForm.module.scss";
 interface FieldProps {
   name: string;
   label: string;
-  required?: boolean;
   full?: boolean;
   error?: string;
   children: (describedBy: string | undefined) => ReactNode;
@@ -23,7 +22,6 @@ interface FieldProps {
 const Field: FC<FieldProps> = ({
   name,
   label,
-  required,
   full,
   error,
   children,
@@ -31,9 +29,7 @@ const Field: FC<FieldProps> = ({
   const errorId = error ? `request-${name}-error` : undefined;
   return (
     <div className={`${scss.field} ${full ? scss["field--full"] : ""}`}>
-      <label htmlFor={`request-${name}`}>
-        {label} {required && <span className={scss.required}>*</span>}
-      </label>
+      <label htmlFor={`request-${name}`}>{label}</label>
       {children(errorId)}
       {error && (
         <p id={errorId} className={scss.field__error}>
@@ -46,7 +42,7 @@ const Field: FC<FieldProps> = ({
 
 const INITIAL_STATE: RequestFormState = {};
 
-// Form only — the page heading lives in contact-sections/Intro. Field
+// Form only — the page heading lives in Contact. Field
 // names mirror the ClientRequest entity (ТЗ §9); the request lands in
 // the admin's "Заявки".
 const RequestForm: FC = () => {
@@ -92,7 +88,7 @@ const RequestForm: FC = () => {
           exit={{ opacity: 0, y: motionTokens.distance.sm }}
           transition={springs.snappy}
         >
-          <Field name="name" label="Имя" required error={errors.name}>
+          <Field name="name" label="Имя" error={errors.name}>
             {(describedBy) => (
               <input
                 {...inputProps("name", describedBy)}
@@ -103,7 +99,7 @@ const RequestForm: FC = () => {
             )}
           </Field>
 
-          <Field name="company" label="Компания" required error={errors.company}>
+          <Field name="company" label="Компания" error={errors.company}>
             {(describedBy) => (
               <input
                 {...inputProps("company", describedBy)}
@@ -114,7 +110,7 @@ const RequestForm: FC = () => {
             )}
           </Field>
 
-          <Field name="email" label="Email" required error={errors.email}>
+          <Field name="email" label="Email" error={errors.email}>
             {(describedBy) => (
               <input
                 {...inputProps("email", describedBy)}
@@ -125,7 +121,7 @@ const RequestForm: FC = () => {
             )}
           </Field>
 
-          <Field name="phone" label="Телефон" required error={errors.phone}>
+          <Field name="phone" label="Телефон" error={errors.phone}>
             {(describedBy) => (
               <input
                 {...inputProps("phone", describedBy)}
@@ -139,7 +135,6 @@ const RequestForm: FC = () => {
           <Field
             name="title"
             label="Название проекта"
-            required
             error={errors.title}
           >
             {(describedBy) => (
@@ -154,7 +149,6 @@ const RequestForm: FC = () => {
           <Field
             name="project_type"
             label="Тип проекта"
-            required
             error={errors.project_type}
           >
             {(describedBy) => (
@@ -171,7 +165,7 @@ const RequestForm: FC = () => {
 
           <Field
             name="budget"
-            label="Бюджет, сом (опционально)"
+            label="Бюджет, сом — необязательно"
             error={errors.budget}
           >
             {(describedBy) => (
@@ -187,7 +181,7 @@ const RequestForm: FC = () => {
           <Field
             name="description"
             label="Описание проекта"
-            required
+           
             full
             error={errors.description}
           >

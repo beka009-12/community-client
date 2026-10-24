@@ -3,14 +3,9 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
-  padding: 32px;
-  border: 1px solid var(--color-border);
-  border-radius: 20px;
-  background: var(--color-surface);
 
   @media (min-width: 640px) {
     grid-template-columns: repeat(2, 1fr);
-    padding: 40px;
   }
 }
 
@@ -20,12 +15,7 @@
   gap: 8px;
 
   label {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-mist);
+    font-size: 14px;
   }
 
   input,
@@ -33,20 +23,20 @@
   textarea {
     min-height: 44px;
     padding: 11px 14px;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-field-border);
     border-radius: 10px;
-    background: var(--color-surface-2);
+    background: var(--color-field);
     color: var(--color-paper);
     font-family: var(--font-body);
-    font-size: 14px;
+    font-size: 16px;
     transition: border-color 0.2s ease;
 
     &::placeholder {
-      color: rgba(255, 255, 255, 0.32);
+      color: var(--color-mist);
     }
 
     &:hover {
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: var(--color-mist);
     }
 
     &:focus-visible {
@@ -64,10 +54,6 @@
   }
 }
 
-.required {
-  color: var(--color-signal);
-}
-
 .field--full {
   @media (min-width: 640px) {
     grid-column: 1 / -1;
@@ -76,7 +62,6 @@
 
 .submitRow {
   display: flex;
-  justify-content: flex-end;
 
   @media (min-width: 640px) {
     grid-column: 1 / -1;
@@ -85,31 +70,20 @@
 
 .success {
   position: relative;
-  padding: 48px;
-  border: 1px solid var(--color-border);
-  border-radius: 20px;
-  background: var(--color-surface);
-  text-align: center;
+  padding-top: 8px;
 
   h3 {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 700;
     margin-bottom: 8px;
-    color: var(--color-signal);
+    font-size: 24px;
+    font-weight: 500;
   }
 
   p {
-    font-size: 14px;
     color: var(--color-mist);
   }
 }
 
 @media (max-width: 639px) {
-  .form {
-    padding: 24px;
-  }
-
   .submitRow {
     justify-content: stretch;
 
