@@ -2,93 +2,96 @@
 
 import { FC, useMemo, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "motion/react";
-import { springs } from "@/src/lib/motion-tokens";
-import Select from "@/src/ui/Select";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { motionTokens, springs } from "@/src/lib/motion-tokens";
 import Avatar from "@/src/ui/Avatar";
 import { POSITIONS, type Position } from "@/src/lib/api-enums";
 import { POSITION_LABELS, positionLabel } from "@/src/lib/api-labels";
 import { fullName } from "@/src/lib/people";
 import type { MemberListItem } from "@/src/server/api/schemas";
-import { SPECIALIZATION_ICONS } from "./specialization-icons";
 import scss from "./Roster.module.scss";
 
 type FilterKey = "all" | Position;
 
-// This will grow to more than one filter, hence a row of selects
-// rather than a single pill-tab strip.
-const DIRECTION_OPTIONS = [
-  { value: "all", label: "Все направления" },
-  ...POSITIONS.map((position) => ({
-    value: position,
-    label: POSITION_LABELS[position],
-    icon: SPECIALIZATION_ICONS[position],
-  })),
-];
-
-// Contact-sheet treatment instead of another bordered-card grid: one
-// frame, hairline dividers between cells (gap-as-divider, no per-cell
-// radius/shadow), photos desaturated until hover/focus reveals color +
-// role/stack — a distinct visual moment for the one section on this
-// page that's actually about people, not another spotlight-card grid.
+// Portrait cards: greyscale photos turn colour on hover/focus. Filters list
+// only the directions someone actually has, with a count each.
 const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
+  const reduce = useReducedMotion();
   const [filter, setFilter] = useState<FilterKey>("all");
 
-  const visible = useMemo(
-    () =>
-      filter === "all"
-        ? members
-        : members.filter((member) => member.position === filter),
-    [filter, members],
-  );
+  const filters = useMemo(() => {
+    const present = POSITIONS.map((position) => ({
+      key: position as FilterKey,
+      label: POSITION_LABELS[position],
+      count: members.filter((member) => member.position === position).length,
+    })).filter((item) => item.count > 0);
+    return [{ key: "all" as FilterKey, label: "Все", count: members.length }, ...present];
+  }, [members]);
+
+  const visible =
+    filter === "all" ? members : members.filter((member) => member.position === filter);
 
   return (
-    <section className={scss.roster}>
-      <div className={`container ${scss.roster__inner}`}>
-        <div className={scss.filters}>
-          <Select
-            options={DIRECTION_OPTIONS}
-            value={filter}
-            onChange={(next) => setFilter(next as FilterKey)}
-            ariaLabel="Фильтр по направлению"
-          />
+    <section className={`container ${scss.roster}`}>
+      {filters.length > 2 && (
+        <div className={scss.filters} role="group" aria-label="Фильтр по направлению">
+          {filters.map((item) => (
+            <button
+              key={item.key}
+              type="button"
+              className={scss.filter}
+              aria-pressed={filter === item.key}
+              onClick={() => setFilter(item.key)}
+            >
+              {item.label}
+              <span className={scss.filter__count}>{item.count}</span>
+            </button>
+          ))}
         </div>
+      )}
 
-        <div className={scss.frame}>
-          <div className={scss.frame__grid}>
-            <AnimatePresence mode="popLayout">
-              {visible.map((member) => {
-                const name = fullName(member);
-                const position = positionLabel(member.position);
-                return (
-                  <motion.div
-                    key={member.id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={springs.gentle}
-                    className={scss.cell}
-                  >
-                    <Link
-                      href={`/team/${member.id}`}
-                      className={scss.cell__link}
-                      aria-label={position ? `${name}, ${position}` : name}
-                    >
-                      <Avatar src={member.avatar} name={name} imageClassName={scss.cell__img} />
-                      <span className={scss.cell__scrim} aria-hidden="true" />
-                      <div className={scss.cell__caption}>
-                        <span className={scss.cell__role}>{name}</span>
-                        {position && <span className={scss.cell__stack}>{position}</span>}
-                      </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
-        </div>
-
-      </div>
+      <ul className={scss.grid}>
+        <AnimatePresence mode="popLayout" initial={false}>
+          {visible.map((member) => {
+            const name = fullName(member);
+            const position = positionLabel(member.position) ?? "Участник";
+            return (
+              <motion.li
+                key={member.id}
+                layout={!reduce}
+                initial={{ opacity: 0, y: reduce ? 0 : motionTokens.distance.sm }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, transition: { duration: motionTokens.duration.fast } }}
+                transition={springs.gentle}
+              >
+                <Link href={`/team/${member.id}`} className={scss.card}>
+                  <span className={scss.card__photo}>
+                    <Avatar src={member.avatar} name={name} imageClassName={scss.card__img} />
+                  </span>
+                  <span className={scss.card__body}>
+                    <span className={scss.card__text}>
+                      <span className={scss.card__name}>{name}</span>
+                      <span className={scss.card__position}>{position}</span>
+                    </span>
+                    <span className={scss.card__arrow} aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M7 17 17 7M8 7h9v9" />
+                      </svg>
+                    </span>
+                  </span>
+                </Link>
+              </motion.li>
+            );
+          })}
+        </AnimatePresence>
+      </ul>
     </section>
   );
 };

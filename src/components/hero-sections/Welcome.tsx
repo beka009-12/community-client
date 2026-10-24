@@ -2,6 +2,7 @@
 
 import { FC } from "react";
 import HeroLogoParticles from "@/src/animation/HeroLogoParticles";
+import Badge from "@/src/ui/Badge";
 import Button from "@/src/ui/Button";
 import { useMediaQuery } from "@/src/hooks/useMediaQuery";
 import type { StatCell } from "@/src/lib/stats-cells";
@@ -16,10 +17,7 @@ const Welcome: FC<{ stats: StatCell[] }> = ({ stats }) => {
     <section className={scss.hero}>
       <div className={`container ${scss.hero__grid}`}>
         <div className={scss.copy}>
-          <span className={scss.badge}>
-            <span className={scss.badge__dot} aria-hidden="true" />
-            Сообщество разработчиков Motion, Бишкек
-          </span>
+          <Badge>Сообщество разработчиков Motion, Бишкек</Badge>
           <h1 className={scss.title}>
             Соберём <span className={scss.title__accent}>команду</span> разработчиков под
             ваш проект

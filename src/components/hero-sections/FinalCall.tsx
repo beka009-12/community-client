@@ -3,11 +3,12 @@ import Button from "@/src/ui/Button";
 import { TELEGRAM_URL } from "@/src/data/socials";
 import scss from "./FinalCall.module.scss";
 
-const FinalCall: FC = () => (
+// `eyebrow` is the home page's section label; other pages leave it out.
+const FinalCall: FC<{ eyebrow?: string }> = ({ eyebrow }) => (
   <section className={`container ${scss.call}`}>
     <div className={scss.call__block}>
       <div className={scss.call__titles}>
-        <span className={scss.call__eyebrow}>04 / Старт</span>
+        {eyebrow && <span className={scss.call__eyebrow}>{eyebrow}</span>}
         <h2 className={scss.call__title}>Расскажите о задаче — предложим команду и сроки</h2>
       </div>
       <Button href="/contact" variant="dark" size="lg" arrow>

@@ -32,7 +32,7 @@ const Home = async () => {
       )}
       <ServiceRows />
       <Process />
-      <FinalCall />
+      <FinalCall eyebrow="04 / Старт" />
     </>
   );
 };
