@@ -1,5 +1,5 @@
-import { FC } from "react";
 import Image from "next/image";
+import { cacheLife } from "next/cache";
 import Link from "next/link";
 import { SOCIAL_LINKS } from "@/src/data/socials";
 import scss from "./Footer.module.scss";
@@ -22,8 +22,16 @@ const NAV_COLUMNS = [
   },
 ];
 
-const Footer: FC = () => {
-  const year = new Date().getFullYear();
+// cacheComponents won't prerender a bare `new Date()`; the year goes into
+// the cached shell and is refreshed daily.
+async function currentYear(): Promise<number> {
+  "use cache";
+  cacheLife("days");
+  return new Date().getFullYear();
+}
+
+const Footer = async () => {
+  const year = await currentYear();
 
   return (
     <footer className={scss.footer}>
