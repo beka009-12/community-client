@@ -5,10 +5,10 @@ import Image from "next/image";
 import HeroLogoParticles from "@/src/animation/HeroLogoParticles";
 import Button from "@/src/ui/Button";
 import { useMediaQuery } from "@/src/hooks/useMediaQuery";
-import type { SentencePart } from "@/src/lib/stats-sentence";
 import scss from "./Welcome.module.scss";
 
-const Welcome: FC<{ stats: SentencePart[] }> = ({ stats }) => {
+// `stats` is the ready sentence; empty when there is nothing to count yet.
+const Welcome: FC<{ stats: string }> = ({ stats }) => {
   // ≤1024px the particle canvas has no room next to the headline, so a
   // static, blurred logo sits behind the text instead.
   const isCompact = useMediaQuery("(max-width: 1024px)");
@@ -41,7 +41,7 @@ const Welcome: FC<{ stats: SentencePart[] }> = ({ stats }) => {
               Наши проекты
             </Button>
           </div>
-          {stats.length > 0 && <p className={scss.stats}>{stats.join("")}</p>}
+          {stats && <p className={scss.stats}>{stats}</p>}
         </div>
 
         {!isCompact && (
