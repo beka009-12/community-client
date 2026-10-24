@@ -1,5 +1,10 @@
-import Welcome from "@/src/components/hero-sections/Welcome";
+import Home from "@/src/components/Hero";
 
-const Page = () => <Welcome />;
-
-export default Page;
+const page = () => {
+  return (
+    <div>
+      <Home />
+    </div>
+  );
+};
+export default page;
