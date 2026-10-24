@@ -1,0 +1,145 @@
+.form {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 32px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-surface);
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 40px;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-mist);
+  }
+
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    padding: 11px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-surface-2);
+    color: var(--color-paper);
+    font-family: var(--font-body);
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.32);
+    }
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &:focus-visible {
+      border-color: var(--color-accent);
+    }
+  }
+
+  select {
+    cursor: pointer;
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+}
+
+.required {
+  color: var(--color-signal);
+}
+
+.field--full {
+  @media (min-width: 640px) {
+    grid-column: 1 / -1;
+  }
+}
+
+.submitRow {
+  display: flex;
+  justify-content: flex-end;
+
+  @media (min-width: 640px) {
+    grid-column: 1 / -1;
+  }
+}
+
+.success {
+  position: relative;
+  padding: 48px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-surface);
+  text-align: center;
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--color-signal);
+  }
+
+  p {
+    font-size: 14px;
+    color: var(--color-mist);
+  }
+}
+
+@media (max-width: 639px) {
+  .form {
+    padding: 24px;
+  }
+
+  .submitRow {
+    justify-content: stretch;
+
+    :global(a),
+    :global(button) {
+      width: 100%;
+    }
+  }
+}
+
+.field__error {
+  font-size: 13px;
+  color: var(--color-danger);
+}
+
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
+.alert {
+  padding: 12px 14px;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 10px;
+  background: rgba(248, 113, 113, 0.08);
+  font-size: 14px;
+  color: var(--color-paper);
+
+  @media (min-width: 640px) {
+    grid-column: 1 / -1;
+  }
+}
