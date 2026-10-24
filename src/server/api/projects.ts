@@ -22,14 +22,3 @@ export async function getProject(id: number): Promise<ProjectDetail | null> {
   cacheTag("projects");
   return nullIfNotFound(request(`/projects/${id}/`, projectDetailSchema));
 }
-
-// The list has no description or members, so those cost one (cached)
-// request per project. They run in parallel.
-export async function getProjectsWithMembers(): Promise<ProjectDetail[]> {
-  "use cache";
-  cacheLife("minutes");
-  cacheTag("projects");
-  const projects = await getProjects();
-  const details = await Promise.all(projects.map((project) => getProject(project.id)));
-  return details.filter((project): project is ProjectDetail => project !== null);
-}

@@ -10,16 +10,8 @@
   --color-on-accent: #04101f;
   --color-danger: #f87171;
 
-  // Old names, kept until every module is restyled.
-  --color-surface: var(--color-field);
-  --color-surface-2: var(--color-field);
-  --color-border: var(--color-line);
-  --color-accent-soft: var(--color-accent-hover);
-  --color-signal: var(--color-mist);
-
   --font-display: var(--font-unbounded), system-ui, sans-serif;
   --font-body: var(--font-onest), system-ui, sans-serif;
-  --font-mono: var(--font-body);
 
   // Next.js already scrolls to the top on route change (e.g. clicking
   // the prev/next project pager) — this is what makes that jump glide
