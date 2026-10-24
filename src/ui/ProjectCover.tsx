@@ -7,8 +7,7 @@ interface ProjectCoverProps {
   imageClassName?: string;
 }
 
-// Fills its positioned parent. Without an image a plain gradient stands
-// in; every caller already shows the project name next to it.
+// Fills its positioned parent. Without an image the frame stays, empty.
 const ProjectCover: FC<ProjectCoverProps> = ({ src, name, imageClassName }) =>
   src ? (
     <img
@@ -18,7 +17,7 @@ const ProjectCover: FC<ProjectCoverProps> = ({ src, name, imageClassName }) =>
       className={`${scss.image} ${imageClassName ?? ""}`}
     />
   ) : (
-    <span className={scss.fallback} role="img" aria-label={`${name} — превью`} />
+    <span className={scss.empty} aria-hidden="true" />
   );
 
 export default ProjectCover;

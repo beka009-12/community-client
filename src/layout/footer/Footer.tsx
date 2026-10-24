@@ -82,10 +82,6 @@ const Footer: FC<FooterProps> = async ({ loginHref }) => {
         <span>© {year} Motion Community</span>
         <span>Бишкек, Кыргызстан</span>
       </div>
-
-      <div className={scss.wordmark} aria-hidden="true">
-        COMMUNITY
-      </div>
     </footer>
   );
 };

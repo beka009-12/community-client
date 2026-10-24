@@ -10,8 +10,7 @@ import type { ProjectListItem } from "@/src/server/api/schemas";
 import scss from "./Grid.module.scss";
 
 // Cards render in place on load (AnimatePresence initial={false}), so the
-// server HTML is the final state; only filter changes animate. A card shows
-// a photo only when the project has one.
+// server HTML is the final state; only filter changes animate.
 const Grid: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
   const reduce = useReducedMotion();
   const offset = reduce ? 0 : motionTokens.distance.sm;
@@ -42,15 +41,13 @@ const Grid: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
               className={scss.card}
             >
               <Link href={`/projects/${project.id}`} className={scss.card__link}>
-                {project.image && (
-                  <div className={scss.card__photo}>
-                    <ProjectCover
-                      src={project.image}
-                      name={project.name}
-                      imageClassName={scss.card__image}
-                    />
-                  </div>
-                )}
+                <div className={scss.card__photo}>
+                  <ProjectCover
+                    src={project.image}
+                    name={project.name}
+                    imageClassName={scss.card__image}
+                  />
+                </div>
                 <div className={scss.card__body}>
                   <h3 className={scss.card__name}>{project.name}</h3>
                   <div className={scss.card__meta}>

@@ -1,6 +1,5 @@
 .footer {
   margin-top: clamp(80px, 9vw, 128px);
-  overflow: hidden;
 }
 
 .footer__top {
@@ -74,21 +73,4 @@
   padding: 24px 0;
   font-size: 14px;
   color: var(--color-muted);
-}
-
-// Decorative dotted wordmark bleeding off the bottom edge.
-.wordmark {
-  margin-bottom: -0.1em;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(64px, 13vw, 200px);
-  line-height: 0.8;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-  color: transparent;
-  background-image: radial-gradient(circle, #2a3140 1.6px, transparent 2px);
-  background-size: 7px 7px;
-  -webkit-background-clip: text;
-  background-clip: text;
-  user-select: none;
 }

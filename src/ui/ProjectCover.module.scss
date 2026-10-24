@@ -6,14 +6,8 @@
   object-fit: cover;
 }
 
-.fallback {
+.empty {
   position: absolute;
   inset: 0;
-  background-color: #121620;
-  background-image: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--color-accent) 35%, transparent) 1.2px,
-    transparent 1.6px
-  );
-  background-size: 12px 12px;
+  background: var(--color-field);
 }
