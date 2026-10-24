@@ -1,0 +1,243 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  min-height: 690px;
+
+  @media (max-width: 1024px) {
+    min-height: 0;
+  }
+}
+
+.hero__content {
+  position: relative;
+  height: 100%;
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  padding-top: 64px;
+  padding-bottom: 50px;
+
+  @media (max-width: 1024px) {
+    padding-top: 40px;
+    padding-bottom: 56px;
+    gap: 44px;
+  }
+
+  @media (max-width: 640px) {
+    padding-top: 28px;
+    padding-bottom: 44px;
+    gap: 32px;
+  }
+}
+
+.topcopy {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+
+  p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 620px;
+  }
+
+  p:last-child {
+    text-align: right;
+    justify-self: end;
+    max-width: 320px;
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+
+    p:last-child {
+      display: none;
+    }
+  }
+
+  // Phones read top to bottom: the headline says what this is first, the
+  // paragraph explains it after.
+  @media (max-width: 640px) {
+    order: 1;
+
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+.center {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  align-items: center;
+  gap: 30px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    flex: none;
+  }
+}
+
+.copy {
+  position: relative;
+  isolation: isolate;
+}
+
+// ≤1024px stand-in for the particle canvas: a soft, blurred photo behind
+// the headline instead of running the animation. Negative z-index keeps
+// it under the (non-positioned) text without touching the text's own
+// stacking. Blur is load-bearing — the source photo is tiny (85×57, the
+// same bitmap the canvas samples for particle positions), so it's only
+// ever shown heavily softened, never sharp.
+.heroGlyph {
+  position: absolute;
+  z-index: -1;
+  top: -16%;
+  right: -14%;
+  width: 68vw;
+  max-width: 460px;
+  height: auto;
+  opacity: 0.26;
+  filter: blur(9px);
+  pointer-events: none;
+
+  @media (max-width: 640px) {
+    width: 74vw;
+    max-width: 380px;
+    opacity: 0.22;
+    filter: blur(5px);
+  }
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(255, 255, 255, 0.74);
+  margin-bottom: 18px;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(58px, 8vw, 126px);
+  line-height: 0.85;
+  letter-spacing: -0.065em;
+  font-weight: 500;
+
+  @media (max-width: 640px) {
+    font-size: 58px;
+  }
+}
+
+.shine {
+  display: inline-block;
+  background: linear-gradient(
+    100deg,
+    #64cefb 0%,
+    #64cefb 38%,
+    #fff 50%,
+    #64cefb 62%,
+    #64cefb 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -20% 0;
+  }
+}
+
+// Only mounted above 1024px — narrower screens get .heroGlyph instead.
+.logoZone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 430px;
+}
+
+.logoStage {
+  position: relative;
+  width: min(520px, 45vw);
+  aspect-ratio: 1.35 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 55%;
+    height: 38%;
+    left: 50%;
+    top: 54%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      ellipse,
+      rgba(100, 206, 251, 0.13),
+      rgba(100, 206, 251, 0.04) 42%,
+      transparent 72%
+    );
+    filter: blur(28px);
+    opacity: 0.8;
+  }
+}
+
+.logoStage__marks {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+
+.logoCaption {
+  position: absolute;
+  z-index: 3;
+  right: 3%;
+  bottom: 9%;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+// ≤1024px signature line, in normal flow so it can never overlap the
+// headline the way the absolutely-positioned canvas did on short viewports.
+.brandMark {
+  display: flex;
+  align-items: center;
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border);
+
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
+.brandMark__caption {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
