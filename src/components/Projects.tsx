@@ -5,6 +5,7 @@ import Header from "@/src/components/projects-sections/Header";
 import ProjectListing from "@/src/components/projects-sections/ProjectListing";
 import type { ProjectStatus } from "@/src/lib/api-enums";
 import type { ProjectListItem } from "@/src/server/api/schemas";
+import scss from "./Projects.module.scss";
 
 const Projects: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
   // null = all. Categories are free text in the API, so the tabs come
@@ -32,7 +33,7 @@ const Projects: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
         status={status}
         onStatusChange={setStatus}
       />
-      <div className="container">
+      <div className={`container ${scss.list}`}>
         <ProjectListing projects={visible} />
       </div>
     </div>

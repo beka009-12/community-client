@@ -24,10 +24,3 @@ export const MEMBERSHIP_ROLE_LABELS: Record<MembershipRole, string> = {
   Team_Lead: "Тимлид",
   Member: "Участник",
 };
-
-// One muted line under a project name: «В разработке, web service, 2026».
-export const projectMeta = (
-  status: ProjectStatus,
-  category: string,
-  year?: string,
-): string => [PROJECT_STATUS_LABELS[status], category, year].filter(Boolean).join(", ");

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Button from "@/src/ui/Button";
 import HeroImage from "./HeroImage";
 import TeamSection from "./TeamSection";
-import { projectMeta } from "@/src/lib/api-labels";
+import StatusPill from "@/src/ui/StatusPill";
 import type { TeamPerson } from "@/src/server/api/joins";
 import type {
   ProjectDetail as ProjectDetailData,
@@ -28,9 +28,11 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, team, adjacent }) => {
         </Link>
 
         <div className={scss.detail__header}>
-          <p className={scss.detail__meta}>
-            {projectMeta(project.status, project.category, project.created_at.slice(0, 4))}
-          </p>
+          <div className={scss.detail__meta}>
+            <StatusPill status={project.status} />
+            <span>{project.category}</span>
+            <span>{project.created_at.slice(0, 4)}</span>
+          </div>
           <h1 className="page-title">{project.name}</h1>
           {project.description && (
             <p className={scss.detail__description}>{project.description}</p>
@@ -51,12 +53,12 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, team, adjacent }) => {
         {hasLinks && (
           <div className={scss.detail__links}>
             {project.demo_url && (
-              <Button href={project.demo_url} variant="primary" external>
+              <Button href={project.demo_url} external arrow>
                 Открыть демо
               </Button>
             )}
             {project.github_url && (
-              <Button href={project.github_url} variant="link" external>
+              <Button href={project.github_url} variant="outline" external arrow>
                 GitHub
               </Button>
             )}

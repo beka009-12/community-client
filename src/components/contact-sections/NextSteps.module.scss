@@ -5,8 +5,10 @@
 }
 
 .steps__title {
-  font-size: 18px;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .steps__list {
@@ -18,19 +20,28 @@
 
 .step {
   display: grid;
-  grid-template-columns: 20px 1fr;
-  gap: 12px;
+  grid-template-columns: 36px 1fr;
+  gap: 14px;
 }
 
 .step__number {
-  font-size: 15px;
-  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--color-accent);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
   color: var(--color-accent);
 }
 
 .step__title {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 36px;
 }
 
 .step__text {

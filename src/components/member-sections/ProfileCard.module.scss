@@ -20,8 +20,9 @@
   aspect-ratio: 3 / 4;
   max-height: 520px;
   overflow: hidden;
-  border-radius: 12px;
-  background: var(--color-field);
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+  background: var(--color-surface);
 
   // Slightly shorter on desktop so the whole card, CTA included, fits a
   // 900px-tall laptop viewport.
@@ -60,7 +61,8 @@
   margin-bottom: 6px;
   font-family: var(--font-display);
   font-size: 1.6rem;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   line-height: 1.15;
   overflow-wrap: anywhere;
 }
@@ -84,21 +86,26 @@
 .links {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 8px;
+  margin-top: 16px;
   list-style: none;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 
   a {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    margin-right: 16px;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-    transition: color 0.2s ease;
+    padding: 0 18px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: border-color 0.2s ease;
 
     &:hover {
-      color: var(--color-accent);
+      border-color: var(--color-mist);
     }
   }
 }
