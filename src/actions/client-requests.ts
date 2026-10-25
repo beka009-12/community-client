@@ -2,6 +2,7 @@
 
 import { updateTag } from "next/cache";
 import { headers } from "next/headers";
+import { TELEGRAM_URL } from "@/src/data/socials";
 import { createClientRequest } from "@/src/server/api/client-requests";
 import { apiErrorMessage, isApiError } from "@/src/server/api/errors";
 import { parseClientRequest } from "@/src/server/validation/client-request";
@@ -41,12 +42,15 @@ export async function submitClientRequest(
     return { fieldErrors: parsed.fieldErrors, values: echo(formData) };
   }
 
+  // Telegram is offered as a way out only once its link is filled in.
+  const orTelegram = TELEGRAM_URL ? " или напишите нам в Telegram" : "";
+
   try {
     await createClientRequest(parsed.data, await visitorIp());
   } catch (error) {
     if (isApiError(error, "rate_limited")) {
       return {
-        error: "Слишком много заявок с вашего адреса. Попробуйте через час или напишите нам в Telegram.",
+        error: `Слишком много заявок с вашего адреса. Попробуйте через час${orTelegram}.`,
         values: echo(formData),
       };
     }
@@ -60,7 +64,7 @@ export async function submitClientRequest(
     }
     console.error("Failed to submit client request", error);
     return {
-      error: "Не удалось отправить заявку. Попробуйте ещё раз или напишите нам в Telegram.",
+      error: `Не удалось отправить заявку. Попробуйте ещё раз${orTelegram}.`,
       values: echo(formData),
     };
   }
