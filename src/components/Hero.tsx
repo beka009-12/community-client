@@ -3,7 +3,8 @@ import HomeSection from "./hero-sections/HomeSection";
 import ServiceRows from "./hero-sections/ServiceRows";
 import Process from "./hero-sections/Process";
 import FinalCall from "./hero-sections/FinalCall";
-import ProjectListing from "./projects-sections/ProjectListing";
+import EditorialList from "./projects-sections/EditorialList";
+import ProjectStack from "./projects-sections/ProjectStack";
 import Button from "@/src/ui/Button";
 import { getProjects } from "@/src/server/api/projects";
 import { getStats } from "@/src/server/api/stats";
@@ -13,7 +14,8 @@ import { statsCells } from "@/src/lib/stats-cells";
 const HOME_PROJECTS_LIMIT = 5;
 
 const Home = async () => {
-  const [stats, projects] = await Promise.all([getStats(), getProjects()]);
+  const [stats, allProjects] = await Promise.all([getStats(), getProjects()]);
+  const projects = allProjects.slice(0, HOME_PROJECTS_LIMIT);
   return (
     <>
       <Welcome stats={statsCells(stats)} />
@@ -27,7 +29,10 @@ const Home = async () => {
             </Button>
           }
         >
-          <ProjectListing projects={projects.slice(0, HOME_PROJECTS_LIMIT)} />
+          {/* Touch screens get the pinned stack, a mouse the hover list
+              (switched in CSS at 1024px). */}
+          <ProjectStack projects={projects} />
+          <EditorialList projects={projects} />
         </HomeSection>
       )}
       <ServiceRows />
