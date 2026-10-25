@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -28,6 +28,7 @@ const Header: FC = () => {
   // The menu belongs to the page it was opened on, so navigating closes it.
   const [menuPath, setMenuPath] = useState<string | null>(null);
   const menuOpen = menuPath === pathname;
+  const burgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -39,7 +40,10 @@ const Header: FC = () => {
   useEffect(() => {
     if (!menuOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuPath(null);
+      if (event.key !== "Escape") return;
+      setMenuPath(null);
+      // Focus may be on a menu link that is about to unmount.
+      burgerRef.current?.focus();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
@@ -83,6 +87,7 @@ const Header: FC = () => {
         </nav>
 
         <button
+          ref={burgerRef}
           type="button"
           className={scss.burger}
           aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
