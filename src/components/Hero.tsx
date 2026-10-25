@@ -10,7 +10,7 @@ import { getStats } from "@/src/server/api/stats";
 import { statsCells } from "@/src/lib/stats-cells";
 
 // The rest of the catalogue is one click away on /projects.
-const HOME_PROJECTS_LIMIT = 6;
+const HOME_PROJECTS_LIMIT = 5;
 
 const Home = async () => {
   const [stats, projects] = await Promise.all([getStats(), getProjects()]);
