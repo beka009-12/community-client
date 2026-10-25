@@ -1,28 +1,71 @@
 @use "../../styles/hover" as *;
 
+// Its own band: a surface colour and a top line set the footer apart from
+// the page, which used to run straight into it.
 .footer {
   margin-top: clamp(80px, 9vw, 128px);
+  padding-block: clamp(32px, 5vw, 64px);
+  border-top: 1px solid var(--color-line);
+  background: var(--color-surface);
 }
 
-.footer__top {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 40px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--color-line);
+// Hairline sheet like the hero numbers strip: the 1px gap shows the line
+// colour between cells. Phones stack the cells; from 640px the link cells
+// sit side by side under the brand; from 1024px the brand joins their row
+// and the link columns take their content's width.
+.sheet {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+  background: var(--color-line);
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: minmax(0, 1fr) repeat(var(--links), minmax(200px, auto));
+  }
 }
 
-.footer__brand {
+.cell {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 340px;
+  align-items: flex-start;
+  gap: 12px;
+  padding: clamp(20px, 3vw, 32px);
+  background: var(--color-surface);
+}
+
+.cell--brand {
+  @media (min-width: 640px) and (max-width: 1023px) {
+    grid-column: 1 / -1;
+  }
+}
+
+// With socials, two link cells fill the row and the login takes the next.
+.sheet--socials .cell--members {
+  @media (min-width: 640px) and (max-width: 1023px) {
+    grid-column: 1 / -1;
+  }
+}
+
+.cell--bottom {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 16px;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
 }
 
 .logo {
   display: block;
-  align-self: flex-start;
   width: auto;
   height: 40px;
 }
@@ -31,20 +74,7 @@
   color: var(--color-mist);
 }
 
-.footer__columns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px 56px;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.column__label {
+.cell__label {
   font-family: var(--font-mono);
   font-size: var(--text-2xs);
   font-weight: 500;
@@ -65,14 +95,4 @@
       color: var(--color-accent);
     }
   }
-}
-
-.footer__bottom {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 24px 0;
-  font-size: var(--text-sm);
-  color: var(--color-muted);
 }

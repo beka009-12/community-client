@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, type CSSProperties } from "react";
 import Image from "next/image";
 import { cacheLife } from "next/cache";
 import Link from "next/link";
@@ -30,22 +30,25 @@ const Footer: FC<FooterProps> = async ({ loginHref }) => {
   const socials = visibleSocials();
 
   return (
-    <footer className={`container ${scss.footer}`}>
-      <div className={scss.footer__top}>
-        <div className={scss.footer__brand}>
-          <Image
-            src="/brand/motion-logo.svg"
-            alt="Motion Community"
-            width={253}
-            height={134}
-            className={scss.logo}
-          />
-          <p className={scss.muted}>Сообщество разработчиков, Бишкек</p>
-        </div>
+    <footer className={scss.footer}>
+      <div className="container">
+        <div
+          className={`${scss.sheet} ${socials.length > 0 ? scss["sheet--socials"] : ""}`}
+          style={{ "--links": socials.length > 0 ? 3 : 2 } as CSSProperties}
+        >
+          <div className={`${scss.cell} ${scss["cell--brand"]}`}>
+            <Image
+              src="/brand/motion-logo.svg"
+              alt="Motion Community"
+              width={253}
+              height={134}
+              className={scss.logo}
+            />
+            <p className={scss.muted}>Сообщество разработчиков, Бишкек</p>
+          </div>
 
-        <div className={scss.footer__columns}>
-          <nav aria-label="Навигация в подвале" className={scss.column}>
-            <span className={scss.column__label}>Навигация</span>
+          <nav aria-label="Навигация в подвале" className={scss.cell}>
+            <span className={scss.cell__label}>Навигация</span>
             <ul className={scss.links}>
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
@@ -56,8 +59,8 @@ const Footer: FC<FooterProps> = async ({ loginHref }) => {
           </nav>
 
           {socials.length > 0 && (
-            <div className={scss.column}>
-              <span className={scss.column__label}>Соцсети</span>
+            <div className={scss.cell}>
+              <span className={scss.cell__label}>Соцсети</span>
               <ul className={scss.links}>
                 {socials.map((social) => (
                   <li key={social.label}>
@@ -70,18 +73,18 @@ const Footer: FC<FooterProps> = async ({ loginHref }) => {
             </div>
           )}
 
-          <div className={scss.column}>
-            <span className={scss.column__label}>Для участников</span>
+          <div className={`${scss.cell} ${scss["cell--members"]}`}>
+            <span className={scss.cell__label}>Для участников</span>
             <Button href={loginHref} variant="outline" arrow>
               Войти в портал
             </Button>
           </div>
-        </div>
-      </div>
 
-      <div className={scss.footer__bottom}>
-        <span>© {year} Motion Community</span>
-        <span>Бишкек, Кыргызстан</span>
+          <div className={`${scss.cell} ${scss["cell--bottom"]}`}>
+            <span>© {year} Motion Community</span>
+            <span>Бишкек, Кыргызстан</span>
+          </div>
+        </div>
       </div>
     </footer>
   );
