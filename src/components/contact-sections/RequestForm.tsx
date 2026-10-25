@@ -19,13 +19,7 @@ interface FieldProps {
   children: (describedBy: string | undefined) => ReactNode;
 }
 
-const Field: FC<FieldProps> = ({
-  name,
-  label,
-  full,
-  error,
-  children,
-}) => {
+const Field: FC<FieldProps> = ({ name, label, full, error, children }) => {
   const errorId = error ? `request-${name}-error` : undefined;
   return (
     <div className={`${scss.field} ${full ? scss["field--full"] : ""}`}>
@@ -65,7 +59,9 @@ const RequestForm: FC = () => {
   // to the first field to fix, which also reads out its error.
   useEffect(() => {
     if (!state.fieldErrors) return;
-    formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+    formRef.current
+      ?.querySelector<HTMLElement>('[aria-invalid="true"]')
+      ?.focus();
   }, [state]);
 
   const value = (name: string) => state.values?.[name] ?? "";
@@ -156,11 +152,7 @@ const RequestForm: FC = () => {
             )}
           </Field>
 
-          <Field
-            name="title"
-            label="Название проекта"
-            error={errors.title}
-          >
+          <Field name="title" label="Название проекта" error={errors.title}>
             {(describedBy) => (
               <input
                 {...inputProps("title", describedBy)}
@@ -205,7 +197,6 @@ const RequestForm: FC = () => {
           <Field
             name="description"
             label="Описание проекта"
-           
             full
             error={errors.description}
           >
