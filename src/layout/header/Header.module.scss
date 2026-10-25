@@ -11,8 +11,11 @@
 
 .header--solid {
   background: rgba(10, 12, 16, 0.88);
-  backdrop-filter: blur(16px);
+  // Prefixed first: with the standard property before it, Lightning CSS
+  // kept only the -webkit- one, which Chrome ignores, and the page showed
+  // through the header unblurred.
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
 
 .header__inner {
