@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { plural } from "@/src/lib/plural";
 
 export type FieldErrors = Partial<Record<string, string>>;
 
@@ -6,12 +7,17 @@ export type ParseResult<T> =
   | { success: true; data: T }
   | { success: false; fieldErrors: FieldErrors };
 
-export const requiredText = (min: number, max: number, label: string) =>
-  z
-    .string({ error: `Заполните поле «${label}»` })
+// An empty field reports «Заполните поле» first: parseForm keeps only the
+// first message per field.
+export const requiredText = (min: number, max: number, label: string) => {
+  const empty = `Заполните поле «${label}»`;
+  return z
+    .string({ error: empty })
     .trim()
-    .min(min, min <= 1 ? `Заполните поле «${label}»` : `Минимум ${min} символа`)
+    .min(1, empty)
+    .min(min, `Минимум ${min} ${plural(min, "символ", "символа", "символов")}`)
     .max(max, `Не больше ${max} символов`);
+};
 
 export function parseForm<S extends z.ZodType>(
   schema: S,
