@@ -28,7 +28,7 @@
   border-radius: 50%;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 18px;
+  font-size: var(--text-lg);
   color: var(--color-accent);
 }
 
@@ -57,7 +57,7 @@
   margin-top: 12px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 19px;
+  font-size: var(--text-xl);
   letter-spacing: -0.02em;
 }
 

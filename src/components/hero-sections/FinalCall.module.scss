@@ -28,14 +28,14 @@
 
 .call__eyebrow {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--text-xs);
   font-weight: 500;
 }
 
 .call__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(28px, 4.2vw + 8px, 68px);
+  font-size: clamp(1.75rem, 4.2vw + 0.5rem, 4.25rem);
   line-height: 1.02;
   letter-spacing: -0.04em;
   overflow-wrap: break-word;

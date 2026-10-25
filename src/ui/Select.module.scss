@@ -18,7 +18,7 @@
   border-radius: 10px;
   background: var(--color-field);
   color: var(--color-paper);
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 500;
   cursor: pointer;
   transition: border-color 0.2s ease;
@@ -78,7 +78,7 @@
   border-radius: 8px;
   background: none;
   color: var(--color-mist);
-  font-size: 13.5px;
+  font-size: var(--text-sm);
   text-align: left;
   cursor: pointer;
   transition:

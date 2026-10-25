@@ -28,7 +28,7 @@
   width: 40px;
   flex: none;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--text-xs);
   color: var(--color-muted);
   transition: color 0.2s ease;
 }
@@ -41,7 +41,7 @@
   white-space: nowrap;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(24px, 3vw, 42px);
+  font-size: clamp(1.5rem, 3vw, 2.625rem);
   line-height: 1.1;
   letter-spacing: -0.03em;
   transition: color 0.2s ease;
@@ -49,7 +49,7 @@
 
 .row__category {
   min-width: 112px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: #8f97a4;
 }
 

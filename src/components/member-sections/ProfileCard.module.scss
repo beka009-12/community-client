@@ -75,7 +75,7 @@
 
 .position {
   margin-top: 2px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: rgba(255, 255, 255, 0.72);
 }
 
@@ -102,7 +102,7 @@
     padding: 0 18px;
     border: 1px solid var(--color-border);
     border-radius: 999px;
-    font-size: 15px;
+    font-size: var(--text-md);
     font-weight: 500;
     transition: border-color 0.2s ease;
 

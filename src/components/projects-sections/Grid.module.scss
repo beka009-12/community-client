@@ -62,7 +62,7 @@
 .card__name {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 22px;
+  font-size: var(--text-2xl);
   line-height: 1.15;
   letter-spacing: -0.02em;
   overflow-wrap: anywhere;
@@ -73,6 +73,6 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: #8f97a4;
 }

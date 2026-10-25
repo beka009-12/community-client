@@ -21,7 +21,7 @@
   border-radius: 999px;
   background: none;
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: var(--text-md);
   font-weight: 500;
   color: var(--color-mist);
   cursor: pointer;
@@ -52,7 +52,7 @@
   border-radius: 999px;
   background: var(--color-surface-raised);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-2xs);
   color: var(--color-paper);
 
   .filter[aria-pressed="true"] & {
@@ -152,19 +152,19 @@
 .cell__name {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--text-base);
   line-height: 1.2;
   letter-spacing: -0.02em;
   overflow-wrap: break-word;
   hyphens: auto;
 
   @media (max-width: 639px) {
-    font-size: 14px;
+    font-size: var(--text-sm);
   }
 }
 
 .cell__position {
-  font-size: 13px;
+  font-size: var(--text-xs);
   color: var(--color-mist);
 }
 

@@ -17,7 +17,7 @@
   gap: 6px;
   min-height: 44px;
   margin-bottom: 24px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: var(--color-mist);
   transition: color 0.2s ease;
 
@@ -56,14 +56,14 @@
 .section__title {
   margin-bottom: 16px;
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: var(--text-xl);
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .bio {
   max-width: 620px;
-  font-size: 17px;
+  font-size: var(--text-lg);
   line-height: 1.65;
 }
 
@@ -77,7 +77,7 @@
     padding: 6px 14px;
     border: 1px solid #2a303b;
     border-radius: 999px;
-    font-size: 14px;
+    font-size: var(--text-sm);
     color: #c7cdd6;
   }
 }
