@@ -14,6 +14,10 @@ import StatusPill from "@/src/ui/StatusPill";
 import type { ProjectListItem } from "@/src/server/api/schemas";
 import scss from "./EditorialList.module.scss";
 
+// .preview's width in the SCSS, and its gap from the pointer.
+const PREVIEW_WIDTH = 300;
+const PREVIEW_GAP = 28;
+
 // Desktop-only (≥1024px, toggled in CSS). Touch screens keep the card grid:
 // a cursor-follow preview has no touch equivalent.
 const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
@@ -31,8 +35,12 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
 
   const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    // Offset up-and-right so the preview never sits under the pointer.
-    mvX.set(event.clientX - rect.left + 28);
+    const x = event.clientX - rect.left;
+    // Up and to the right so the preview never sits under the pointer. Near
+    // the list's right edge it flips to the left of the pointer: sticking
+    // out, it widened the page and scrolled it sideways.
+    const right = x + PREVIEW_GAP;
+    mvX.set(right + PREVIEW_WIDTH <= rect.width ? right : x - PREVIEW_GAP - PREVIEW_WIDTH);
     mvY.set(event.clientY - rect.top - 150);
   };
 
