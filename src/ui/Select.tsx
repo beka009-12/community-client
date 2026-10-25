@@ -9,7 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { motionTokens, springs } from "@/src/lib/motion-tokens";
 import scss from "./Select.module.scss";
 
@@ -90,6 +90,7 @@ const Select: FC<SelectProps> = ({
   block,
   placeholder = "Выберите…",
 }) => {
+  const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [upward, setUpward] = useState(false);
   const [inner, setInner] = useState(defaultValue ?? "");
@@ -100,6 +101,8 @@ const Select: FC<SelectProps> = ({
   const optionRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const listId = useId();
   const selected = options.find((option) => option.value === current);
+  const offset = reduce ? 0 : upward ? 4 : -4;
+  const shrink = reduce ? 1 : 0.97;
 
   // A new defaultValue (e.g. values echoed back after a failed action)
   // resets the uncontrolled choice — adjusted during render, not in an
@@ -221,13 +224,13 @@ const Select: FC<SelectProps> = ({
             role="listbox"
             aria-label={ariaLabel}
             className={`${scss.panel} ${upward ? scss["panel--up"] : ""}`}
-            initial={{ opacity: 0, scale: 0.97, y: upward ? 4 : -4 }}
+            initial={{ opacity: 0, scale: shrink, y: offset }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             // Exit faster than enter so closing never lingers.
             exit={{
               opacity: 0,
-              scale: 0.97,
-              y: upward ? 4 : -4,
+              scale: shrink,
+              y: offset,
               transition: { duration: motionTokens.duration.fast },
             }}
             transition={springs.gentle}

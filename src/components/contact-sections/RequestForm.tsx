@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, ReactNode, useActionState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { motionTokens, springs } from "@/src/lib/motion-tokens";
 import Button from "@/src/ui/Button";
 import { PROJECT_TYPES } from "@/src/data/services";
@@ -50,6 +50,8 @@ const RequestForm: FC = () => {
     submitClientRequest,
     INITIAL_STATE,
   );
+  const reduce = useReducedMotion();
+  const offset = reduce ? 0 : motionTokens.distance.sm;
   const errors = pending ? {} : (state.fieldErrors ?? {});
   const value = (name: string) => state.values?.[name] ?? "";
   const inputProps = (name: string, describedBy: string | undefined) => ({
@@ -68,9 +70,9 @@ const RequestForm: FC = () => {
         <motion.div
           key="success"
           className={scss.success}
-          initial={{ opacity: 0, y: motionTokens.distance.sm }}
+          initial={{ opacity: 0, y: offset }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: motionTokens.distance.sm }}
+          exit={{ opacity: 0, y: offset }}
           transition={springs.snappy}
           role="status"
         >
@@ -83,9 +85,9 @@ const RequestForm: FC = () => {
           className={scss.form}
           action={formAction}
           noValidate
-          initial={{ opacity: 0, y: motionTokens.distance.sm }}
+          initial={{ opacity: 0, y: offset }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: motionTokens.distance.sm }}
+          exit={{ opacity: 0, y: offset }}
           transition={springs.snappy}
         >
           <Field name="name" label="Имя" error={errors.name}>
