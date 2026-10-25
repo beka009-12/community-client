@@ -60,6 +60,11 @@ body {
   line-height: 1.04;
   letter-spacing: -0.035em;
   overflow-wrap: anywhere;
+
+  // At 40px «Расскажите» breaks mid-word on a 320px screen.
+  @media (max-width: 359px) {
+    font-size: 2.25rem;
+  }
 }
 
 .section-title {
