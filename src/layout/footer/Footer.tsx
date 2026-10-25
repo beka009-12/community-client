@@ -1,4 +1,4 @@
-import { FC, type CSSProperties } from "react";
+import { FC } from "react";
 import Image from "next/image";
 import { cacheLife } from "next/cache";
 import Link from "next/link";
@@ -32,11 +32,8 @@ const Footer: FC<FooterProps> = async ({ loginHref }) => {
   return (
     <footer className={scss.footer}>
       <div className="container">
-        <div
-          className={`${scss.sheet} ${socials.length > 0 ? scss["sheet--socials"] : ""}`}
-          style={{ "--links": socials.length > 0 ? 3 : 2 } as CSSProperties}
-        >
-          <div className={`${scss.cell} ${scss["cell--brand"]}`}>
+        <div className={scss.footer__top}>
+          <div className={scss.footer__brand}>
             <Image
               src="/brand/motion-logo.svg"
               alt="Motion Community"
@@ -47,43 +44,45 @@ const Footer: FC<FooterProps> = async ({ loginHref }) => {
             <p className={scss.muted}>Сообщество разработчиков, Бишкек</p>
           </div>
 
-          <nav aria-label="Навигация в подвале" className={scss.cell}>
-            <span className={scss.cell__label}>Навигация</span>
-            <ul className={scss.links}>
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {socials.length > 0 && (
-            <div className={scss.cell}>
-              <span className={scss.cell__label}>Соцсети</span>
+          <div className={scss.footer__columns}>
+            <nav aria-label="Навигация в подвале" className={scss.column}>
+              <span className={scss.column__label}>Навигация</span>
               <ul className={scss.links}>
-                {socials.map((social) => (
-                  <li key={social.label}>
-                    <a href={social.href} target="_blank" rel="noreferrer">
-                      {social.label}
-                    </a>
+                {NAV_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href}>{link.label}</Link>
                   </li>
                 ))}
               </ul>
+            </nav>
+
+            {socials.length > 0 && (
+              <div className={scss.column}>
+                <span className={scss.column__label}>Соцсети</span>
+                <ul className={scss.links}>
+                  {socials.map((social) => (
+                    <li key={social.label}>
+                      <a href={social.href} target="_blank" rel="noreferrer">
+                        {social.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className={scss.column}>
+              <span className={scss.column__label}>Для участников</span>
+              <Button href={loginHref} variant="outline" arrow>
+                Войти в портал
+              </Button>
             </div>
-          )}
-
-          <div className={`${scss.cell} ${scss["cell--members"]}`}>
-            <span className={scss.cell__label}>Для участников</span>
-            <Button href={loginHref} variant="outline" arrow>
-              Войти в портал
-            </Button>
           </div>
+        </div>
 
-          <div className={`${scss.cell} ${scss["cell--bottom"]}`}>
-            <span>© {year} Motion Community</span>
-            <span>Бишкек, Кыргызстан</span>
-          </div>
+        <div className={scss.footer__bottom}>
+          <span>© {year} Motion Community</span>
+          <span>Бишкек, Кыргызстан</span>
         </div>
       </div>
     </footer>
