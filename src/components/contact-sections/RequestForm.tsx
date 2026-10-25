@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode, useActionState } from "react";
+import { FC, ReactNode, useActionState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { motionTokens, springs } from "@/src/lib/motion-tokens";
 import Button from "@/src/ui/Button";
@@ -42,6 +42,12 @@ const Field: FC<FieldProps> = ({
 
 const INITIAL_STATE: RequestFormState = {};
 
+// The success panel mounts only after the form has faded out, so its
+// heading takes focus from a ref callback, not an effect on `state.ok`.
+const focusOnMount = (node: HTMLElement | null) => {
+  node?.focus();
+};
+
 // Form only — the page heading lives in Contact. Field
 // names mirror the ClientRequest entity (ТЗ §9); the request lands in
 // the admin's "Заявки".
@@ -52,7 +58,16 @@ const RequestForm: FC = () => {
   );
   const reduce = useReducedMotion();
   const offset = reduce ? 0 : motionTokens.distance.sm;
+  const formRef = useRef<HTMLFormElement>(null);
   const errors = pending ? {} : (state.fieldErrors ?? {});
+
+  // Without this a failed submit is silent for screen readers: focus moves
+  // to the first field to fix, which also reads out its error.
+  useEffect(() => {
+    if (!state.fieldErrors) return;
+    formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+  }, [state]);
+
   const value = (name: string) => state.values?.[name] ?? "";
   const inputProps = (name: string, describedBy: string | undefined) => ({
     id: `request-${name}`,
@@ -74,16 +89,23 @@ const RequestForm: FC = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: offset }}
           transition={springs.snappy}
-          role="status"
         >
-          <h3>Заявка отправлена</h3>
+          <h2 ref={focusOnMount} tabIndex={-1}>
+            Заявка отправлена
+          </h2>
           <p>Мы свяжемся с вами в ближайшее время.</p>
         </motion.div>
       ) : (
         <motion.form
           key="form"
+          ref={formRef}
           className={scss.form}
           action={formAction}
+          // The submit button stays focusable while sending (aria-disabled),
+          // so a repeat Enter is dropped here instead.
+          onSubmit={(event) => {
+            if (pending) event.preventDefault();
+          }}
           noValidate
           initial={{ opacity: 0, y: offset }}
           animate={{ opacity: 1, y: 0 }}
@@ -203,7 +225,7 @@ const RequestForm: FC = () => {
           )}
 
           <div className={scss.submitRow}>
-            <Button type="submit" variant="primary" disabled={pending}>
+            <Button type="submit" variant="primary" aria-disabled={pending}>
               {pending ? "Отправляем…" : "Отправить заявку"}
             </Button>
           </div>
