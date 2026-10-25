@@ -8,7 +8,9 @@
   --color-surface-raised: #1a1f28;
   --color-border: #2e3440;
   --color-field: #10131a;
-  --color-field-border: #262b35;
+  // 3.2:1 against --color-field and --color-surface: an empty input's
+  // border is the only thing marking it out (WCAG 1.4.11).
+  --color-field-border: #5e6675;
   --color-accent: #54bbff;
   --color-accent-hover: #86cfff;
   --color-on-accent: #0a0c10;
