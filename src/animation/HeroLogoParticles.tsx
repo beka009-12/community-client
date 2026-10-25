@@ -67,7 +67,10 @@ const HeroLogoParticles: FC<HeroLogoParticlesProps> = ({
       canvas.style.width = `${r.width}px`;
       canvas.style.height = `${r.height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      if (img.complete) build();
+      if (!img.complete) return;
+      build();
+      if (reduceMotion) renderStatic();
+      else play();
     };
 
     const build = () => {
@@ -184,15 +187,21 @@ const HeroLogoParticles: FC<HeroLogoParticlesProps> = ({
       ctx.globalAlpha = 1;
     };
 
+    // The logo assembles and the loop stops once every particle is home, so
+    // nothing keeps moving on its own (WCAG 2.2.2); the pointer restarts it.
     const animate = (now: number) => {
       if (disposed) return;
       const w = stage.clientWidth;
       const h = stage.clientHeight;
       ctx.clearRect(0, 0, w, h);
       const elapsed = now - start;
+      let moving = mouse.active;
 
       for (const p of particles) {
-        if (elapsed < p.delay) continue;
+        if (elapsed < p.delay) {
+          moving = true;
+          continue;
+        }
         const dx = p.tx - p.x;
         const dy = p.ty - p.y;
         const mdx = p.x - mouse.x;
@@ -209,21 +218,20 @@ const HeroLogoParticles: FC<HeroLogoParticlesProps> = ({
         p.vy *= 0.84;
         p.x += p.vx;
         p.y += p.vy;
+        if (Math.abs(dx) + Math.abs(dy) > 0.3 || Math.abs(p.vx) + Math.abs(p.vy) > 0.05) {
+          moving = true;
+        }
 
-        const twinkle =
-          elapsed > 2300
-            ? p.wordmark
-              ? 0.9 + Math.sin(now * 0.0017 + p.tx * 0.03) * 0.08
-              : 0.78 + Math.sin(now * 0.002 + p.tx * 0.04) * 0.18
-            : 1;
-        ctx.globalAlpha = twinkle;
         ctx.fillStyle = p.color;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
       }
-      ctx.globalAlpha = 1;
-      animationFrame = window.requestAnimationFrame(animate);
+      animationFrame = moving ? window.requestAnimationFrame(animate) : null;
+    };
+
+    const play = () => {
+      if (animationFrame === null) animationFrame = window.requestAnimationFrame(animate);
     };
 
     const handlePointerMove = (e: PointerEvent) => {
@@ -231,6 +239,7 @@ const HeroLogoParticles: FC<HeroLogoParticlesProps> = ({
       mouse.x = e.clientX - r.left;
       mouse.y = e.clientY - r.top;
       mouse.active = true;
+      if (!reduceMotion) play();
     };
     const handlePointerLeave = () => {
       mouse.active = false;
@@ -244,11 +253,6 @@ const HeroLogoParticles: FC<HeroLogoParticlesProps> = ({
     img.onload = () => {
       if (disposed) return;
       resize();
-      if (reduceMotion) {
-        renderStatic();
-      } else {
-        animationFrame = window.requestAnimationFrame(animate);
-      }
     };
 
     return () => {
