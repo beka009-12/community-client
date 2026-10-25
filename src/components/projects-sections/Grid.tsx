@@ -15,17 +15,6 @@ const Grid: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
   const reduce = useReducedMotion();
   const offset = reduce ? 0 : motionTokens.distance.sm;
 
-  if (projects.length === 0) {
-    return (
-      <div className={scss.gridWrap}>
-        <p className={scss.empty}>
-          Под этот фильтр пока ничего не попадает — попробуйте другое
-          сочетание.
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className={scss.gridWrap}>
       <div className={scss.grid}>

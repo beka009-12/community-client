@@ -1,3 +1,11 @@
 .list {
   padding-top: 32px;
 }
+
+.empty {
+  color: var(--color-mist);
+
+  &:not(:empty) {
+    padding-top: 32px;
+  }
+}

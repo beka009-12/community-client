@@ -38,17 +38,6 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
 
   const previewProject = projects.find((project) => project.id === previewId);
 
-  if (projects.length === 0) {
-    return (
-      <div className={scss.listWrap}>
-        <p className={scss.empty}>
-          Под этот фильтр пока ничего не попадает — попробуйте другое
-          сочетание.
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div
       className={scss.listWrap}
