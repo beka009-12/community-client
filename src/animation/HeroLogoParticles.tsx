@@ -270,7 +270,8 @@ const HeroLogoParticles: FC<HeroLogoParticlesProps> = ({
       className={className}
       role="img"
       aria-label={ariaLabel}
-      style={{ position: "relative", width: "100%", height: "100%" }}
+      // No inline size or position: `className` sets both. An inline
+      // width: 100% used to beat it and grow the stage past the page.
     >
       <canvas
         ref={canvasRef}

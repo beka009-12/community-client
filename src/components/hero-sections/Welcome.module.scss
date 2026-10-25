@@ -92,10 +92,16 @@
   }
 }
 
+// Centred on the rings the same way. Wider than the 400px mark on laptops,
+// it spills evenly to both sides; as a grid item it hung off the right edge
+// and pushed the page sideways.
 .mark__canvas {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: min(480px, 36vw);
   aspect-ratio: 1.35 / 1;
+  transform: translate(-50%, -50%);
 }
 
 // The logo filled with a dot grid: the phone stand-in for the particles.
