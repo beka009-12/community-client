@@ -1,3 +1,5 @@
+@use "../../styles/hover" as *;
+
 .footer {
   margin-top: clamp(80px, 9vw, 128px);
 }
@@ -59,7 +61,7 @@
     min-height: 36px;
     transition: color 0.2s ease;
 
-    &:hover {
+    @include hover {
       color: var(--color-accent);
     }
   }

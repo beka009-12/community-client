@@ -1,3 +1,5 @@
+@use "../../styles/hover" as *;
+
 // Touch screens get cards; ≥1024px switches to EditorialList (the
 // cursor-follow preview needs a mouse).
 .gridWrap {
@@ -30,7 +32,7 @@
   background: var(--color-surface);
   transition: border-color 0.3s ease;
 
-  &:hover {
+  @include hover {
     border-color: #3a4250;
   }
 }

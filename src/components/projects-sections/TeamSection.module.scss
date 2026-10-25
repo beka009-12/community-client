@@ -1,3 +1,5 @@
+@use "../../styles/hover" as *;
+
 .team {
   list-style: none;
   border-bottom: 1px solid var(--color-line);
@@ -11,8 +13,10 @@
   padding: 12px 0;
   border-top: 1px solid var(--color-line);
 
-  &:hover .member__name {
-    color: var(--color-accent);
+  @include hover {
+    .member__name {
+      color: var(--color-accent);
+    }
   }
 
   @media (max-width: 559px) {

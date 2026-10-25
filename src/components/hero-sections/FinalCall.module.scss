@@ -1,3 +1,5 @@
+@use "../../styles/hover" as *;
+
 .call {
   padding-top: clamp(96px, 10vw, 144px);
 }
@@ -50,7 +52,7 @@
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
 
-  &:hover {
+  @include hover {
     color: var(--color-accent);
   }
 }

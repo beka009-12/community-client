@@ -1,3 +1,5 @@
+@use "../../styles/hover" as *;
+
 .detail {
   padding-top: clamp(32px, 5vw, 56px);
 }
@@ -16,7 +18,7 @@
   color: var(--color-mist);
   transition: color 0.2s ease;
 
-  &:hover {
+  @include hover {
     color: var(--color-paper);
   }
 }
@@ -84,8 +86,10 @@
   flex-direction: column;
   gap: 4px;
 
-  &:hover .pager__name {
-    color: var(--color-accent);
+  @include hover {
+    .pager__name {
+      color: var(--color-accent);
+    }
   }
 }
 

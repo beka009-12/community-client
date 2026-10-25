@@ -1,3 +1,5 @@
+@use "../../styles/hover" as *;
+
 .roster {
   padding-top: 32px;
 }
@@ -28,7 +30,7 @@
     background-color 0.2s ease,
     border-color 0.2s ease;
 
-  &:hover {
+  @include hover {
     color: var(--color-paper);
     border-color: var(--color-mist);
   }
@@ -109,8 +111,7 @@
     background-color 0.25s ease,
     color 0.25s ease;
 
-  .cell__link:hover &,
-  .cell__link:focus-visible & {
+  @include lit-by(".cell__link") {
     background: var(--color-accent);
     color: var(--color-on-accent);
 
@@ -128,8 +129,7 @@
     filter 0.4s ease,
     transform 0.4s ease;
 
-  .cell__link:hover &,
-  .cell__link:focus-visible & {
+  @include lit-by(".cell__link") {
     filter: grayscale(0%);
     transform: scale(1.04);
   }
@@ -189,8 +189,7 @@
     height: 16px;
   }
 
-  .cell__link:hover &,
-  .cell__link:focus-visible & {
+  @include lit-by(".cell__link") {
     opacity: 1;
     transform: scale(1);
   }

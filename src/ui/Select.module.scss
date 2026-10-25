@@ -1,3 +1,5 @@
+@use "../styles/hover" as *;
+
 .select {
   position: relative;
   display: inline-block;
@@ -21,7 +23,7 @@
   cursor: pointer;
   transition: border-color 0.2s ease;
 
-  &:hover {
+  @include hover {
     border-color: rgba(86, 187, 255, 0.4);
   }
 }
@@ -83,7 +85,7 @@
     background-color 0.15s ease,
     color 0.15s ease;
 
-  &:hover {
+  @include hover {
     background: var(--color-field);
     color: var(--color-paper);
   }

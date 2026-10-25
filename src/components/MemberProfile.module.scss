@@ -1,3 +1,5 @@
+@use "../styles/hover" as *;
+
 .profile {
   padding-top: 104px;
   padding-bottom: 104px;
@@ -19,7 +21,7 @@
   color: var(--color-mist);
   transition: color 0.2s ease;
 
-  &:hover {
+  @include hover {
     color: var(--color-paper);
   }
 

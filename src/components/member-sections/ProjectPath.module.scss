@@ -1,3 +1,5 @@
+@use "../../styles/hover" as *;
+
 .empty {
   color: var(--color-mist);
 }
@@ -16,8 +18,10 @@
   padding: 12px 0;
   border-top: 1px solid var(--color-line);
 
-  &:hover .row__name {
-    color: var(--color-accent);
+  @include hover {
+    .row__name {
+      color: var(--color-accent);
+    }
   }
 }
 

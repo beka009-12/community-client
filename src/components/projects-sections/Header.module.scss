@@ -1,3 +1,5 @@
+@use "../../styles/hover" as *;
+
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -29,7 +31,7 @@
     background-color 0.2s ease,
     border-color 0.2s ease;
 
-  &:hover {
+  @include hover {
     color: var(--color-paper);
     border-color: var(--color-mist);
   }
