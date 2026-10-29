@@ -1,0 +1,23 @@
+// Hover styles only where the pointer can hover: on touch screens :hover
+// sticks after a tap and reads as a stuck state.
+@mixin hover {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// A descendant lit up by its ancestor's hover or keyboard focus, e.g. a
+// roster cell colouring its photo: `@include lit-by(".cell__link") { … }`.
+@mixin lit-by($ancestor) {
+  #{$ancestor}:focus-visible & {
+    @content;
+  }
+
+  @media (hover: hover) {
+    #{$ancestor}:hover & {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,131 @@
+@use "../../styles/hover" as *;
+
+.form {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: clamp(24px, 4vw, 40px);
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+  background: var(--color-surface);
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    padding: 11px 14px;
+    border: 1px solid var(--color-field-border);
+    border-radius: 10px;
+    background: var(--color-field);
+    color: var(--color-paper);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    transition: border-color 0.2s ease;
+
+    &::placeholder {
+      color: var(--color-mist);
+    }
+
+    @include hover {
+      border-color: var(--color-mist);
+    }
+
+    &:focus-visible {
+      border-color: var(--color-accent-mark);
+    }
+  }
+
+  select {
+    cursor: pointer;
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+}
+
+.field--full {
+  @media (min-width: 640px) {
+    grid-column: 1 / -1;
+  }
+}
+
+.submitRow {
+  display: flex;
+
+  @media (min-width: 640px) {
+    grid-column: 1 / -1;
+  }
+}
+
+.success {
+  position: relative;
+  padding: clamp(24px, 4vw, 40px);
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+  background: var(--color-surface);
+
+  h2 {
+    margin-bottom: 8px;
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    color: var(--color-mist);
+  }
+}
+
+@media (max-width: 639px) {
+  .submitRow {
+    justify-content: stretch;
+
+    :global(a),
+    :global(button) {
+      width: 100%;
+    }
+  }
+}
+
+.field__error {
+  font-size: var(--text-xs);
+  color: var(--color-danger);
+}
+
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
+.alert {
+  padding: 12px 14px;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 10px;
+  background: rgba(248, 113, 113, 0.08);
+  font-size: var(--text-sm);
+  color: var(--color-paper);
+
+  @media (min-width: 640px) {
+    grid-column: 1 / -1;
+  }
+}

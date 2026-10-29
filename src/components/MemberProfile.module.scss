@@ -1,0 +1,83 @@
+@use "../styles/hover" as *;
+
+.profile {
+  padding-top: 104px;
+  padding-bottom: 104px;
+}
+
+// Card (320) + gap (64) + reading column (720), centred in the container.
+.inner {
+  max-width: 1104px;
+  margin: 0 auto;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-bottom: 24px;
+  font-size: var(--text-sm);
+  color: var(--color-mist);
+  transition: color 0.2s ease;
+
+  @include hover {
+    color: var(--color-paper);
+  }
+
+  // Same optical nudge as ProjectDetail's back link.
+  svg {
+    transform: translateY(1px);
+  }
+}
+
+.layout {
+  display: grid;
+  gap: 48px;
+
+  @media (min-width: 960px) {
+    grid-template-columns: 320px minmax(0, 1fr);
+    align-items: start;
+    gap: 64px;
+  }
+}
+
+.content {
+  min-width: 0;
+  max-width: 720px;
+}
+
+.section + .section {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--color-line);
+}
+
+.section__title {
+  margin-bottom: 16px;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.bio {
+  max-width: 620px;
+  font-size: var(--text-lg);
+  line-height: 1.65;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+
+  li {
+    padding: 6px 14px;
+    border: 1px solid #2a303b;
+    border-radius: 999px;
+    font-size: var(--text-sm);
+    color: #c7cdd6;
+  }
+}

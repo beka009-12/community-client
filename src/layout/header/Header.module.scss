@@ -1,0 +1,146 @@
+@use "../../styles/hover" as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-ink);
+  transition: background-color 0.25s ease;
+}
+
+.header--solid {
+  background: rgba(10, 12, 16, 0.88);
+  // Prefixed first: with the standard property before it, Lightning CSS
+  // kept only the -webkit- one, which Chrome ignores, and the page showed
+  // through the header unblurred.
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.logo__image {
+  display: block;
+  width: auto;
+  height: 30px;
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: 4px;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+}
+
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-mist);
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+
+  @include hover {
+    color: var(--color-paper);
+  }
+}
+
+.nav__link--active {
+  color: var(--color-paper);
+  background: var(--color-field);
+}
+
+.nav__cta {
+  margin-left: 12px;
+}
+
+.burger {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  background: none;
+  cursor: pointer;
+
+  span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--color-paper);
+    transition: transform 0.2s ease;
+  }
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.burger__line--open1 {
+  transform: translateY(3.75px) rotate(45deg);
+}
+
+.burger__line--open2 {
+  transform: translateY(-3.75px) rotate(-45deg);
+}
+
+.menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--color-ink);
+  border-bottom: 1px solid var(--color-line);
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.menu__inner {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 24px;
+}
+
+.menu__link {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  font-size: var(--text-xl);
+  font-weight: 500;
+  color: var(--color-mist);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.menu__link--active {
+  color: var(--color-paper);
+}
+
+.menu__cta {
+  margin-top: 24px;
+  width: 100%;
+}

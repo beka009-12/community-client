@@ -1,0 +1,53 @@
+@use "../../styles/hover" as *;
+
+.team {
+  list-style: none;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.member {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--color-line);
+
+  @include hover {
+    .member__name {
+      color: var(--color-accent-text);
+    }
+  }
+
+  @media (max-width: 559px) {
+    grid-template-columns: 40px 1fr;
+
+    .member__caption {
+      grid-column: 2;
+      margin-top: -12px;
+    }
+  }
+}
+
+.member__avatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--color-field);
+}
+
+.member__avatarImg {
+  object-fit: cover;
+}
+
+.member__name {
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.member__caption {
+  font-size: var(--text-sm);
+  color: var(--color-mist);
+}

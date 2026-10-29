@@ -1,0 +1,18 @@
+.section {
+  padding-top: clamp(96px, 10vw, 144px);
+}
+
+.section__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.section__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

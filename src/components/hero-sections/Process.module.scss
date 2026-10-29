@@ -1,0 +1,67 @@
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-right: 24px;
+}
+
+.step__head {
+  display: flex;
+  align-items: center;
+}
+
+.step__number {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 1.5px solid var(--color-accent-mark);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: var(--color-accent-text);
+}
+
+.step__number--current {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.step__line {
+  flex: 1;
+  height: 1px;
+  margin-right: -24px;
+  background: #2a303b;
+
+  // Stacked steps don't connect sideways.
+  @media (max-width: 560px) {
+    display: none;
+  }
+}
+
+.step__line--current {
+  background: color-mix(in srgb, var(--color-accent-mark) 50%, transparent);
+}
+
+.step__title {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-xl);
+  letter-spacing: -0.02em;
+}
+
+.step__text {
+  color: var(--color-mist);
+}

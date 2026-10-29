@@ -1,0 +1,157 @@
+.hero {
+  background-image: radial-gradient(circle, rgba(238, 241, 245, 0.07) 1px, transparent 1.4px);
+  background-size: 28px 28px;
+}
+
+.hero__grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 48px;
+  padding-top: clamp(64px, 8vw, 120px);
+  padding-bottom: clamp(56px, 6vw, 88px);
+}
+
+.copy {
+  flex: 999 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.125rem, 4.4vw + 0.625rem, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  overflow-wrap: break-word;
+
+  // «разработчиков» is wider than a 320px screen at 34px.
+  @media (max-width: 359px) {
+    font-size: 1.75rem;
+  }
+}
+
+.title__accent {
+  color: var(--color-accent-text);
+}
+
+.lead {
+  max-width: 560px;
+  font-size: var(--text-xl);
+  color: var(--color-mist);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.mark {
+  position: relative;
+  flex: 1 1 400px;
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  min-height: 380px;
+
+  @media (max-width: 1024px) {
+    min-height: 300px;
+  }
+}
+
+.mark__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 360px;
+  aspect-ratio: 1;
+  border: 1px dashed #232833;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+
+  // Stacked under the copy, the mark spans the container: on the narrowest
+  // phones the rings shrink with it instead of widening the page.
+  @media (max-width: 1024px) {
+    width: 260px;
+    max-width: 100%;
+  }
+}
+
+.mark__ring--outer {
+  width: 470px;
+  border: 1px solid #161a21;
+
+  @media (max-width: 1024px) {
+    width: 340px;
+  }
+}
+
+// Centred on the rings the same way. Wider than the 400px mark on laptops,
+// it spills evenly to both sides; as a grid item it hung off the right edge
+// and pushed the page sideways.
+.mark__canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(480px, 36vw);
+  aspect-ratio: 1.35 / 1;
+  transform: translate(-50%, -50%);
+}
+
+// The logo filled with a dot grid: the phone stand-in for the particles.
+.mark__dots {
+  position: relative;
+  width: min(240px, 60vw);
+  aspect-ratio: 253 / 134;
+  background-image: radial-gradient(circle, var(--color-accent-mark) 1.5px, transparent 1.9px);
+  background-size: 7px 7px;
+  -webkit-mask: url("/brand/motion-logo.svg") center / contain no-repeat;
+  mask: url("/brand/motion-logo.svg") center / contain no-repeat;
+}
+
+.stats__wrap {
+  padding-bottom: clamp(72px, 8vw, 112px);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+  background: var(--color-surface);
+}
+
+.stat {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 16px;
+  padding: 28px 32px;
+  border-right: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+  margin: 0 -1px -1px 0;
+}
+
+.stat__value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 3.5rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.stat__value--accent {
+  color: var(--color-accent-text);
+}
+
+.stat__label {
+  color: var(--color-mist);
+}

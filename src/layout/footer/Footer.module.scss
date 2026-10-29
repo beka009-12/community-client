@@ -1,0 +1,84 @@
+@use "../../styles/hover" as *;
+
+// Its own band: the surface colour and the top line mark where the page
+// ends. Inside, space groups the content (gaps between groups are at least
+// twice those within one), and the only other line divides the legal row
+// from the links. Content sits on the container edge like every section.
+.footer {
+  margin-top: clamp(80px, 9vw, 128px);
+  border-top: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+
+.footer__top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px 56px;
+  padding-block: clamp(40px, 5vw, 64px);
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 340px;
+}
+
+.logo {
+  display: block;
+  align-self: flex-start;
+  width: auto;
+  height: 40px;
+}
+
+.muted {
+  color: var(--color-mist);
+}
+
+.footer__columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 56px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.column__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.links {
+  list-style: none;
+
+  a {
+    display: flex;
+    align-items: center;
+    min-height: 36px;
+    transition: color 0.2s ease;
+
+    @include hover {
+      color: var(--color-accent-text);
+    }
+  }
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 24px;
+  border-top: 1px solid var(--color-line);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}

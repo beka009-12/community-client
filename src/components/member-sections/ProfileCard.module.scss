@@ -1,0 +1,124 @@
+@use "../../styles/hover" as *;
+
+.card {
+  display: grid;
+  gap: 20px;
+
+  @media (min-width: 640px) and (max-width: 959px) {
+    grid-template-columns: 280px minmax(0, 1fr);
+    align-items: end;
+    gap: 32px;
+  }
+
+  // Clears the floating header islands.
+  @media (min-width: 960px) {
+    position: sticky;
+    top: 104px;
+  }
+}
+
+.photo {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  max-height: 520px;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+  background: var(--color-surface);
+
+  // Slightly shorter on desktop so the whole card, CTA included, fits a
+  // 900px-tall laptop viewport.
+  @media (min-width: 960px) {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+.photo__img {
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+// Same scrim as the Roster cells on /team.
+.photo__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(5, 7, 15, 0.92),
+    rgba(5, 7, 15, 0.35) 40%,
+    transparent 62%
+  );
+  pointer-events: none;
+}
+
+.caption {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+}
+
+// The page's h1, at card scale.
+.name {
+  margin-bottom: 6px;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.role {
+  color: rgba(236, 238, 242, 0.8);
+}
+
+.position {
+  margin-top: 2px;
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  list-style: none;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-size: var(--text-md);
+    font-weight: 500;
+    transition: border-color 0.2s ease;
+
+    @include hover {
+      border-color: var(--color-mist);
+    }
+  }
+}
+
+.cta {
+  width: 100%;
+  margin-top: 16px;
+
+  // Beside the photo on tablets a full-width button reads as a stray bar.
+  @media (min-width: 640px) and (max-width: 959px) {
+    width: auto;
+    align-self: flex-start;
+  }
+}

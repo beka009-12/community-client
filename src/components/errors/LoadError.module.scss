@@ -1,0 +1,14 @@
+.error {
+  padding-top: clamp(40px, 6vw, 72px);
+}
+
+.error__text {
+  max-width: 46ch;
+  margin-top: 16px;
+  font-size: var(--text-lg);
+  color: var(--color-mist);
+}
+
+.error__button {
+  margin-top: 28px;
+}
