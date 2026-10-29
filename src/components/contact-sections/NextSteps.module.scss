@@ -32,12 +32,12 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  border: 1.5px solid var(--color-accent);
+  border: 1.5px solid var(--color-accent-mark);
   border-radius: 50%;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--text-sm);
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 
 .step__title {
@@ -77,7 +77,7 @@
     text-underline-offset: 4px;
 
     @include hover {
-      color: var(--color-accent);
+      color: var(--color-accent-text);
     }
   }
 }

@@ -76,7 +76,7 @@
   text-underline-offset: 4px;
 
   @include hover {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 }
 
@@ -121,7 +121,7 @@
 
 .button--arrow.button--primary .button__arrow {
   background: var(--color-ink);
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 
 .button--arrow.button--dark .button__arrow {

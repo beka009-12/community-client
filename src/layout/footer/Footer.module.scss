@@ -67,7 +67,7 @@
     transition: color 0.2s ease;
 
     @include hover {
-      color: var(--color-accent);
+      color: var(--color-accent-text);
     }
   }
 }

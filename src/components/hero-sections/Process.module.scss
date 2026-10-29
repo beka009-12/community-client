@@ -24,15 +24,16 @@
   justify-content: center;
   width: 52px;
   height: 52px;
-  border: 1.5px solid var(--color-accent);
+  border: 1.5px solid var(--color-accent-mark);
   border-radius: 50%;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--text-lg);
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 
 .step__number--current {
+  border-color: var(--color-accent);
   background: var(--color-accent);
   color: var(--color-on-accent);
 }
@@ -50,7 +51,7 @@
 }
 
 .step__line--current {
-  background: color-mix(in srgb, var(--color-accent) 50%, transparent);
+  background: color-mix(in srgb, var(--color-accent-mark) 50%, transparent);
 }
 
 .step__title {

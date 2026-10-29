@@ -36,7 +36,7 @@
 }
 
 .title__accent {
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 
 .lead {
@@ -109,7 +109,7 @@
   position: relative;
   width: min(240px, 60vw);
   aspect-ratio: 253 / 134;
-  background-image: radial-gradient(circle, var(--color-accent) 1.5px, transparent 1.9px);
+  background-image: radial-gradient(circle, var(--color-accent-mark) 1.5px, transparent 1.9px);
   background-size: 7px 7px;
   -webkit-mask: url("/brand/motion-logo.svg") center / contain no-repeat;
   mask: url("/brand/motion-logo.svg") center / contain no-repeat;
@@ -149,7 +149,7 @@
 }
 
 .stat__value--accent {
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 
 .stat__label {

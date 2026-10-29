@@ -53,6 +53,6 @@
   text-underline-offset: 4px;
 
   @include hover {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 }
