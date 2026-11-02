@@ -4,42 +4,32 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
-  transition:
-    transform 0.25s ease,
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease;
+  transition-property: scale, background-color, border-color, color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+
+  &:not([aria-disabled="true"]):active {
+    scale: 0.96;
+  }
 }
 
 .button--md {
   min-height: 48px;
-  padding: 0 24px;
+  padding: 0 22px;
+  border-radius: 12px;
   font-size: var(--text-base);
 }
 
 .button--lg {
-  min-height: 58px;
+  min-height: 56px;
   padding: 0 28px;
+  border-radius: 14px;
   font-size: var(--text-lg);
-}
-
-.button--primary,
-.button--outline,
-.button--dark {
-  border-radius: 999px;
-
-  @include hover {
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
 }
 
 .button--primary {
@@ -51,80 +41,33 @@
   }
 }
 
-.button--dark {
-  background: var(--color-ink);
-  color: var(--color-on-accent);
-}
-
 .button--outline {
   border: 1px solid var(--color-border);
   color: var(--color-text);
 
   @include hover {
-    border-color: var(--color-text-muted);
+    border-color: var(--color-text-subtle);
   }
 }
 
 .button--link {
   min-height: 44px;
   padding: 0;
+  border-radius: 0;
   background: none;
   font-weight: 500;
-  color: var(--color-text);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
+  color: var(--color-accent-text);
 
   @include hover {
-    color: var(--color-accent-text);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
   }
 }
 
-.button__arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    width: 16px;
-    height: 16px;
-  }
-}
-
-// Filled buttons: the arrow sits in a circle at the right edge.
-.button--arrow.button--primary,
-.button--arrow.button--dark {
-  gap: 14px;
-  padding-right: 8px;
-
-  .button__arrow {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-
-    svg {
-      width: 18px;
-      height: 18px;
-    }
-  }
-}
-
-.button--arrow.button--md.button--primary,
-.button--arrow.button--md.button--dark {
-  padding-right: 6px;
-
-  .button__arrow {
-    width: 36px;
-    height: 36px;
-  }
-}
-
-.button--arrow.button--primary .button__arrow {
-  background: var(--color-ink);
-  color: var(--color-accent-text);
-}
-
-.button--arrow.button--dark .button__arrow {
-  background: var(--color-accent);
-  color: var(--color-on-accent);
+// 2px less padding on the icon side keeps the label optically centred.
+.button__external {
+  width: 16px;
+  height: 16px;
+  margin-right: -2px;
 }

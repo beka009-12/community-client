@@ -27,7 +27,7 @@ const Welcome: FC<{ stats: StatCell[] }> = ({ stats }) => {
             поддержки.
           </p>
           <div className={scss.actions}>
-            <Button href="/contact" size="lg" arrow>
+            <Button href="/contact" size="lg">
               Обсудить проект
             </Button>
             <Button href="/projects" variant="outline" size="lg">

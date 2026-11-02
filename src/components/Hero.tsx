@@ -24,7 +24,7 @@ const Home = async () => {
           eyebrow="01 / Портфолио"
           title="Проекты"
           action={
-            <Button href="/projects" variant="outline" arrow>
+            <Button href="/projects" variant="outline">
               Все проекты
             </Button>
           }

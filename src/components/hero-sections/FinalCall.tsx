@@ -10,7 +10,7 @@ const FinalCall: FC<{ eyebrow?: string }> = ({ eyebrow }) => (
         {eyebrow && <span className={scss.call__eyebrow}>{eyebrow}</span>}
         <h2 className={scss.call__title}>Расскажите о задаче — предложим команду и сроки</h2>
       </div>
-      <Button href="/contact" variant="dark" size="lg" arrow>
+      <Button href="/contact" variant="outline" size="lg">
         Обсудить проект
       </Button>
     </div>
