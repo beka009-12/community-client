@@ -53,7 +53,7 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
       onMouseLeave={() => setPreviewVisible(false)}
     >
       <ul className={scss.list}>
-        {projects.map((project, index) => (
+        {projects.map((project) => (
           <li key={project.id}>
             <Link
               href={`/projects/${project.id}`}
@@ -64,21 +64,10 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
                 setPreviewVisible(true);
               }}
             >
-              <span className={scss.row__index}>{String(index + 1).padStart(2, "0")}</span>
               <span className={scss.row__name}>{project.name}</span>
-              <StatusPill status={project.status} />
               <span className={scss.row__category}>{project.category}</span>
-              <span className={scss.row__arrow} aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M7 17 17 7M8 7h9v9" />
-                </svg>
+              <span className={scss.row__status}>
+                <StatusPill status={project.status} />
               </span>
             </Link>
           </li>
