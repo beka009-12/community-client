@@ -23,7 +23,7 @@
   font-family: var(--font-body);
   font-size: var(--text-md);
   font-weight: 500;
-  color: var(--color-mist);
+  color: var(--color-text-muted);
   cursor: pointer;
   transition:
     color 0.2s ease,
@@ -31,8 +31,8 @@
     border-color 0.2s ease;
 
   @include hover {
-    color: var(--color-paper);
-    border-color: var(--color-mist);
+    color: var(--color-text);
+    border-color: var(--color-text-muted);
   }
 
   &[aria-pressed="true"] {
@@ -53,11 +53,11 @@
   background: var(--color-surface-raised);
   font-family: var(--font-mono);
   font-size: var(--text-2xs);
-  color: var(--color-paper);
+  color: var(--color-text);
 
   .filter[aria-pressed="true"] & {
-    background: var(--color-ink);
-    color: var(--color-accent-text);
+    background: rgb(255 255 255 / 0.2);
+    color: var(--color-on-accent);
   }
 }
 
@@ -106,7 +106,7 @@
 
 // Doubled class: beats the Avatar fallback's own background.
 .cell__initials.cell__initials {
-  background: #12161e;
+  background: var(--color-surface);
   transition:
     background-color 0.25s ease,
     color 0.25s ease;
@@ -165,7 +165,7 @@
 
 .cell__position {
   font-size: var(--text-xs);
-  color: var(--color-mist);
+  color: var(--color-text-muted);
 }
 
 .cell__arrow {

@@ -51,7 +51,7 @@
 .card__number {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--color-muted);
+  color: var(--color-text-subtle);
 }
 
 .card__title {
@@ -63,5 +63,5 @@
 }
 
 .card__text {
-  color: var(--color-mist);
+  color: var(--color-text-muted);
 }

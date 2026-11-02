@@ -42,7 +42,7 @@
 .lead {
   max-width: 560px;
   font-size: var(--text-xl);
-  color: var(--color-mist);
+  color: var(--color-text-muted);
 }
 
 .actions {
@@ -153,5 +153,5 @@
 }
 
 .stat__label {
-  color: var(--color-mist);
+  color: var(--color-text-muted);
 }

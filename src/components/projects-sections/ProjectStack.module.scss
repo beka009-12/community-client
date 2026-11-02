@@ -100,7 +100,7 @@
   justify-content: space-between;
   height: 100%;
   padding: 20px;
-  color: var(--color-paper);
+  color: var(--color-text);
 
   &:focus-visible {
     outline-offset: -4px;
@@ -159,7 +159,7 @@
 .plate__meta {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: color-mix(in srgb, var(--color-paper) 72%, transparent);
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
 }
 
 .plate__name {

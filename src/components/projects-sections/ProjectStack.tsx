@@ -58,7 +58,7 @@ const Plate: FC<PlateProps> = ({ project, index, total, progress, onFocus }) => 
 
   return (
     <motion.li className={scss.plate} style={{ y, zIndex: index + 1 }}>
-      <motion.div className={scss.plate__body} style={{ scale, y: lift, boxShadow }}>
+      <motion.div className={`theme-dark ${scss.plate__body}`} style={{ scale, y: lift, boxShadow }}>
         <Link
           href={`/projects/${project.id}`}
           className={scss.plate__link}

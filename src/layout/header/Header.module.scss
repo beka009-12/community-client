@@ -5,12 +5,12 @@
   top: 0;
   z-index: 100;
   border-bottom: 1px solid var(--color-line);
-  background: var(--color-ink);
+  background: var(--color-bg);
   transition: background-color 0.25s ease;
 }
 
 .header--solid {
-  background: rgba(10, 12, 16, 0.88);
+  background: rgb(255 255 255 / 0.88);
   // Prefixed first: with the standard property before it, Lightning CSS
   // kept only the -webkit- one, which Chrome ignores, and the page showed
   // through the header unblurred.
@@ -55,19 +55,19 @@
   border-radius: 999px;
   font-size: var(--text-base);
   font-weight: 500;
-  color: var(--color-mist);
+  color: var(--color-text-muted);
   transition:
     color 0.2s ease,
     background-color 0.2s ease;
 
   @include hover {
-    color: var(--color-paper);
+    color: var(--color-text);
   }
 }
 
 .nav__link--active {
-  color: var(--color-paper);
-  background: var(--color-field);
+  color: var(--color-text);
+  background: var(--color-surface);
 }
 
 .nav__cta {
@@ -90,7 +90,7 @@
     display: block;
     width: 22px;
     height: 1.5px;
-    background: var(--color-paper);
+    background: var(--color-text);
     transition: transform 0.2s ease;
   }
 
@@ -112,7 +112,7 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: var(--color-ink);
+  background: var(--color-bg);
   border-bottom: 1px solid var(--color-line);
 
   @media (min-width: 768px) {
@@ -132,12 +132,12 @@
   min-height: 56px;
   font-size: var(--text-xl);
   font-weight: 500;
-  color: var(--color-mist);
+  color: var(--color-text-muted);
   border-bottom: 1px solid var(--color-line);
 }
 
 .menu__link--active {
-  color: var(--color-paper);
+  color: var(--color-text);
 }
 
 .menu__cta {

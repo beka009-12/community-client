@@ -3,7 +3,7 @@
 }
 
 .empty {
-  color: var(--color-mist);
+  color: var(--color-text-muted);
 
   &:not(:empty) {
     padding-top: 32px;

@@ -31,8 +31,10 @@ const ProfileCard: FC<{ member: MemberDetail }> = ({ member }) => {
           cells on /team, at profile scale. */}
       <div className={scss.photo}>
         <Avatar src={member.avatar} name={name} imageClassName={scss.photo__img} eager />
-        <span className={scss.photo__scrim} aria-hidden="true" />
-        <div className={scss.caption}>
+        {/* The scrim keeps the caption readable over a photo; on the plain
+            initials tile the caption reads in the page's own colours. */}
+        {member.avatar && <span className={scss.photo__scrim} aria-hidden="true" />}
+        <div className={`${member.avatar ? "theme-dark" : ""} ${scss.caption}`}>
           <h1 className={scss.name}>{name}</h1>
           {position && <p className={scss.role}>{position}</p>}
         </div>

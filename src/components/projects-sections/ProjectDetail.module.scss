@@ -15,11 +15,11 @@
   min-height: 44px;
   margin-bottom: 24px;
   font-size: var(--text-md);
-  color: var(--color-mist);
+  color: var(--color-text-muted);
   transition: color 0.2s ease;
 
   @include hover {
-    color: var(--color-paper);
+    color: var(--color-text);
   }
 }
 
@@ -34,14 +34,14 @@
   gap: 8px 16px;
   margin-bottom: 20px;
   font-size: var(--text-sm);
-  color: #8f97a4;
+  color: var(--color-text-muted);
 }
 
 .detail__description {
   max-width: 60ch;
   margin-top: 20px;
   font-size: var(--text-lg);
-  color: var(--color-mist);
+  color: var(--color-text-muted);
 }
 
 .detail__section {
@@ -57,7 +57,7 @@
 }
 
 .detail__details {
-  color: var(--color-mist);
+  color: var(--color-text-muted);
 }
 
 .detail__links {
@@ -106,7 +106,7 @@
 .pager__direction {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--color-muted);
+  color: var(--color-text-subtle);
 }
 
 .pager__name {

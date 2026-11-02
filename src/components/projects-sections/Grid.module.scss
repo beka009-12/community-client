@@ -33,7 +33,7 @@
   transition: border-color 0.3s ease;
 
   @include hover {
-    border-color: #3a4250;
+    border-color: var(--color-text-subtle);
   }
 }
 
@@ -74,5 +74,5 @@
   align-items: center;
   gap: 12px;
   font-size: var(--text-sm);
-  color: #8f97a4;
+  color: var(--color-text-muted);
 }
