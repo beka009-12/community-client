@@ -2,30 +2,38 @@ import { FC, ReactNode } from "react";
 import scss from "./HomeSection.module.scss";
 
 interface HomeSectionProps {
-  // «01 / Портфолио»: the section's place on the page.
-  eyebrow: string;
   title: string;
+  lead?: string;
   id?: string;
-  // A button on the heading's line, e.g. «Все проекты».
+  // A link on the heading's line, e.g. «Все проекты».
   action?: ReactNode;
-  // Right after the hero: slides up over it (see .section--after-hero).
+  // A grey band across the page, to set a section apart from its neighbours.
+  band?: boolean;
+  // Right after the hero, whose last frame is already the white page: a full
+  // section gap on top of it read as an empty screen.
   afterHero?: boolean;
   children: ReactNode;
 }
 
-const HomeSection: FC<HomeSectionProps> = ({ eyebrow, title, id, action, afterHero, children }) => (
+const HomeSection: FC<HomeSectionProps> = ({ title, lead, id, action, band, afterHero, children }) => (
   <section
     id={id}
-    className={`container ${scss.section} ${afterHero ? scss["section--after-hero"] : ""}`}
+    className={[
+      scss.section,
+      band ? scss["section--band"] : "",
+      afterHero ? scss["section--after-hero"] : "",
+    ].join(" ")}
   >
-    <div className={scss.section__head}>
-      <div className={scss.section__titles}>
-        <span className="eyebrow">{eyebrow}</span>
-        <h2 className="section-title">{title}</h2>
+    <div className="container">
+      <div className={scss.section__head}>
+        <div className={scss.section__titles}>
+          <h2 className="section-title">{title}</h2>
+          {lead && <p className={scss.section__lead}>{lead}</p>}
+        </div>
+        {action}
       </div>
-      {action}
+      {children}
     </div>
-    {children}
   </section>
 );
 

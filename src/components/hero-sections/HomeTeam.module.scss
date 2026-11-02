@@ -1,0 +1,71 @@
+@use "../../styles/hover" as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 20px;
+  list-style: none;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.member {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+
+  &:focus-visible {
+    outline-offset: 6px;
+  }
+}
+
+.member__photo {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--color-surface);
+}
+
+// Greyscale until the card is hovered or focused, then full colour.
+.member__img {
+  filter: grayscale(1);
+  outline: 1px solid rgb(0 0 0 / 0.1);
+  outline-offset: -1px;
+  border-radius: inherit;
+  transition: filter 300ms ease-out;
+
+  @include lit-by(".member") {
+    filter: grayscale(0);
+  }
+}
+
+.member__initials {
+  transition: background-color 200ms ease-out;
+
+  @include lit-by(".member") {
+    background: var(--color-accent);
+
+    span {
+      color: var(--color-on-accent);
+    }
+  }
+}
+
+.member__name {
+  margin-top: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.member__position {
+  margin-top: 2px;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
