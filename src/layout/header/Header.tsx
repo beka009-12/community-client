@@ -1,12 +1,13 @@
 "use client";
 
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Button from "@/src/ui/Button";
 import { motionTokens } from "@/src/lib/motion-tokens";
+import { heroTheme } from "@/src/lib/hero-theme";
 import scss from "./Header.module.scss";
 
 const NAV_LINKS = [
@@ -24,18 +25,13 @@ const isActive = (pathname: string, href: string) =>
 const Header: FC = () => {
   const pathname = usePathname();
   const reduce = useReducedMotion();
-  const [scrolled, setScrolled] = useState(false);
   // The menu belongs to the page it was opened on, so navigating closes it.
   const [menuPath, setMenuPath] = useState<string | null>(null);
   const menuOpen = menuPath === pathname;
   const burgerRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  // On home the header floats over the dark hero until the page turns light.
+  const heroDark = useSyncExternalStore(heroTheme.subscribe, heroTheme.get, () => true);
+  const overHero = pathname === "/" && heroDark;
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -53,7 +49,11 @@ const Header: FC = () => {
 
   return (
     <header
-      className={`${scss.header} ${scrolled || menuOpen ? scss["header--solid"] : ""}`}
+      className={[
+        scss.header,
+        overHero ? "theme-dark" : "",
+        overHero && !menuOpen ? scss["header--over"] : "",
+      ].join(" ")}
     >
       <div className={`container ${scss.header__inner}`}>
         <Link href="/" className={scss.logo} aria-label="Motion Community — на главную">

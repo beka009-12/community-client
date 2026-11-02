@@ -2,6 +2,20 @@
   padding-top: clamp(96px, 10vw, 144px);
 }
 
+// Slides up over the pinned hero (Welcome's runway ends with one screen for
+// it), so it brings its own white.
+.section--after-hero {
+  position: relative;
+  z-index: 1;
+  margin-top: -100svh;
+  padding-top: clamp(40px, 5vw, 64px);
+  background: var(--color-bg);
+
+  @media (prefers-reduced-motion: reduce) {
+    margin-top: 0;
+  }
+}
+
 .section__head {
   display: flex;
   flex-wrap: wrap;

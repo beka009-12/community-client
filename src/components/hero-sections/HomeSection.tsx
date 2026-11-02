@@ -8,11 +8,16 @@ interface HomeSectionProps {
   id?: string;
   // A button on the heading's line, e.g. «Все проекты».
   action?: ReactNode;
+  // Right after the hero: slides up over it (see .section--after-hero).
+  afterHero?: boolean;
   children: ReactNode;
 }
 
-const HomeSection: FC<HomeSectionProps> = ({ eyebrow, title, id, action, children }) => (
-  <section id={id} className={`container ${scss.section}`}>
+const HomeSection: FC<HomeSectionProps> = ({ eyebrow, title, id, action, afterHero, children }) => (
+  <section
+    id={id}
+    className={`container ${scss.section} ${afterHero ? scss["section--after-hero"] : ""}`}
+  >
     <div className={scss.section__head}>
       <div className={scss.section__titles}>
         <span className="eyebrow">{eyebrow}</span>

@@ -41,6 +41,8 @@
   --text-xl: 1.25rem; // 20px: leads, small headings
   --text-2xl: 1.5rem; // 24px: card and section headings
 
+  --header-height: 80px;
+
   // Next.js already scrolls to the top on route change (e.g. clicking
   // the prev/next project pager) — this is what makes that jump glide
   // instead of snapping. The prefers-reduced-motion override below

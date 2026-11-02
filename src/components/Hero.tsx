@@ -7,22 +7,21 @@ import EditorialList from "./projects-sections/EditorialList";
 import ProjectStack from "./projects-sections/ProjectStack";
 import Button from "@/src/ui/Button";
 import { getProjects } from "@/src/server/api/projects";
-import { getStats } from "@/src/server/api/stats";
-import { statsCells } from "@/src/lib/stats-cells";
 
 // The rest of the catalogue is one click away on /projects.
 const HOME_PROJECTS_LIMIT = 5;
 
 const Home = async () => {
-  const [stats, allProjects] = await Promise.all([getStats(), getProjects()]);
+  const allProjects = await getProjects();
   const projects = allProjects.slice(0, HOME_PROJECTS_LIMIT);
   return (
     <>
-      <Welcome stats={statsCells(stats)} />
+      <Welcome />
       {projects.length > 0 && (
         <HomeSection
           eyebrow="01 / Портфолио"
           title="Проекты"
+          afterHero
           action={
             <Button href="/projects" variant="outline">
               Все проекты

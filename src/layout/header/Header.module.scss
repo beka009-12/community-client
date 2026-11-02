@@ -6,23 +6,28 @@
   z-index: 100;
   border-bottom: 1px solid var(--color-line);
   background: var(--color-bg);
-  transition: background-color 0.25s ease;
+  transition-property: background-color, border-color;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
 }
 
-.header--solid {
-  background: rgb(255 255 255 / 0.88);
-  // Prefixed first: with the standard property before it, Lightning CSS
-  // kept only the -webkit- one, which Chrome ignores, and the page showed
-  // through the header unblurred.
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
+// Over the home hero: no band of its own, the hero shows through. Under
+// reduced motion the hero isn't pinned and scrolls under the header, so the
+// header keeps its dark band.
+.header--over {
+  border-color: transparent;
+  background: transparent;
+
+  @media (prefers-reduced-motion: reduce) {
+    background: var(--color-bg);
+  }
 }
 
 .header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: var(--header-height);
 }
 
 .logo {
