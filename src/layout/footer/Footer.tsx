@@ -73,7 +73,7 @@ const Footer: FC<FooterProps> = async ({ loginHref }) => {
 
             <div className={scss.column}>
               <span className={scss.column__label}>Для участников</span>
-              <Button href={loginHref} variant="outline" arrow>
+              <Button href={loginHref} variant="outline">
                 Войти в портал
               </Button>
             </div>

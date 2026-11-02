@@ -24,12 +24,6 @@ export const listOf = <T extends z.ZodType>(item: T) =>
     }),
   );
 
-export const statsSchema = z.object({
-  members_count: z.number(),
-  projects_count: z.number(),
-  companies_count: z.number(),
-});
-
 // A row of members/, and the `user` inside project memberships.
 export const memberListItemSchema = z.object({
   id: z.number(),
@@ -86,7 +80,6 @@ export const memberDetailSchema = memberListItemSchema.extend({
   projects: listOf(memberProjectSchema),
 });
 
-export type Stats = z.infer<typeof statsSchema>;
 export type MemberListItem = z.infer<typeof memberListItemSchema>;
 export type TeamShort = z.infer<typeof teamShortSchema>;
 export type ProjectListItem = z.infer<typeof projectListItemSchema>;

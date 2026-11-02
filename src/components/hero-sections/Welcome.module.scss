@@ -1,30 +1,70 @@
+// Starts under the sticky header, which floats over it on home.
 .hero {
-  background-image: radial-gradient(circle, rgba(238, 241, 245, 0.07) 1px, transparent 1.4px);
-  background-size: 28px 28px;
+  position: relative;
+  margin-top: calc(-1 * var(--header-height));
 }
 
-.hero__grid {
+// svh, not vh: phone toolbars resizing the viewport would make it jump.
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: clip;
+  background: var(--color-bg);
+
+  @media (prefers-reduced-motion: reduce) {
+    position: relative;
+  }
+}
+
+// The scatter, then one more screen that the next section slides over (it
+// is pulled up by 100svh, see HomeSection's .section--after-hero).
+.runway {
+  height: calc(50svh + 100svh);
+
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 48px;
-  padding-top: clamp(64px, 8vw, 120px);
-  padding-bottom: clamp(56px, 6vw, 88px);
+  height: 100%;
+  padding-top: calc(var(--header-height) + 24px);
+  padding-bottom: 48px;
+  will-change: opacity, transform;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 40px;
+  }
 }
 
 .copy {
-  flex: 999 1 560px;
+  flex: 1 1 0;
   min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 32px;
 }
 
 .title {
+  max-width: 12ch;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.125rem, 4.4vw + 0.625rem, 4.5rem);
+  font-size: clamp(2.125rem, 3.6vw + 0.75rem, 4rem);
   line-height: 1.02;
   letter-spacing: -0.035em;
   overflow-wrap: break-word;
@@ -35,33 +75,32 @@
   }
 }
 
-.title__accent {
-  color: var(--color-accent-text);
-}
-
 .lead {
-  max-width: 560px;
+  max-width: 36ch;
+  margin-top: 24px;
   font-size: var(--text-xl);
-  color: var(--color-mist);
+  color: var(--color-text-muted);
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   gap: 12px;
+  margin-top: 40px;
 }
 
 .mark {
   position: relative;
-  flex: 1 1 400px;
-  min-width: 0;
+  flex: 0 0 auto;
   display: grid;
   place-items: center;
-  min-height: 380px;
+  width: min(520px, 38vw);
+  aspect-ratio: 1.15;
 
   @media (max-width: 1024px) {
-    min-height: 300px;
+    width: 100%;
+    aspect-ratio: auto;
+    min-height: 180px;
   }
 }
 
@@ -69,89 +108,48 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 360px;
+  width: 78%;
   aspect-ratio: 1;
   border: 1px dashed #232833;
   border-radius: 50%;
   transform: translate(-50%, -50%);
 
-  // Stacked under the copy, the mark spans the container: on the narrowest
-  // phones the rings shrink with it instead of widening the page.
+  // Stacked under the copy the rings shrink with the logo instead of
+  // widening the page.
   @media (max-width: 1024px) {
-    width: 260px;
+    width: 170px;
     max-width: 100%;
   }
 }
 
 .mark__ring--outer {
-  width: 470px;
+  width: 100%;
   border: 1px solid #161a21;
 
   @media (max-width: 1024px) {
-    width: 340px;
+    width: 230px;
   }
 }
 
-// Centred on the rings the same way. Wider than the 400px mark on laptops,
-// it spills evenly to both sides; as a grid item it hung off the right edge
-// and pushed the page sideways.
-.mark__canvas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(480px, 36vw);
-  aspect-ratio: 1.35 / 1;
-  transform: translate(-50%, -50%);
+// The box the canvas draws the logo into (the sampling canvas is 320×220).
+.mark__logo {
+  position: relative;
+  width: 90%;
+  aspect-ratio: 320 / 220;
+  display: grid;
+  place-items: center;
+
+  @media (max-width: 1024px) {
+    width: min(200px, 52vw);
+  }
 }
 
 // The logo filled with a dot grid: the phone stand-in for the particles.
 .mark__dots {
-  position: relative;
-  width: min(240px, 60vw);
+  width: 100%;
   aspect-ratio: 253 / 134;
   background-image: radial-gradient(circle, var(--color-accent-mark) 1.5px, transparent 1.9px);
   background-size: 7px 7px;
   -webkit-mask: url("/brand/motion-logo.svg") center / contain no-repeat;
   mask: url("/brand/motion-logo.svg") center / contain no-repeat;
-}
-
-.stats__wrap {
-  padding-bottom: clamp(72px, 8vw, 112px);
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  overflow: hidden;
-  border: 1px solid var(--color-line);
-  border-radius: 24px;
-  background: var(--color-surface);
-}
-
-.stat {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-  align-items: baseline;
-  gap: 16px;
-  padding: 28px 32px;
-  border-right: 1px solid var(--color-line);
-  border-bottom: 1px solid var(--color-line);
-  margin: 0 -1px -1px 0;
-}
-
-.stat__value {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 3.5rem;
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-
-.stat__value--accent {
-  color: var(--color-accent-text);
-}
-
-.stat__label {
-  color: var(--color-mist);
 }

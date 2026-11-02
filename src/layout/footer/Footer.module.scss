@@ -33,7 +33,7 @@
 }
 
 .muted {
-  color: var(--color-mist);
+  color: var(--color-text-muted);
 }
 
 .footer__columns {
@@ -50,11 +50,9 @@
 }
 
 .column__label {
-  font-family: var(--font-mono);
-  font-size: var(--text-2xs);
+  font-size: var(--text-sm);
   font-weight: 500;
-  text-transform: uppercase;
-  color: var(--color-muted);
+  color: var(--color-text-subtle);
 }
 
 .links {
@@ -80,5 +78,5 @@
   padding-block: 24px;
   border-top: 1px solid var(--color-line);
   font-size: var(--text-sm);
-  color: var(--color-muted);
+  color: var(--color-text-subtle);
 }

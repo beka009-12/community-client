@@ -70,13 +70,13 @@
 }
 
 .role {
-  color: rgba(236, 238, 242, 0.8);
+  color: var(--color-text-muted);
 }
 
 .position {
   margin-top: 2px;
   font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--color-text-muted);
 }
 
 .body {
@@ -107,7 +107,7 @@
     transition: border-color 0.2s ease;
 
     @include hover {
-      border-color: var(--color-mist);
+      border-color: var(--color-text-muted);
     }
   }
 }

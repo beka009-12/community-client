@@ -2,23 +2,21 @@ export type ServiceCategory = "web" | "systems" | "bots" | "ai";
 
 export interface Service {
   category: ServiceCategory;
-  // English label shown on the homepage cards; ServicesPreview's
-  // [data-tag="..."] CSS variants key off it.
-  tag: string;
   title: string;
   description: string;
   includes: string[];
   team: string[];
+  // A project from the portfolio to show next to the service on home (its
+  // id in the API). Null draws a dotted illustration instead.
+  projectId: number | null;
 }
 
-// Single source for the homepage teaser (ServicesPreview), the detailed
-// About section and the request form's project types. `category` is the
-// service's own id (CSS hooks, tab ids): API project categories are free
-// text and don't map onto services.
+// Single source for the home services and the request form's project types.
+// `category` is the service's own id: API project categories are free text
+// and don't map onto services, hence `projectId`.
 export const SERVICES: Service[] = [
   {
     category: "web",
-    tag: "Landing & Sites",
     title: "Лендинги и сайты",
     description:
       "Быстрые маркетинговые сайты и корпоративные страницы на React и Next.js.",
@@ -29,10 +27,10 @@ export const SERVICES: Service[] = [
       "Базовое SEO и подключение аналитики",
     ],
     team: ["UI/UX-дизайнер", "Frontend-разработчик"],
+    projectId: null,
   },
   {
     category: "systems",
-    tag: "Web-systems",
     title: "Веб-системы",
     description:
       "CRM, LMS и панели управления — сложная бизнес-логика в понятном интерфейсе.",
@@ -43,10 +41,10 @@ export const SERVICES: Service[] = [
       "Тестирование перед релизом",
     ],
     team: ["Тимлид", "Backend-разработчик", "Frontend-разработчик", "QA-инженер"],
+    projectId: null,
   },
   {
     category: "bots",
-    tag: "Telegram-bots",
     title: "Telegram-боты",
     description:
       "Автоматизация процессов и коммуникации прямо в мессенджере клиента.",
@@ -57,10 +55,10 @@ export const SERVICES: Service[] = [
       "Деплой и сопровождение",
     ],
     team: ["Backend-разработчик", "Frontend-разработчик"],
+    projectId: null,
   },
   {
     category: "ai",
-    tag: "AI-integrations",
     title: "AI-интеграции",
     description:
       "Чат-боты, компьютерное зрение и аналитика поверх готовых моделей.",
@@ -71,6 +69,7 @@ export const SERVICES: Service[] = [
       "Проверка качества на ваших данных",
     ],
     team: ["AI/ML-инженер", "Backend-разработчик"],
+    projectId: null,
   },
 ];
 

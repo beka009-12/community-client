@@ -53,12 +53,12 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, team, adjacent }) => {
         {hasLinks && (
           <div className={scss.detail__links}>
             {project.demo_url && (
-              <Button href={project.demo_url} external arrow>
+              <Button href={project.demo_url} external>
                 Открыть демо
               </Button>
             )}
             {project.github_url && (
-              <Button href={project.github_url} variant="outline" external arrow>
+              <Button href={project.github_url} variant="outline" external>
                 GitHub
               </Button>
             )}

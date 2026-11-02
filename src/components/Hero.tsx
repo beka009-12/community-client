@@ -1,30 +1,31 @@
 import Welcome from "./hero-sections/Welcome";
+import Services from "./hero-sections/Services";
 import HomeSection from "./hero-sections/HomeSection";
-import ServiceRows from "./hero-sections/ServiceRows";
-import Process from "./hero-sections/Process";
+import HomeTeam from "./hero-sections/HomeTeam";
 import FinalCall from "./hero-sections/FinalCall";
 import EditorialList from "./projects-sections/EditorialList";
 import ProjectStack from "./projects-sections/ProjectStack";
 import Button from "@/src/ui/Button";
 import { getProjects } from "@/src/server/api/projects";
-import { getStats } from "@/src/server/api/stats";
-import { statsCells } from "@/src/lib/stats-cells";
+import { getMembers } from "@/src/server/api/members";
 
 // The rest of the catalogue is one click away on /projects.
 const HOME_PROJECTS_LIMIT = 5;
 
 const Home = async () => {
-  const [stats, allProjects] = await Promise.all([getStats(), getProjects()]);
+  const [allProjects, members] = await Promise.all([getProjects(), getMembers()]);
   const projects = allProjects.slice(0, HOME_PROJECTS_LIMIT);
   return (
     <>
-      <Welcome stats={statsCells(stats)} />
+      <Welcome />
+      <Services projects={allProjects} />
       {projects.length > 0 && (
         <HomeSection
-          eyebrow="01 / Портфолио"
+          id="projects"
           title="Проекты"
+          band
           action={
-            <Button href="/projects" variant="outline" arrow>
+            <Button href="/projects" variant="link">
               Все проекты
             </Button>
           }
@@ -35,9 +36,8 @@ const Home = async () => {
           <EditorialList projects={projects} />
         </HomeSection>
       )}
-      <ServiceRows />
-      <Process />
-      <FinalCall eyebrow="04 / Старт" />
+      {members.length > 0 && <HomeTeam members={members} />}
+      <FinalCall />
     </>
   );
 };

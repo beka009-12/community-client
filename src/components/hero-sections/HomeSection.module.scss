@@ -2,17 +2,44 @@
   padding-top: clamp(96px, 10vw, 144px);
 }
 
+// Padded at both ends, since the band's colour shows where it stops.
+.section--band {
+  margin-top: clamp(96px, 10vw, 144px);
+  padding-bottom: clamp(80px, 8vw, 120px);
+  background: var(--color-surface);
+}
+
+// Slides up over the pinned hero (Welcome's runway ends with one screen for
+// it), so it brings its own white.
+.section--after-hero {
+  position: relative;
+  z-index: 1;
+  margin-top: -100svh;
+  padding-top: clamp(40px, 5vw, 64px);
+  background: var(--color-bg);
+
+  @media (prefers-reduced-motion: reduce) {
+    margin-top: 0;
+  }
+}
+
 .section__head {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 40px;
+  gap: 20px 40px;
+  margin-bottom: clamp(40px, 5vw, 64px);
 }
 
 .section__titles {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 18px;
+  max-width: 680px;
+}
+
+.section__lead {
+  font-size: var(--text-xl);
+  color: var(--color-text-muted);
 }

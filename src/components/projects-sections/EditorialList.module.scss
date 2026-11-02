@@ -10,7 +10,7 @@
 
 .list {
   list-style: none;
-  border-top: 1px solid var(--color-line);
+  border-top: 1px solid var(--color-border);
 }
 
 .row {
@@ -18,19 +18,10 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 12px 28px;
-  min-height: 112px;
-  padding: 20px 8px;
-  border-bottom: 1px solid var(--color-line);
-}
-
-.row__index {
-  width: 40px;
-  flex: none;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--color-muted);
-  transition: color 0.2s ease;
+  gap: 12px 32px;
+  min-height: 104px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .row__name {
@@ -41,48 +32,28 @@
   white-space: nowrap;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.5rem, 3vw, 2.625rem);
-  line-height: 1.1;
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1.15;
   letter-spacing: -0.03em;
-  transition: color 0.2s ease;
+  transition: color 150ms ease-out;
 }
 
 .row__category {
   min-width: 112px;
   font-size: var(--text-sm);
-  color: #8f97a4;
+  color: var(--color-text-muted);
 }
 
-.row__arrow {
+// Pills differ in width; a fixed column keeps the categories in line.
+.row__status {
   display: flex;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  color: var(--color-muted);
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
-
-  svg {
-    width: 18px;
-    height: 18px;
-  }
+  justify-content: flex-end;
+  min-width: 148px;
 }
 
-.row[data-active="true"],
-.row:focus-visible {
-  .row__index,
-  .row__name {
-    color: var(--color-accent-text);
-  }
-
-  .row__arrow {
-    background: var(--color-accent);
-    color: var(--color-on-accent);
-  }
+.row[data-active="true"] .row__name,
+.row:focus-visible .row__name {
+  color: var(--color-accent-text);
 }
 
 // Cursor-follow preview — decorative only, so it never intercepts clicks
@@ -95,11 +66,17 @@
   width: 300px;
   height: 196px;
   overflow: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: 18px;
-  background: var(--color-field);
-  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
+  border: 1px solid transparent;
+  border-radius: 16px;
+  background: var(--color-surface-raised);
+  box-shadow:
+    0 2px 6px rgb(14 19 32 / 0.08),
+    0 24px 56px -12px rgb(14 19 32 / 0.28);
   pointer-events: none;
+
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
 }
 
 .preview__image {

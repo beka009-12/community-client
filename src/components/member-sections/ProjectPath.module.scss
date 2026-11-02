@@ -1,7 +1,7 @@
 @use "../../styles/hover" as *;
 
 .empty {
-  color: var(--color-mist);
+  color: var(--color-text-muted);
 }
 
 .list {
@@ -45,5 +45,5 @@
 
 .row__meta {
   font-size: var(--text-sm);
-  color: var(--color-mist);
+  color: var(--color-text-muted);
 }

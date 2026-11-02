@@ -1,27 +1,30 @@
+// The site is light; the home hero, the closing call and photo overlays
+// switch to the dark set with `.theme-dark`. Components only ever read the
+// semantic names, so they work on either.
 :root {
-  --color-ink: #0a0c10;
-  --color-paper: #eef1f5;
-  --color-mist: #a3aab6;
-  --color-muted: #7d8593;
-  --color-line: #1f242d;
-  --color-surface: #0e1116;
-  --color-surface-raised: #1a1f28;
-  --color-border: #2e3440;
-  --color-field: #10131a;
-  // 3.2:1 against --color-field and --color-surface: an empty input's
-  // border is the only thing marking it out (WCAG 1.4.11).
-  --color-field-border: #5e6675;
-  // Ultramarine (OKLCH hue 268°). The fill is deep enough for white text
-  // (6:1) but too dark to read as text on the near-black page, so text and
-  // marks take the lighter step: 6.9:1 on --color-ink, 5.9:1 on
-  // --color-surface-raised.
+  --color-bg: #ffffff;
+  --color-text: #0e1320;
+  // 6.7:1 on --color-bg, 6.1:1 on --color-surface.
+  --color-text-muted: #555c6b;
+  --color-text-subtle: #626876;
+  --color-line: #e6e8ec;
+  --color-surface: #f3f4f6;
+  --color-surface-raised: #ffffff;
+  --color-border: #d5d9e0;
+  --color-field: #ffffff;
+  // 3.4:1 against --color-field: an empty input's border is the only thing
+  // marking it out (WCAG 1.4.11).
+  --color-field-border: #868c99;
+  // Ultramarine: 6:1 both as text on white and under white text.
   --color-accent: #324ff0;
-  --color-accent-hover: #4367f2;
+  --color-accent-hover: #2840d0;
   --color-on-accent: #ffffff;
-  --color-accent-text: #7a97ea;
-  // Dots, rings, focus outlines: no text, same step as --color-accent-text.
-  --color-accent-mark: #7a97ea;
-  --color-danger: #f87171;
+  --color-accent-text: #324ff0;
+  // Dots, rings, focus outlines.
+  --color-accent-mark: #324ff0;
+  --color-danger: #c8261b;
+  // The hero's particles keep the logo's own light blue on either theme.
+  --color-ink: #0a0c10;
 
   --font-display: var(--font-unbounded), system-ui, sans-serif;
   --font-body: var(--font-onest), system-ui, sans-serif;
@@ -38,11 +41,33 @@
   --text-xl: 1.25rem; // 20px: leads, small headings
   --text-2xl: 1.5rem; // 24px: card and section headings
 
+  --header-height: 80px;
+
   // Next.js already scrolls to the top on route change (e.g. clicking
   // the prev/next project pager) — this is what makes that jump glide
   // instead of snapping. The prefers-reduced-motion override below
   // already resets this to `auto`, so it was silently unused until now.
   scroll-behavior: smooth;
+}
+
+// The dark set: same names, so everything inside renders light on dark.
+.theme-dark {
+  --color-bg: var(--color-ink);
+  --color-text: #eef1f5;
+  --color-text-muted: #a3aab6;
+  --color-text-subtle: #7d8593;
+  --color-line: #1f242d;
+  --color-surface: #0e1116;
+  --color-surface-raised: #1a1f28;
+  --color-border: #2e3440;
+  --color-field: #10131a;
+  --color-field-border: #5e6675;
+  --color-accent-hover: #4367f2;
+  // The fill is too dark to read as text on near-black: 6.9:1 on the bg.
+  --color-accent-text: #7a97ea;
+  --color-accent-mark: #7a97ea;
+  --color-danger: #f87171;
+  color: var(--color-text);
 }
 
 * {
@@ -58,8 +83,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  background-color: var(--color-ink);
-  color: var(--color-paper);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   font-family: var(--font-body);
   font-size: var(--text-lg);
   line-height: 1.55;
@@ -94,14 +119,6 @@ body {
   line-height: 1.05;
   letter-spacing: -0.03em;
   overflow-wrap: anywhere;
-}
-
-// «01 / Портфолио» above a section title.
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--color-accent-text);
 }
 
 button,
