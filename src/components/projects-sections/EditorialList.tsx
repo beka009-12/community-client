@@ -74,24 +74,25 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
         ))}
       </ul>
 
-      {!reduce && (
-        <motion.div
-          aria-hidden="true"
-          className={scss.preview}
-          style={{ x: springX, y: springY }}
-          initial={false}
-          animate={{ opacity: previewVisible ? 1 : 0, scale: previewVisible ? 1 : 0.92 }}
-          transition={{ duration: 0.2 }}
-        >
-          {previewProject && (
-            <ProjectCover
-              src={previewProject.image}
-              name={previewProject.name}
-              imageClassName={scss.preview__image}
-            />
-          )}
-        </motion.div>
-      )}
+      {/* Always rendered: useReducedMotion is null on the server, so
+          rendering it conditionally broke hydration. CSS hides it under
+          reduced motion. */}
+      <motion.div
+        aria-hidden="true"
+        className={scss.preview}
+        style={{ x: springX, y: springY }}
+        initial={false}
+        animate={{ opacity: previewVisible ? 1 : 0, scale: previewVisible ? 1 : 0.92 }}
+        transition={{ duration: 0.2 }}
+      >
+        {previewProject && (
+          <ProjectCover
+            src={previewProject.image}
+            name={previewProject.name}
+            imageClassName={scss.preview__image}
+          />
+        )}
+      </motion.div>
     </div>
   );
 };
