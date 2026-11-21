@@ -1,121 +1,184 @@
 @use "../../styles/hover" as *;
 
-.detail {
-  padding-top: clamp(32px, 5vw, 56px);
-}
-
-// Left-aligned like the rest of the site; only the reading column is capped.
-.detail__inner > * {
-  max-width: 880px;
-}
-
-.detail__back {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  margin-bottom: 24px;
-  font-size: var(--text-md);
-  color: var(--color-text-muted);
-  transition: color 0.2s ease;
-
-  @include hover {
-    color: var(--color-text);
+// The intro sits a little higher than on list pages: the cover follows it.
+.intro {
+  :global(.container) {
+    padding-top: clamp(56px, 6.1vw, 88px);
+    padding-bottom: clamp(56px, 6.7vw, 96px);
   }
 }
 
-.detail__header {
-  margin-bottom: 40px;
+// «Паспорт проекта»: label left, value right, hairlines between.
+.passport__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+
+  & + & {
+    border-top: 1px solid var(--color-line);
+  }
 }
 
-.detail__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 16px;
-  margin-bottom: 20px;
+.passport__label {
   font-size: var(--text-sm);
+  line-height: 1.45;
   color: var(--color-text-muted);
 }
 
-.detail__description {
-  max-width: 60ch;
-  margin-top: 20px;
+.passport__value {
   font-size: var(--text-lg);
-  color: var(--color-text-muted);
-}
-
-.detail__section {
-  margin-top: 56px;
-}
-
-.detail__sectionTitle {
-  margin-bottom: 20px;
-  font-family: var(--font-display);
-  font-size: var(--text-2xl);
   font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  line-height: 1.4;
+  text-align: end;
 }
 
-.detail__details {
-  color: var(--color-text-muted);
+.cover {
+  background: linear-gradient(to bottom, var(--color-ink) 50%, var(--color-bg) 50%);
 }
 
-.detail__links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 28px;
-  margin-top: 40px;
+.cover__frame {
+  position: relative;
+  aspect-ratio: 1184 / 684;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--color-surface);
 }
 
-.pager {
+.about {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: clamp(64px, 8vw, 96px);
-  padding-top: 32px;
-  border-top: 1px solid var(--color-line);
+  grid-template-columns: minmax(0, 720px) minmax(260px, 360px);
+  justify-content: space-between;
+  gap: 56px 64px;
+  padding-top: clamp(56px, 6.7vw, 96px);
+  padding-bottom: clamp(64px, 7.2vw, 104px);
 
-  @media (max-width: 639px) {
-    grid-template-columns: 1fr;
+  @media (max-width: 900px) {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
-.pager__link {
+// No story and no links: the team list on its own, at reading width.
+.about--single {
+  grid-template-columns: minmax(0, 720px);
+}
+
+.story {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-
-  @include hover {
-    .pager__name {
-      color: var(--color-accent-text);
-    }
-  }
+  gap: 40px;
+  min-width: 0;
 }
 
-.pager__link--next {
-  align-items: flex-end;
-  text-align: end;
-
-  @media (max-width: 639px) {
-    align-items: flex-start;
-    text-align: start;
-  }
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.pager__direction {
-  font-size: var(--text-sm);
-  color: var(--color-text-subtle);
-}
-
-.pager__name {
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2.4vw, 2rem);
+.block__title {
+  font-size: 2rem;
   font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.01em;
+}
+
+.block__text {
+  max-width: 36em;
+  font-size: var(--text-xl);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.details__title {
+  font-size: var(--text-xl);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.details__empty {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+}
+
+// «Следующий проект»: a grey band, the whole of it one link.
+.next {
+  background: var(--color-surface);
+}
+
+.next__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px 48px;
+  padding-top: clamp(48px, 5vw, 72px);
+  padding-bottom: clamp(48px, 5vw, 72px);
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  @include hover {
+    .next__name {
+      color: var(--color-accent-text);
+    }
+  }
+
+  &:focus-visible .next__name {
+    color: var(--color-accent-text);
+  }
+}
+
+.next__text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 560px;
+}
+
+.next__label {
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+.next__name {
+  font-size: clamp(2rem, 1.3rem + 2.1vw, 2.875rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
   text-wrap: balance;
   overflow-wrap: anywhere;
-  transition: color 0.2s ease;
+  transition: color 150ms ease-out;
+}
+
+.next__meta {
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+.next__preview {
+  position: relative;
+  flex-shrink: 0;
+  width: min(440px, 100%);
+  aspect-ratio: 440 / 254;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--color-surface-raised);
 }
