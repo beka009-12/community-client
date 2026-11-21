@@ -3,7 +3,7 @@ import Team from "@/src/components/Team";
 
 export const metadata: Metadata = {
   title: "Команда — Motion Community",
-  description: "Разработчики, дизайнеры и тимлиды сообщества Motion.",
+  description: "Разработчики, дизайнеры и тимлиды Motion Community.",
 };
 
 const Page = () => <Team />;

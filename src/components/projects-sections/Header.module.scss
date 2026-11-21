@@ -37,8 +37,8 @@
   }
 
   &[aria-pressed="true"] {
-    border-color: var(--color-accent);
-    background: var(--color-accent);
-    color: var(--color-on-accent);
+    border-color: var(--color-inverse);
+    background: var(--color-inverse);
+    color: var(--color-on-inverse);
   }
 }

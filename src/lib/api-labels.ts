@@ -1,12 +1,12 @@
 import type { MembershipRole, Position, ProjectStatus } from "./api-enums";
 
 export const POSITION_LABELS: Record<Position, string> = {
-  Frontend_Developer: "Frontend Developer",
-  Backend_Developer: "Backend Developer",
-  Fullstack_Developer: "Fullstack Developer",
-  UI_UX_Designer: "UI/UX Designer",
-  QA_Engineer: "QA Engineer",
-  Mobile_Developer: "Mobile Developer",
+  Frontend_Developer: "Frontend-разработчик",
+  Backend_Developer: "Backend-разработчик",
+  Fullstack_Developer: "Fullstack-разработчик",
+  UI_UX_Designer: "UI/UX-дизайнер",
+  QA_Engineer: "QA-инженер",
+  Mobile_Developer: "Mobile-разработчик",
 };
 
 // Fresh accounts can have no position yet.

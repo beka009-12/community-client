@@ -87,6 +87,7 @@
     font-family: var(--font-display);
     font-size: var(--text-2xl);
     font-weight: 700;
+    line-height: 1.2;
     letter-spacing: -0.02em;
   }
 
@@ -104,6 +105,12 @@
       width: 100%;
     }
   }
+}
+
+.field__hint {
+  margin-top: -4px;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
 }
 
 .field__error {

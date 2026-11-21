@@ -26,7 +26,7 @@ const MemberProfile: FC<{ member: MemberDetail }> = ({ member }) => {
             <section className={scss.section}>
               <h2 className={scss.section__title}>О себе</h2>
               <p className={scss.bio}>
-                {member.bio || "Участник пока ничего не рассказал о себе."}
+                {member.bio || "Рассказа о себе пока нет."}
               </p>
             </section>
 

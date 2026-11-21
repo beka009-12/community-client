@@ -23,5 +23,7 @@
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.04em;
-  color: var(--color-accent-text);
+  // A placeholder stays quiet: in the accent, a row of initials outshouted
+  // every action on /team. 5:1 on --color-surface.
+  color: var(--color-text-subtle);
 }
