@@ -53,15 +53,20 @@ export const ACADEMY_PROGRAMS: AcademyProgram[] = [
   },
 ];
 
-export const ACADEMY_ALUMNI_EMPLOYERS: string[] = [
-  "MBank",
-  "Айыл Банк",
-  "Банк Азии",
-  "Кыргыз Алтын",
-  "Growave",
-  "Remotion",
-  "Skynet",
-  "TimelySkills",
-  "Мэрия Бишкека",
-  "Жогорку Кенеш",
+// The academy's own counters on motion.kg.
+export const ACADEMY_NUMBERS: { value: string; label: string }[] = [
+  { value: "2020", label: "год основания, Бишкек" },
+  { value: "5+", label: "лет учит программированию" },
+  { value: "15+", label: "сотрудников в академии" },
+  { value: "95%", label: "положительных отзывов студентов" },
 ];
+
+// Courses next to the programs (motion.kg, «Негизги курстар»).
+export const ACADEMY_EXTRA_COURSES: { title: string; text: string }[] = [
+  { title: "Ораторское искусство", text: "Выступления и презентации" },
+  { title: "Английский и русский язык", text: "С начала программы до конца курса" },
+  { title: "Онлайн-курс для родителей", text: "6 дней" },
+];
+
+export const ACADEMY_ADDRESS = "Бишкек, ул. Куренкеева, 138";
+export const ACADEMY_PHONE = "+996 700 232 400";

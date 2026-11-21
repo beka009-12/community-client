@@ -1,0 +1,126 @@
+.academy {
+  padding-top: clamp(64px, 8vw, 104px);
+  padding-bottom: clamp(64px, 8vw, 104px);
+  background: var(--color-surface);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 500px);
+  align-items: start;
+  gap: 40px 64px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.top__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  min-width: 0;
+}
+
+.title {
+  font-size: clamp(2rem, 1.3rem + 2.1vw, 2.875rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  max-width: 36em;
+  font-size: var(--text-xl);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.number {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--color-surface-raised);
+}
+
+.number__label {
+  order: 2;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.number__value {
+  order: 1;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: clamp(40px, 5vw, 56px);
+
+  @media (max-width: 900px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card {
+  padding: 24px 24px 12px;
+  border-radius: 16px;
+  background: var(--color-surface-raised);
+}
+
+.card__title {
+  font-size: var(--text-xl);
+  font-weight: 500;
+}
+
+.card__rows {
+  margin-top: 12px;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-block: 12px;
+
+  & + & {
+    border-top: 1px solid var(--color-line);
+  }
+}
+
+.row__title {
+  font-size: var(--text-md);
+  font-weight: 500;
+}
+
+.row__text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+a.row__text {
+  align-self: flex-start;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.alumni {
+  margin-top: clamp(56px, 7vw, 88px);
+}

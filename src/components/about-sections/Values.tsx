@@ -4,7 +4,7 @@ import { typograph } from "@/src/lib/typograph";
 import scss from "./Values.module.scss";
 
 const Values: FC = () => (
-  <section className={scss.values} aria-labelledby="values-title" data-footer-flush>
+  <section className={scss.values} aria-labelledby="values-title">
     <div className="container">
       <h2 id="values-title" className={scss.values__title}>
         Что для нас важно

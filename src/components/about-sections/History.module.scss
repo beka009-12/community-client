@@ -12,10 +12,10 @@
 
 .history__title {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.625rem, 1.3rem + 1vw, 2rem);
-  line-height: 1.25;
-  letter-spacing: -0.03em;
+  font-weight: 500;
+  font-size: clamp(2rem, 1.3rem + 2.1vw, 2.875rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 
 .history__lead {
@@ -27,28 +27,76 @@
   list-style: none;
 }
 
+// Year, then a rail with a dot per event; the rail runs down to the next
+// dot, and the last event («Сейчас») gets the filled accent dot.
 .event {
+  position: relative;
   display: grid;
-  grid-template-columns: 150px minmax(0, 1fr);
-  gap: 8px 32px;
-  padding: 28px 0;
-  border-top: 1px solid var(--color-line);
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 8px 48px;
+  padding-bottom: 40px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 128px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--color-field-border);
+    border-radius: 50%;
+    background: var(--color-bg);
+  }
+
+  &:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 26px;
+    bottom: 0;
+    left: 133px;
+    width: 2px;
+    background: var(--color-border);
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+
+    &::before {
+      border-color: var(--color-accent-mark);
+      background: var(--color-accent-mark);
+    }
+  }
 
   @media (max-width: 639px) {
     grid-template-columns: minmax(0, 1fr);
+    padding-left: 32px;
+
+    &::before {
+      top: 6px;
+      left: 0;
+    }
+
+    &:not(:last-child)::after {
+      top: 22px;
+      left: 5px;
+    }
   }
 }
 
 .event__year {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.375rem;
-  line-height: 1.4;
-  letter-spacing: -0.02em;
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-subtle);
+
+  .event:last-child & {
+    color: var(--color-accent-text);
+  }
 }
 
 .event__title {
-  font-size: 1.375rem;
+  font-size: var(--text-xl);
   font-weight: 500;
   line-height: 1.4;
 }
@@ -56,6 +104,6 @@
 .event__text {
   max-width: 40em;
   margin-top: 8px;
-  font-size: var(--text-base);
+  font-size: var(--text-md);
   color: var(--color-text-muted);
 }

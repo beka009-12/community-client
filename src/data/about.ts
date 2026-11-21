@@ -65,3 +65,35 @@ export const VALUES: Value[] = [
     text: "Прозрачные этапы, регулярные демо и ответственность за итог.",
   },
 ];
+
+// The IT Club's own numbers (motion.kg/it-club, checked 2026-11-14).
+export const CLUB_FACTS: { value: string; label: string }[] = [
+  { value: "100+", label: "выпускников IT Клуба работают в IT" },
+  { value: "30+", label: "человек сейчас на менторстве" },
+  { value: "50+", label: "реальных проектов прошли через клуб" },
+];
+
+export interface PathStep {
+  title: string;
+  text: string;
+}
+
+// How a person gets into a project team: a real sequence, hence numbered.
+export const MEMBER_PATH: PathStep[] = [
+  {
+    title: "Учится в академии",
+    text: "JavaScript-инженер или AI-разработка: 15–18 месяцев с нуля до первой работы.",
+  },
+  {
+    title: "Стажируется в IT Клубе",
+    text: "3–6 месяцев на реальных задачах вместе с менторами.",
+  },
+  {
+    title: "Работает в проектной команде",
+    text: "Делает продукты для компаний: бриф, спринты, демо, код-ревью.",
+  },
+  {
+    title: "Получает оффер",
+    text: "Лучших академия приглашает на работу.",
+  },
+];
