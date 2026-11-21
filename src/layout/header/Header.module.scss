@@ -24,29 +24,6 @@
   min-height: 44px;
 }
 
-.logo__image {
-  display: block;
-  width: auto;
-  height: 30px;
-}
-
-// Where the community belongs, next to the logo on wide screens.
-.tagline {
-  display: none;
-  max-width: 13em;
-  margin-right: auto;
-  margin-left: 20px;
-  padding-left: 20px;
-  border-left: 1px solid var(--color-line);
-  font-size: var(--text-xs);
-  line-height: 1.4;
-  color: var(--color-text-muted);
-
-  @media (min-width: 1200px) {
-    display: block;
-  }
-}
-
 // Five links and the button need ~760px, so phones and narrow tablets get
 // the burger.
 .nav {
@@ -62,10 +39,10 @@
 .nav__link {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
-  padding: 0 16px;
+  min-height: 40px;
+  padding: 0 14px;
   border-radius: 999px;
-  font-size: var(--text-base);
+  font-size: var(--text-md);
   font-weight: 500;
   white-space: nowrap;
   color: var(--color-text-muted);
@@ -84,7 +61,7 @@
 }
 
 .nav__cta {
-  margin-left: 12px;
+  margin-left: 16px;
 }
 
 .burger {

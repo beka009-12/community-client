@@ -1,0 +1,38 @@
+// Proportions from the Figma lockup: the wordmark is ~1.76× the mark's
+// width, set at 0.264× of it, 0.09× below it.
+.lockup {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--logo-width) * 0.09);
+}
+
+.lockup--sm {
+  --logo-width: 46px;
+}
+
+.lockup--lg {
+  --logo-width: 72px;
+}
+
+.mark {
+  display: block;
+  width: var(--logo-width);
+  height: auto;
+  overflow: visible;
+
+  rect,
+  path {
+    fill: var(--color-logo);
+    stroke: var(--color-logo-edge);
+  }
+}
+
+.wordmark {
+  font-family: var(--font-wordmark), system-ui, sans-serif;
+  font-size: calc(var(--logo-width) * 0.264);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--color-wordmark);
+}
