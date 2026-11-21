@@ -8,23 +8,26 @@
 // Same form-control look as contact-sections/RequestForm's inputs
 // (10px radius, surface-2 background) — this is a filter control, not
 // a nav tab, so it deliberately doesn't reuse the pill-tab styling.
+// The mockup's status filter: an outlined pill next to the filter chips.
 .trigger {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   min-height: 44px;
-  padding: 0 14px;
-  border: 1px solid var(--color-field-border);
-  border-radius: 10px;
-  background: var(--color-field);
+  padding: 10px 14px 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface-raised);
   color: var(--color-text);
-  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
   font-weight: 500;
+  line-height: 1.4;
   cursor: pointer;
-  transition: border-color 0.2s ease;
+  transition: border-color 150ms ease-out;
 
   @include hover {
-    border-color: color-mix(in srgb, var(--color-accent-mark) 40%, transparent);
+    border-color: var(--color-text-subtle);
   }
 }
 

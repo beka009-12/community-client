@@ -1,0 +1,44 @@
+@use "hover" as *;
+
+// The mockup's filter and choice pill: grey fill, dark when chosen. Used by
+// the project and team filters and the request form's project types.
+@mixin chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 41px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--color-fill);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    background-color 150ms ease-out,
+    color 150ms ease-out;
+
+  @include hover {
+    background: var(--color-fill-hover);
+  }
+}
+
+@mixin chip-selected {
+  background: var(--color-inverse);
+  color: var(--color-on-inverse);
+
+  @include hover {
+    background: var(--color-inverse);
+  }
+}
+
+// The number after a chip's label.
+@mixin chip-count {
+  font-size: var(--text-xs);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+}

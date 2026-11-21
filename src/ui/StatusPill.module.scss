@@ -1,13 +1,17 @@
+// The «Статус проекта» component: white pill, hairline border, dot first.
 .pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
+  min-height: 32px;
+  padding: 6px 14px 6px 12px;
   border: 1px solid var(--color-border);
   border-radius: 999px;
-  font-size: var(--text-sm);
+  background: var(--color-surface-raised);
+  font-size: var(--text-xs);
+  line-height: 1.4;
   white-space: nowrap;
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 
 .pill__dot {
