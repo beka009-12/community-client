@@ -1,121 +1,111 @@
 @use "../../styles/hover" as *;
+@use "../../styles/chip" as *;
 
 .roster {
-  padding-top: 32px;
+  padding-top: clamp(56px, 5vw, 72px);
+  padding-bottom: clamp(64px, 7.2vw, 104px);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: clamp(2rem, 1.3rem + 2.1vw, 2.875rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 
 .filters {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 32px;
 }
 
 .filter {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  padding: 0 8px 0 18px;
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  background: none;
-  font-family: var(--font-body);
-  font-size: var(--text-md);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  cursor: pointer;
-  transition:
-    color 0.2s ease,
-    background-color 0.2s ease,
-    border-color 0.2s ease;
-
-  @include hover {
-    color: var(--color-text);
-    border-color: var(--color-text-muted);
-  }
+  @include chip;
 
   &[aria-pressed="true"] {
-    border-color: var(--color-inverse);
-    background: var(--color-inverse);
-    color: var(--color-on-inverse);
+    @include chip-selected;
   }
 }
 
 .filter__count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 28px;
-  height: 28px;
-  padding: 0 8px;
-  border-radius: 999px;
-  background: var(--color-surface-raised);
-  font-size: var(--text-2xs);
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  color: var(--color-text);
+  @include chip-count;
 
   .filter[aria-pressed="true"] & {
-    // 10:1 for the count on the chosen pill.
-    background: color-mix(in oklab, var(--color-on-inverse) 20%, transparent);
     color: var(--color-on-inverse);
   }
 }
 
-.sheet {
+.grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  border-top: 1px solid var(--color-line);
-  border-left: 1px solid var(--color-line);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 32px 16px;
   list-style: none;
 
-  @media (min-width: 640px) {
-    grid-template-columns: repeat(3, 1fr);
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(4, 1fr);
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (max-width: 479px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-.cell {
-  border-right: 1px solid var(--color-line);
-  border-bottom: 1px solid var(--color-line);
-}
-
-.cell__link {
+.card {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  height: 100%;
-  padding: 14px;
+  border-radius: 12px;
 
-  @media (max-width: 639px) {
-    gap: 10px;
-    padding: 10px;
+  &:focus-visible {
+    outline-offset: 6px;
   }
 }
 
-.cell__portrait {
+.card__photo {
   position: relative;
   display: block;
   aspect-ratio: 1;
   overflow: hidden;
-  border-radius: 6px;
-  background: var(--color-field);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+.card__img {
+  object-fit: cover;
+  object-position: center 20%;
+  filter: grayscale(1);
+  transition: filter 300ms ease-out;
+
+  @include lit-by(".card") {
+    filter: grayscale(0);
+  }
 }
 
 // Doubled class: beats the Avatar fallback's own background.
-.cell__initials.cell__initials {
+.card__initials.card__initials {
   background: var(--color-surface);
-  transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
+  transition: background-color 200ms ease-out;
 
-  @include lit-by(".cell__link") {
+  span {
+    font-size: 25cqmin;
+    color: var(--color-border);
+    transition: color 200ms ease-out;
+  }
+
+  @include lit-by(".card") {
     background: var(--color-accent);
-    color: var(--color-on-accent);
 
     span {
       color: var(--color-on-accent);
@@ -123,80 +113,28 @@
   }
 }
 
-.cell__img {
-  object-fit: cover;
-  object-position: center 20%;
-  filter: grayscale(100%) contrast(1.05);
-  transition:
-    filter 0.4s ease,
-    transform 0.4s ease;
-
-  @include lit-by(".cell__link") {
-    filter: grayscale(0%);
-    transform: scale(1.04);
-  }
-}
-
-.cell__meta {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.cell__text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.cell__name {
-  font-family: var(--font-display);
+.card__name {
+  margin-top: 14px;
+  font-size: var(--text-md);
   font-weight: 500;
-  font-size: var(--text-base);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  line-height: 1.4;
   overflow-wrap: break-word;
-  hyphens: auto;
+  transition: color 150ms ease-out;
 
-  @media (max-width: 639px) {
-    font-size: var(--text-sm);
+  @include lit-by(".card") {
+    color: var(--color-accent-text);
   }
 }
 
-.cell__position {
+.card__position {
+  margin-top: 2px;
   font-size: var(--text-xs);
+  line-height: 1.4;
   color: var(--color-text-muted);
 }
 
-.cell__arrow {
+.more {
   display: flex;
-  flex: none;
-  align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  color: var(--color-on-accent);
-  opacity: 0;
-  transform: scale(0.8);
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
-
-  svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  @include lit-by(".cell__link") {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  @media (max-width: 639px) {
-    display: none;
-  }
+  padding-top: 40px;
 }
