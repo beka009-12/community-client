@@ -91,7 +91,7 @@ export const MOCK_PEOPLE: HomePerson[] = [
   {
     key: "timur",
     name: "Тимур Асанов",
-    position: "Tech lead · ментор",
+    position: "Tech lead, ментор",
     focus: "Code review и качество",
     badge: { label: "Ментор академии", strong: true },
     photo: null,
