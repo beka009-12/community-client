@@ -1,0 +1,87 @@
+@use "../../styles/hover" as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px 24px;
+  list-style: none;
+
+  @media (max-width: 767px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+}
+
+.card--link:focus-visible {
+  outline-offset: 6px;
+}
+
+// The screenshot sits on a tinted plate, like a device on a desk. Mixed in
+// oklab: in srgb the tint drifted 12° towards violet.
+.card__plate {
+  display: block;
+  padding: clamp(20px, 2.5vw, 36px) clamp(20px, 2.5vw, 36px) clamp(16px, 1.9vw, 27px);
+  border-radius: 12px;
+  background: color-mix(in oklab, var(--color-accent) 9%, var(--color-surface-raised));
+  transition: background-color 200ms ease-out;
+
+  @include lit-by(".card--link") {
+    background: color-mix(in oklab, var(--color-accent) 15%, var(--color-surface-raised));
+  }
+}
+
+.card__shot {
+  position: relative;
+  display: block;
+  aspect-ratio: 572 / 311;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--color-surface-raised);
+}
+
+.card__image {
+  object-fit: cover;
+}
+
+.card__title {
+  margin-top: 28px;
+  font-size: clamp(1.375rem, 1.15rem + 0.6vw, 1.5625rem);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.card__text {
+  margin-top: 10px;
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+}
+
+.card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: 20px;
+}
+
+.card__tag {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--color-surface-raised);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+// Pushed to the right edge when it fits on the line.
+.card__team {
+  margin-left: auto;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}

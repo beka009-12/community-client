@@ -80,6 +80,14 @@ export const memberDetailSchema = memberListItemSchema.extend({
   projects: listOf(memberProjectSchema),
 });
 
+// stats/: companies_count counts accepted client requests only.
+export const statsSchema = z.object({
+  members_count: z.number(),
+  teams_count: z.number(),
+  projects_count: z.number(),
+  companies_count: z.number(),
+});
+
 export type MemberListItem = z.infer<typeof memberListItemSchema>;
 export type TeamShort = z.infer<typeof teamShortSchema>;
 export type ProjectListItem = z.infer<typeof projectListItemSchema>;
@@ -87,3 +95,4 @@ export type Membership = z.infer<typeof membershipSchema>;
 export type ProjectDetail = z.infer<typeof projectDetailSchema>;
 export type MemberProject = z.infer<typeof memberProjectSchema>;
 export type MemberDetail = z.infer<typeof memberDetailSchema>;
+export type Stats = z.infer<typeof statsSchema>;

@@ -23,12 +23,15 @@
   // Dots, rings, focus outlines.
   --color-accent-mark: #324ff0;
   --color-danger: #c8261b;
+  // A chosen filter pill or a role badge: dark fill, so a state never reads
+  // as the page's main action. 18.5:1.
+  --color-inverse: #0e1320;
+  --color-on-inverse: #ffffff;
   // The hero's particles keep the logo's own light blue on either theme.
   --color-ink: #0a0c10;
 
   --font-display: var(--font-unbounded), system-ui, sans-serif;
   --font-body: var(--font-onest), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
   // Text sizes in rem, so they follow the reader's browser font size.
   // Display titles keep their own clamp() next to where they're used.
@@ -67,6 +70,8 @@
   --color-accent-text: #7a97ea;
   --color-accent-mark: #7a97ea;
   --color-danger: #f87171;
+  --color-inverse: #eef1f5;
+  --color-on-inverse: #0a0c10;
   color: var(--color-text);
 }
 
@@ -89,6 +94,18 @@ body {
   font-size: var(--text-lg);
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
 }
 
 .container {

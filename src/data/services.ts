@@ -4,72 +4,35 @@ export interface Service {
   category: ServiceCategory;
   title: string;
   description: string;
-  includes: string[];
-  team: string[];
-  // A project from the portfolio to show next to the service on home (its
-  // id in the API). Null draws a dotted illustration instead.
-  projectId: number | null;
+  // Typical stack, shown under the description on home.
+  stack: string[];
 }
 
 // Single source for the home services and the request form's project types.
-// `category` is the service's own id: API project categories are free text
-// and don't map onto services, hence `projectId`.
 export const SERVICES: Service[] = [
   {
     category: "web",
-    title: "Лендинги и сайты",
-    description:
-      "Быстрые маркетинговые сайты и корпоративные страницы на React и Next.js.",
-    includes: [
-      "Структура и тексты страниц",
-      "Дизайн по брендбуку или с нуля",
-      "Адаптивная вёрстка на Next.js",
-      "Базовое SEO и подключение аналитики",
-    ],
-    team: ["UI/UX-дизайнер", "Frontend-разработчик"],
-    projectId: null,
+    title: "Сайты и лендинги",
+    description: "Корпоративные сайты и лендинги, которые рассказывают о вашем бизнесе.",
+    stack: ["Next.js", "React", "SEO"],
   },
   {
     category: "systems",
     title: "Веб-системы",
-    description:
-      "CRM, LMS и панели управления — сложная бизнес-логика в понятном интерфейсе.",
-    includes: [
-      "Проектирование ролей и бизнес-процессов",
-      "API и база данных",
-      "Интерфейс и админ-панель",
-      "Тестирование перед релизом",
-    ],
-    team: ["Тимлид", "Backend-разработчик", "Frontend-разработчик", "QA-инженер"],
-    projectId: null,
+    description: "Личные кабинеты, CRM и LMS — сложные процессы в простом интерфейсе.",
+    stack: ["Python", "Django", "PostgreSQL"],
   },
   {
     category: "bots",
     title: "Telegram-боты",
-    description:
-      "Автоматизация процессов и коммуникации прямо в мессенджере клиента.",
-    includes: [
-      "Сценарии диалогов",
-      "Интеграция с CRM или таблицами",
-      "Админ-панель для управления",
-      "Деплой и сопровождение",
-    ],
-    team: ["Backend-разработчик", "Frontend-разработчик"],
-    projectId: null,
+    description: "Сервисы в привычном мессенджере: от записи на курс до автоматизации заявок.",
+    stack: ["Python", "aiogram", "API"],
   },
   {
     category: "ai",
     title: "AI-интеграции",
-    description:
-      "Чат-боты, компьютерное зрение и аналитика поверх готовых моделей.",
-    includes: [
-      "Подбор модели под задачу",
-      "Интеграция LLM или компьютерного зрения",
-      "API для вашего продукта",
-      "Проверка качества на ваших данных",
-    ],
-    team: ["AI/ML-инженер", "Backend-разработчик"],
-    projectId: null,
+    description: "Подключаем AI к вашему продукту: ассистенты, поиск и работа с данными.",
+    stack: ["LLM", "RAG", "интеграции"],
   },
 ];
 
