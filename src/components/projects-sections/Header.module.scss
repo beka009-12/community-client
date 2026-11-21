@@ -1,4 +1,4 @@
-@use "../../styles/hover" as *;
+@use "../../styles/chip" as *;
 
 .filters {
   display: flex;
@@ -16,29 +16,17 @@
 }
 
 .tab {
-  min-height: 44px;
-  padding: 0 18px;
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  background: none;
-  font-family: var(--font-body);
-  font-size: var(--text-md);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  cursor: pointer;
-  transition:
-    color 0.2s ease,
-    background-color 0.2s ease,
-    border-color 0.2s ease;
-
-  @include hover {
-    color: var(--color-text);
-    border-color: var(--color-text-muted);
-  }
+  @include chip;
 
   &[aria-pressed="true"] {
-    border-color: var(--color-inverse);
-    background: var(--color-inverse);
+    @include chip-selected;
+  }
+}
+
+.tab__count {
+  @include chip-count;
+
+  .tab[aria-pressed="true"] & {
     color: var(--color-on-inverse);
   }
 }

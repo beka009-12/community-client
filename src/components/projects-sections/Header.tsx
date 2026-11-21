@@ -19,9 +19,16 @@ const STATUS_OPTIONS = [
   ...STATUS_ORDER.map((key) => ({ value: key, label: PROJECT_STATUS_LABELS[key] })),
 ];
 
+export interface CategoryTab {
+  key: string | null;
+  label: string;
+  count: number;
+}
+
 interface HeaderProps {
   facts?: IntroFact[];
-  categories: string[];
+  // «Все» first, then each category with how many projects it has.
+  tabs: CategoryTab[];
   category: string | null;
   onCategoryChange: (category: string | null) => void;
   status: ProjectStatus | null;
@@ -30,48 +37,42 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({
   facts,
-  categories,
+  tabs,
   category,
   onCategoryChange,
   status,
   onStatusChange,
-}) => {
-  const tabs: { key: string | null; label: string }[] = [
-    { key: null, label: "Все" },
-    ...categories.map((item) => ({ key: item, label: item })),
-  ];
-
-  return (
-    <>
-      <PageIntro
-        crumb="Проекты"
-        title="Что мы уже сделали."
-        lead="Сайты, веб-системы, Telegram-боты и AI-интеграции, которые собрали команды сообщества."
-        facts={facts}
-      />
-      <div className={`container ${scss.filters}`}>
-        <div className={scss.tabs} role="group" aria-label="Фильтр по категории">
-          {tabs.map((item) => (
-            <button
-              key={item.key ?? ALL}
-              type="button"
-              className={scss.tab}
-              aria-pressed={category === item.key}
-              onClick={() => onCategoryChange(item.key)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-        <Select
-          options={STATUS_OPTIONS}
-          value={status ?? ALL}
-          onChange={(next) => onStatusChange(next === ALL ? null : (next as ProjectStatus))}
-          ariaLabel="Фильтр по статусу"
-        />
+}) => (
+  <>
+    <PageIntro
+      crumb="Проекты"
+      title={"Что мы\nуже сделали."}
+      lead="Сайты, веб-системы, Telegram-боты и AI-интеграции, которые собрали команды сообщества."
+      facts={facts}
+    />
+    <div className={`container ${scss.filters}`}>
+      <div className={scss.tabs} role="group" aria-label="Фильтр по категории">
+        {tabs.map((item) => (
+          <button
+            key={item.key ?? ALL}
+            type="button"
+            className={scss.tab}
+            aria-pressed={category === item.key}
+            onClick={() => onCategoryChange(item.key)}
+          >
+            {item.label}
+            <span className={scss.tab__count}>{item.count}</span>
+          </button>
+        ))}
       </div>
-    </>
-  );
-};
+      <Select
+        options={STATUS_OPTIONS}
+        value={status ?? ALL}
+        onChange={(next) => onStatusChange(next === ALL ? null : (next as ProjectStatus))}
+        ariaLabel="Фильтр по статусу"
+      />
+    </div>
+  </>
+);
 
 export default Header;
