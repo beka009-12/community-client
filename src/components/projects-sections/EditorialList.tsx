@@ -35,13 +35,16 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
 
   const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    const x = event.clientX - rect.left;
+    // Pointer and rect come in zoomed pixels on wide screens (html zoom),
+    // the transform in layout pixels.
+    const zoom = (event.currentTarget as HTMLElement & { currentCSSZoom?: number }).currentCSSZoom ?? 1;
+    const x = (event.clientX - rect.left) / zoom;
     // Up and to the right so the preview never sits under the pointer. Near
     // the list's right edge it flips to the left of the pointer: sticking
     // out, it widened the page and scrolled it sideways.
     const right = x + PREVIEW_GAP;
-    mvX.set(right + PREVIEW_WIDTH <= rect.width ? right : x - PREVIEW_GAP - PREVIEW_WIDTH);
-    mvY.set(event.clientY - rect.top - 150);
+    mvX.set(right + PREVIEW_WIDTH <= rect.width / zoom ? right : x - PREVIEW_GAP - PREVIEW_WIDTH);
+    mvY.set((event.clientY - rect.top) / zoom - 150);
   };
 
   const previewProject = projects.find((project) => project.id === previewId);

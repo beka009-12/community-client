@@ -1,5 +1,5 @@
 .Layout {
-  min-height: 100dvh;
+  min-height: calc(100dvh / var(--page-zoom));
   display: flex;
   flex-direction: column;
 

@@ -106,14 +106,20 @@ const HeroLogoParticles: FC<HeroLogoParticlesProps> = ({ markRef, className = ""
     let disposed = false;
     const mouse = { x: -9999, y: -9999, active: false };
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Wide screens zoom the whole page (html zoom): rects and pointer
+    // coordinates come in zoomed pixels, the canvas draws in layout pixels.
+    const cssZoom = () => (canvas as HTMLCanvasElement & { currentCSSZoom?: number }).currentCSSZoom ?? 1;
 
     const build = () => {
       width = canvas.clientWidth;
       height = canvas.clientHeight;
       if (!width || !height) return;
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const zoom = cssZoom();
+      // Enough bitmap pixels for the zoomed size, so the dots stay sharp.
+      const scale = dpr * zoom;
+      canvas.width = Math.floor(width * scale);
+      canvas.height = Math.floor(height * scale);
+      ctx.setTransform(scale, 0, 0, scale, 0, 0);
 
       const mark = markRef.current;
       if (!mark || !img.complete || !img.naturalWidth) {
@@ -123,13 +129,15 @@ const HeroLogoParticles: FC<HeroLogoParticlesProps> = ({ markRef, className = ""
 
       const stageBox = canvas.getBoundingClientRect();
       const markBox = mark.getBoundingClientRect();
-      const boxX = markBox.left - stageBox.left;
-      const boxY = markBox.top - stageBox.top;
-      const sizeScale = markBox.width / BASE_MARK_WIDTH;
+      const boxX = (markBox.left - stageBox.left) / zoom;
+      const boxY = (markBox.top - stageBox.top) / zoom;
+      const markWidth = markBox.width / zoom;
+      const markHeight = markBox.height / zoom;
+      const sizeScale = markWidth / BASE_MARK_WIDTH;
 
       particles = sampleLogo(img).map((point) => {
-        const tx = boxX + point.x * markBox.width;
-        const ty = boxY + point.y * markBox.height;
+        const tx = boxX + point.x * markWidth;
+        const ty = boxY + point.y * markHeight;
         const r = ((point.wordmark ? 0.85 : 0.7) + Math.random() * (point.wordmark ? 0.8 : 1.25)) * sizeScale;
         const base = { tx, ty, vx: 0, vy: 0, r, color: point.color };
         if (reduceMotion) return { ...base, x: tx, y: ty, delay: 0 };
@@ -198,9 +206,10 @@ const HeroLogoParticles: FC<HeroLogoParticlesProps> = ({ markRef, className = ""
 
     const handlePointerMove = (event: PointerEvent) => {
       const box = canvas.getBoundingClientRect();
-      mouse.x = event.clientX - box.left;
-      mouse.y = event.clientY - box.top;
-      mouse.active = mouse.x >= 0 && mouse.x <= box.width && mouse.y >= 0 && mouse.y <= box.height;
+      const zoom = cssZoom();
+      mouse.x = (event.clientX - box.left) / zoom;
+      mouse.y = (event.clientY - box.top) / zoom;
+      mouse.active = mouse.x >= 0 && mouse.x <= width && mouse.y >= 0 && mouse.y <= height;
       if (mouse.active && !reduceMotion) play();
     };
     const handlePointerLeave = () => {

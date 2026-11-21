@@ -53,6 +53,29 @@
 
   --header-height: 64px;
 
+  // Laptops and monitors that report ~2400px of CSS width would show the
+  // 1280px layout small in the middle of the screen. The whole page scales
+  // up in steps instead, as if the reader had zoomed in. Viewport units are
+  // multiplied by the zoom too, so heights tied to the window divide by it.
+  --page-zoom: 1;
+
+  @media (min-width: 1800px) {
+    --page-zoom: 1.2;
+  }
+
+  @media (min-width: 2100px) {
+    --page-zoom: 1.35;
+  }
+
+  @media (min-width: 2400px) {
+    --page-zoom: 1.5;
+  }
+
+  @media (min-width: 2800px) {
+    --page-zoom: 1.75;
+  }
+
+  zoom: var(--page-zoom);
 
   // Next.js already scrolls to the top on route change (e.g. clicking
   // the prev/next project pager) — this is what makes that jump glide
@@ -96,7 +119,7 @@
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  min-height: calc(100dvh / var(--page-zoom));
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);

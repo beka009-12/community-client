@@ -23,7 +23,7 @@
   grid-template-rows: 1fr auto;
   align-items: center;
   column-gap: 56px;
-  min-height: calc(100svh - var(--header-height));
+  min-height: calc(100svh / var(--page-zoom) - var(--header-height));
   padding-top: 48px;
   padding-bottom: 28px;
   // The canvas underneath still gets the pointer between the blocks.
