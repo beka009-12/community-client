@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { PROJECT_TYPES } from "@/src/data/services";
-import { parseForm, requiredText } from "./form";
+import { maxLengthMessage, parseForm, requiredText } from "./form";
 
 // "300 000" → 300000, blank → null: budget is optional and in som.
 const budget = z.preprocess(
@@ -15,7 +15,7 @@ const budget = z.preprocess(
 export const clientRequestSchema = z.object({
   name: requiredText(2, 150, "Имя"),
   company: requiredText(1, 150, "Компания"),
-  email: z.email("Проверьте email: например, name@company.kg").max(254, "Не больше 254 символов"),
+  email: z.email("Введите email в формате name@company.kg").max(254, maxLengthMessage(254)),
   phone: requiredText(1, 128, "Телефон"),
   title: requiredText(2, 150, "Название проекта"),
   description: requiredText(10, 2000, "Описание проекта"),

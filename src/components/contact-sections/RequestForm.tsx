@@ -15,16 +15,25 @@ interface FieldProps {
   name: string;
   label: string;
   full?: boolean;
+  // Shown before anyone types, so the requirement isn't learned from an error.
+  hint?: string;
   error?: string;
   children: (describedBy: string | undefined) => ReactNode;
 }
 
-const Field: FC<FieldProps> = ({ name, label, full, error, children }) => {
+const Field: FC<FieldProps> = ({ name, label, full, hint, error, children }) => {
+  const hintId = hint ? `request-${name}-hint` : undefined;
   const errorId = error ? `request-${name}-error` : undefined;
+  const describedBy = [hintId, errorId].filter(Boolean).join(" ") || undefined;
   return (
     <div className={`${scss.field} ${full ? scss["field--full"] : ""}`}>
       <label htmlFor={`request-${name}`}>{label}</label>
-      {children(errorId)}
+      {hint && (
+        <p id={hintId} className={scss.field__hint}>
+          {hint}
+        </p>
+      )}
+      {children(describedBy)}
       {error && (
         <p id={errorId} className={scss.field__error}>
           {error}
@@ -63,6 +72,17 @@ const RequestForm: FC = () => {
       ?.querySelector<HTMLElement>('[aria-invalid="true"]')
       ?.focus();
   }, [state]);
+
+  // The closing call on other pages links here as ?type=…; the type picked
+  // there is preselected unless the form already holds one. Read from the
+  // URL after mount, so the page stays static (no useSearchParams).
+  const typeRef = useRef<HTMLSelectElement>(null);
+  useEffect(() => {
+    const select = typeRef.current;
+    const type = new URLSearchParams(window.location.search).get("type");
+    if (!select || select.value || !type) return;
+    if ((PROJECT_TYPES as readonly string[]).includes(type)) select.value = type;
+  }, []);
 
   const value = (name: string) => state.values?.[name] ?? "";
   const inputProps = (name: string, describedBy: string | undefined) => ({
@@ -168,7 +188,7 @@ const RequestForm: FC = () => {
             error={errors.project_type}
           >
             {(describedBy) => (
-              <select {...inputProps("project_type", describedBy)} required>
+              <select ref={typeRef} {...inputProps("project_type", describedBy)} required>
                 <option value="">Выберите тип</option>
                 {PROJECT_TYPES.map((type) => (
                   <option key={type} value={type}>
@@ -181,7 +201,7 @@ const RequestForm: FC = () => {
 
           <Field
             name="budget"
-            label="Бюджет, сом — необязательно"
+            label="Бюджет, сом (необязательно)"
             error={errors.budget}
           >
             {(describedBy) => (
@@ -189,7 +209,7 @@ const RequestForm: FC = () => {
                 {...inputProps("budget", describedBy)}
                 type="text"
                 inputMode="numeric"
-                placeholder="Например, 300 000"
+                placeholder={"Например, 300\u00A0000"}
               />
             )}
           </Field>
@@ -198,6 +218,7 @@ const RequestForm: FC = () => {
             name="description"
             label="Описание проекта"
             full
+            hint="Что нужно сделать, для кого и к какому сроку"
             error={errors.description}
           >
             {(describedBy) => (

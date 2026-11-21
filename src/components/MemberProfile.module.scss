@@ -1,8 +1,7 @@
 @use "../styles/hover" as *;
 
 .profile {
-  padding-top: 104px;
-  padding-bottom: 104px;
+  padding-block: clamp(48px, 8vw, 104px);
 }
 
 // Card (320) + gap (64) + reading column (720), centred in the container.
@@ -57,8 +56,9 @@
   margin-bottom: 16px;
   font-family: var(--font-display);
   font-size: var(--text-xl);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 .bio {

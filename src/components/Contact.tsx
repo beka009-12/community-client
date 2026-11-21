@@ -7,8 +7,9 @@ import scss from "./Contact.module.scss";
 const Contact = () => (
   <>
     <PageIntro
-      title="Расскажите о проекте"
-      lead="Изучим заявку и вернёмся с вопросами или предложением."
+      crumb="Контакты"
+      title="Расскажите о проекте."
+      lead="Изучим заявку и вернёмся с вопросами или предложением. Достаточно пары предложений — детали обсудим на созвоне."
     />
     <div className={`container ${scss.layout}`}>
       <RequestForm />

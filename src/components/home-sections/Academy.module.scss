@@ -1,0 +1,145 @@
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 460px);
+  gap: 40px 64px;
+  align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.intro__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.lead {
+  max-width: 36em;
+  font-size: var(--text-xl);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.facts {
+  padding: 8px 24px;
+  border-radius: 12px;
+  background: var(--color-surface-raised);
+}
+
+.fact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding: 16px 0;
+  font-size: var(--text-md);
+
+  & + & {
+    border-top: 1px solid var(--color-line);
+  }
+}
+
+.fact__label {
+  color: var(--color-text-muted);
+}
+
+.fact__value {
+  font-weight: 500;
+  text-align: right;
+}
+
+.subtitle {
+  margin-top: clamp(48px, 5vw, 64px);
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.programs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+  list-style: none;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 639px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+// The stack sits at the bottom so the cards line up across the row.
+.program {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px 24px 28px;
+  border-radius: 12px;
+  background: var(--color-surface-raised);
+}
+
+.program__top {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.program__duration {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--color-surface);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.program__title {
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.program__text {
+  font-size: var(--text-md);
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+.program__note {
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.program--highlight {
+  flex-direction: column;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+
+  .program__top {
+    flex: 0 0 auto;
+  }
+
+  // Outlined, so the text sits on the accent itself (6:1); a white veil
+  // lightened the fill under it to 4.4:1.
+  .program__duration {
+    background: none;
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-on-accent) 45%, transparent);
+  }
+
+  .program__text {
+    color: inherit;
+  }
+}
+
+.alumni {
+  margin-top: clamp(48px, 5vw, 64px);
+}

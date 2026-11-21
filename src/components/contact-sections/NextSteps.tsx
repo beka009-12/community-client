@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { visibleSocials } from "@/src/data/socials";
+import { typograph } from "@/src/lib/typograph";
 import scss from "./NextSteps.module.scss";
 
 interface Step {
@@ -36,7 +37,7 @@ const NextSteps: FC = () => {
             <span className={scss.step__number}>{index + 1}</span>
             <div>
               <h3 className={scss.step__title}>{step.title}</h3>
-              <p className={scss.step__text}>{step.text}</p>
+              <p className={scss.step__text}>{typograph(step.text)}</p>
             </div>
           </li>
         ))}

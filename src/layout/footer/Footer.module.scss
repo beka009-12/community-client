@@ -1,45 +1,92 @@
 @use "../../styles/hover" as *;
 
-// Its own band: the surface colour and the top line mark where the page
-// ends. Inside, space groups the content (gaps between groups are at least
-// twice those within one), and the only other line divides the legal row
-// from the links. Content sits on the container edge like every section.
+// An inset grey panel with rounded corners, 16px off the window edges. The
+// container inside keeps the content on the same edges as the page above.
 .footer {
   margin-top: clamp(80px, 9vw, 128px);
-  border-top: 1px solid var(--color-line);
+  padding: 0 16px 16px;
+
+  @media (max-width: 640px) {
+    padding: 0 8px 8px;
+  }
+}
+
+// A page that ends on the closing call (an inset panel itself) leaves one
+// 16px gap between the two panels.
+:global(main:has([data-footer-flush])) + .footer {
+  margin-top: 0;
+}
+
+.panel {
+  border-radius: 24px;
   background: var(--color-surface);
+
+  @media (max-width: 640px) {
+    border-radius: 20px;
+  }
 }
 
 .footer__top {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 40px 56px;
+  gap: 48px 64px;
   padding-block: clamp(40px, 5vw, 64px);
 }
 
 .footer__brand {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  max-width: 340px;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 420px;
 }
 
 .logo {
-  display: block;
-  align-self: flex-start;
-  width: auto;
-  height: 40px;
+  display: inline-flex;
 }
 
 .muted {
   color: var(--color-text-muted);
 }
 
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+
+// Icon and name together: the name says where the link goes.
+.social {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px 0 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-bg);
+  font-size: var(--text-md);
+  font-weight: 500;
+  transition: border-color 0.2s ease;
+
+  @at-root a#{&} {
+    @include hover {
+      border-color: var(--color-text-subtle);
+    }
+  }
+}
+
+.social__icon {
+  width: 18px;
+  height: 18px;
+}
+
 .footer__columns {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px 56px;
+  gap: 40px 64px;
 }
 
 .column {
@@ -70,13 +117,24 @@
   }
 }
 
+.links__accent {
+  font-weight: 500;
+  color: var(--color-accent-text);
+}
+
+.links__text {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+}
+
 .footer__bottom {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px;
   padding-block: 24px;
-  border-top: 1px solid var(--color-line);
+  border-top: 1px solid var(--color-border);
   font-size: var(--text-sm);
   color: var(--color-text-subtle);
 }

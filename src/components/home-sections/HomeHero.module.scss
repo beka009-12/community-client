@@ -1,0 +1,119 @@
+.hero {
+  position: relative;
+  overflow: clip;
+  background: var(--color-bg);
+}
+
+// Covers the whole hero so the dots fly in from its edges.
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// The window's full height under the sticky header; the copy and the logo
+// share the middle, the place line sits at the bottom.
+.inner {
+  position: relative;
+  display: grid;
+  // The copy column is as wide as the title's longest line; the logo takes
+  // the rest.
+  grid-template-columns: max-content minmax(300px, 1fr);
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  column-gap: 56px;
+  min-height: calc(100svh / var(--page-zoom) - var(--header-height));
+  padding-top: 48px;
+  padding-bottom: 28px;
+  // The canvas underneath still gets the pointer between the blocks.
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    padding-bottom: 32px;
+  }
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--color-surface-raised);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+// Three lines on desktop; the last, longest one is about 10em wide.
+.title {
+  margin-top: clamp(28px, 3vw, 36px);
+  font-size: clamp(2.75rem, 1rem + 4.2vw, 4.5rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  overflow-wrap: break-word;
+}
+
+// One phrase per line where there is room; phones wrap freely. Next to
+// the logo a line never breaks, it sets the column width instead.
+.title__line {
+  @media (min-width: 640px) {
+    display: block;
+  }
+
+  @media (min-width: 1025px) {
+    white-space: nowrap;
+  }
+}
+
+.lead {
+  max-width: 34em;
+  margin-top: 30px;
+  font-size: var(--text-xl);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 44px;
+}
+
+// The box the canvas draws the logo into (the sampling canvas is 320×220,
+// the logo fills ~3/4 of it). Wider than its column and centred on it, so
+// the logo itself reaches the column's edges.
+.mark {
+  justify-self: center;
+  width: 118%;
+  max-width: 600px;
+  aspect-ratio: 320 / 220;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.place {
+  grid-column: 1 / -1;
+  align-self: end;
+  margin-top: 40px;
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}

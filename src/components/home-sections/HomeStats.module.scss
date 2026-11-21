@@ -1,0 +1,43 @@
+.stats {
+  padding-top: 32px;
+}
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 16px;
+
+  @media (max-width: 639px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+// Number on top, label under it; the label comes first in the markup so a
+// screen reader hears what is counted before the count.
+.card {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 28px 28px 30px;
+  border-radius: 12px;
+  background: var(--color-bg);
+
+  @media (max-width: 639px) {
+    padding: 20px;
+  }
+}
+
+.card__value {
+  font-size: clamp(2.25rem, 1.6rem + 1.6vw, 3rem);
+  font-weight: 500;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-accent-text);
+}
+
+.card__label {
+  font-size: var(--text-md);
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}

@@ -15,20 +15,30 @@
   // 3.4:1 against --color-field: an empty input's border is the only thing
   // marking it out (WCAG 1.4.11).
   --color-field-border: #868c99;
-  // Ultramarine: 6:1 both as text on white and under white text.
-  --color-accent: #324ff0;
-  --color-accent-hover: #2840d0;
+  // The logo's own blue (OKLCH hue 256, like its #0084ff edge), so buttons
+  // and links read as the same colour as the logo. 5.4:1 under white text,
+  // 4.9:1 as text on --color-surface.
+  --color-accent: #0c69cd;
+  --color-accent-hover: #0858af;
   --color-on-accent: #ffffff;
-  --color-accent-text: #324ff0;
+  --color-accent-text: #0c69cd;
   // Dots, rings, focus outlines.
-  --color-accent-mark: #324ff0;
+  --color-accent-mark: #0c69cd;
+  // The logo lockup's flat colours (a logotype, so no contrast minimum).
+  --color-logo: #55bbff;
+  --color-logo-edge: #0084ff;
+  --color-wordmark: #389fff;
   --color-danger: #c8261b;
+  // A chosen filter pill or a role badge: dark fill, so a state never reads
+  // as the page's main action. 18.5:1.
+  --color-inverse: #0e1320;
+  --color-on-inverse: #ffffff;
   // The hero's particles keep the logo's own light blue on either theme.
   --color-ink: #0a0c10;
 
-  --font-display: var(--font-unbounded), system-ui, sans-serif;
+  // One family across the site: headings are Onest 500, as on home.
+  --font-display: var(--font-onest), system-ui, sans-serif;
   --font-body: var(--font-onest), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
   // Text sizes in rem, so they follow the reader's browser font size.
   // Display titles keep their own clamp() next to where they're used.
@@ -41,7 +51,31 @@
   --text-xl: 1.25rem; // 20px: leads, small headings
   --text-2xl: 1.5rem; // 24px: card and section headings
 
-  --header-height: 80px;
+  --header-height: 64px;
+
+  // Laptops and monitors that report ~2400px of CSS width would show the
+  // 1280px layout small in the middle of the screen. The whole page scales
+  // up in steps instead, as if the reader had zoomed in. Viewport units are
+  // multiplied by the zoom too, so heights tied to the window divide by it.
+  --page-zoom: 1;
+
+  @media (min-width: 1800px) {
+    --page-zoom: 1.2;
+  }
+
+  @media (min-width: 2100px) {
+    --page-zoom: 1.35;
+  }
+
+  @media (min-width: 2400px) {
+    --page-zoom: 1.5;
+  }
+
+  @media (min-width: 2800px) {
+    --page-zoom: 1.75;
+  }
+
+  zoom: var(--page-zoom);
 
   // Next.js already scrolls to the top on route change (e.g. clicking
   // the prev/next project pager) — this is what makes that jump glide
@@ -62,11 +96,14 @@
   --color-border: #2e3440;
   --color-field: #10131a;
   --color-field-border: #5e6675;
-  --color-accent-hover: #4367f2;
-  // The fill is too dark to read as text on near-black: 6.9:1 on the bg.
-  --color-accent-text: #7a97ea;
-  --color-accent-mark: #7a97ea;
+  // Still 4.6:1 under white text on hover.
+  --color-accent-hover: #1273df;
+  // The fill is too dark to read as text on near-black: 8.5:1 on the bg.
+  --color-accent-text: #75adf9;
+  --color-accent-mark: #75adf9;
   --color-danger: #f87171;
+  --color-inverse: #eef1f5;
+  --color-on-inverse: #0a0c10;
   color: var(--color-text);
 }
 
@@ -82,13 +119,25 @@
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  min-height: calc(100dvh / var(--page-zoom));
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: var(--text-lg);
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
 }
 
 .container {
@@ -100,10 +149,10 @@ body {
 
 .page-title {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 500;
   font-size: clamp(2.5rem, 1.6rem + 3vw, 4.5rem);
   line-height: 1.04;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.01em;
   overflow-wrap: anywhere;
 
   // At 40px «Расскажите» breaks mid-word on a 320px screen.
@@ -114,10 +163,10 @@ body {
 
 .section-title {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 500;
   font-size: clamp(2rem, 1.4rem + 2vw, 3.25rem);
   line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
   overflow-wrap: anywhere;
 }
 

@@ -18,18 +18,19 @@
   }
 }
 
+// 40px still clears the 24px WCAG 2.5.8 minimum and the 40px desktop target.
 .button--md {
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-size: var(--text-md);
+}
+
+.button--lg {
   min-height: 48px;
   padding: 0 22px;
   border-radius: 12px;
   font-size: var(--text-base);
-}
-
-.button--lg {
-  min-height: 56px;
-  padding: 0 28px;
-  border-radius: 14px;
-  font-size: var(--text-lg);
 }
 
 .button--primary {
@@ -38,6 +39,16 @@
 
   @include hover {
     background: var(--color-accent-hover);
+  }
+}
+
+// A quiet filled button next to the primary one (the home hero).
+.button--secondary {
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+
+  @include hover {
+    background: var(--color-border);
   }
 }
 

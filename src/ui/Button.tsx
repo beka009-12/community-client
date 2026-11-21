@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, FC } from "react";
 import Link from "next/link";
 import scss from "./Button.module.scss";
 
-type Variant = "primary" | "outline" | "link";
+type Variant = "primary" | "secondary" | "outline" | "link";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;

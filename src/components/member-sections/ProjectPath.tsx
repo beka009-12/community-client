@@ -10,7 +10,7 @@ const ProjectPath: FC<{ projects: MemberProject[] }> = ({ projects }) => {
   if (projects.length === 0) {
     return (
       <p className={scss.empty}>
-        Участник пока не входил в команды проектов сообщества.
+        Пока не участвует в проектах сообщества.
       </p>
     );
   }

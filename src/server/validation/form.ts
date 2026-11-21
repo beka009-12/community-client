@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { plural } from "@/src/lib/plural";
 
+const chars = (count: number) => `${count} ${plural(count, "символа", "символов", "символов")}`;
+
+export const maxLengthMessage = (max: number) => `Сократите до ${chars(max)}`;
+
 export type FieldErrors = Partial<Record<string, string>>;
 
 export type ParseResult<T> =
@@ -15,8 +19,8 @@ export const requiredText = (min: number, max: number, label: string) => {
     .string({ error: empty })
     .trim()
     .min(1, empty)
-    .min(min, `Минимум ${min} ${plural(min, "символ", "символа", "символов")}`)
-    .max(max, `Не больше ${max} символов`);
+    .min(min, `Введите не меньше ${chars(min)}`)
+    .max(max, maxLengthMessage(max));
 };
 
 export function parseForm<S extends z.ZodType>(
@@ -37,5 +41,5 @@ export function parseForm<S extends z.ZodType>(
 export const nullableUrl = (max = 200) =>
   z.preprocess(
     (value) => (typeof value === "string" && value.trim() === "" ? null : value),
-    z.url("Введите ссылку целиком, с https://").max(max, `Не больше ${max} символов`).nullable(),
+    z.url("Введите ссылку целиком, с https://").max(max, maxLengthMessage(max)).nullable(),
   );

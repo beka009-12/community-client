@@ -1,17 +1,18 @@
 "use client";
 
 import { FC, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Button from "@/src/ui/Button";
+import LogoLockup from "@/src/ui/LogoLockup";
 import { motionTokens } from "@/src/lib/motion-tokens";
 import { heroTheme } from "@/src/lib/hero-theme";
 import scss from "./Header.module.scss";
 
 const NAV_LINKS = [
   { href: "/", label: "Главная" },
+  { href: "/about", label: "О нас" },
   { href: "/projects", label: "Проекты" },
   { href: "/team", label: "Команда" },
   { href: "/contact", label: "Контакты" },
@@ -22,6 +23,10 @@ const NAV_LINKS = [
 const isActive = (pathname: string, href: string) =>
   pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
+// Pages that open on a dark block (home hero, PageIntro): the header is dark
+// over it.
+const DARK_TOP_PATHS = new Set(["/", "/about", "/projects", "/team", "/contact"]);
+
 const Header: FC = () => {
   const pathname = usePathname();
   const reduce = useReducedMotion();
@@ -29,9 +34,15 @@ const Header: FC = () => {
   const [menuPath, setMenuPath] = useState<string | null>(null);
   const menuOpen = menuPath === pathname;
   const burgerRef = useRef<HTMLButtonElement>(null);
-  // On home the header floats over the dark hero until the page turns light.
+  // Dark while the page's dark top block is behind it.
   const heroDark = useSyncExternalStore(heroTheme.subscribe, heroTheme.get, () => true);
-  const overHero = pathname === "/" && heroDark;
+  const overDark = DARK_TOP_PATHS.has(pathname) && heroDark;
+  const overHero = pathname === "/" && overDark;
+  // One filled action per screen: the header's button steps aside where the
+  // page shows the same action itself. Hidden on /contact, which it leads to;
+  // quiet over the home hero and on a profile, whose own buttons are filled.
+  const ctaHidden = pathname === "/contact";
+  const ctaVariant = overHero ? "secondary" : pathname.startsWith("/team/") ? "outline" : "primary";
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -49,22 +60,11 @@ const Header: FC = () => {
 
   return (
     <header
-      className={[
-        scss.header,
-        overHero ? "theme-dark" : "",
-        overHero && !menuOpen ? scss["header--over"] : "",
-      ].join(" ")}
+      className={`${scss.header} ${overDark ? "theme-dark" : ""}`}
     >
       <div className={`container ${scss.header__inner}`}>
         <Link href="/" className={scss.logo} aria-label="Motion Community — на главную">
-          <Image
-            src="/brand/motion-logo.svg"
-            alt="Motion Community"
-            width={253}
-            height={134}
-            className={scss.logo__image}
-            priority
-          />
+          <LogoLockup />
         </Link>
 
         <nav className={scss.nav} aria-label="Основная навигация">
@@ -81,9 +81,11 @@ const Header: FC = () => {
               </Link>
             );
           })}
-          <Button href="/contact" className={scss.nav__cta}>
-            Обсудить проект
-          </Button>
+          {!ctaHidden && (
+            <Button href="/contact" variant={ctaVariant} className={scss.nav__cta}>
+              Обсудить проект
+            </Button>
+          )}
         </nav>
 
         <button
@@ -130,9 +132,11 @@ const Header: FC = () => {
                   </Link>
                 );
               })}
-              <Button href="/contact" className={scss.menu__cta}>
-                Обсудить проект
-              </Button>
+              {!ctaHidden && (
+                <Button href="/contact" className={scss.menu__cta}>
+                  Обсудить проект
+                </Button>
+              )}
             </div>
           </motion.nav>
         )}

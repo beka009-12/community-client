@@ -2,6 +2,7 @@
 
 import { FC } from "react";
 import Button from "@/src/ui/Button";
+import { typograph } from "@/src/lib/typograph";
 import scss from "./LoadError.module.scss";
 
 interface LoadErrorProps {
@@ -13,7 +14,7 @@ const LoadError: FC<LoadErrorProps> = ({ title, retry }) => (
   <div className={`container ${scss.error}`} role="alert">
     <h1 className="page-title">{title}</h1>
     <p className={scss.error__text}>
-      Сервер не отвечает. Попробуйте ещё раз через минуту.
+      {typograph("Возможно, сервер временно недоступен. Попробуйте ещё раз через минуту.")}
     </p>
     <Button onClick={retry} className={scss.error__button}>
       Попробовать снова

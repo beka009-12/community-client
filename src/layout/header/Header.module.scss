@@ -11,18 +11,6 @@
   transition-timing-function: ease-out;
 }
 
-// Over the home hero: no band of its own, the hero shows through. Under
-// reduced motion the hero isn't pinned and scrolls under the header, so the
-// header keeps its dark band.
-.header--over {
-  border-color: transparent;
-  background: transparent;
-
-  @media (prefers-reduced-motion: reduce) {
-    background: var(--color-bg);
-  }
-}
-
 .header__inner {
   display: flex;
   align-items: center;
@@ -36,18 +24,14 @@
   min-height: 44px;
 }
 
-.logo__image {
-  display: block;
-  width: auto;
-  height: 30px;
-}
-
+// Five links and the button need ~760px, so phones and narrow tablets get
+// the burger.
 .nav {
   display: none;
   align-items: center;
   gap: 4px;
 
-  @media (min-width: 768px) {
+  @media (min-width: 900px) {
     display: flex;
   }
 }
@@ -55,11 +39,12 @@
 .nav__link {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
-  padding: 0 16px;
+  min-height: 40px;
+  padding: 0 14px;
   border-radius: 999px;
-  font-size: var(--text-base);
+  font-size: var(--text-md);
   font-weight: 500;
+  white-space: nowrap;
   color: var(--color-text-muted);
   transition:
     color 0.2s ease,
@@ -76,7 +61,7 @@
 }
 
 .nav__cta {
-  margin-left: 12px;
+  margin-left: 16px;
 }
 
 .burger {
@@ -99,7 +84,7 @@
     transition: transform 0.2s ease;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 900px) {
     display: none;
   }
 }
@@ -120,7 +105,7 @@
   background: var(--color-bg);
   border-bottom: 1px solid var(--color-line);
 
-  @media (min-width: 768px) {
+  @media (min-width: 900px) {
     display: none;
   }
 }

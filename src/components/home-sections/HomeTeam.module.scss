@@ -1,0 +1,102 @@
+@use "../../styles/hover" as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px 24px;
+  list-style: none;
+
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 16px;
+  }
+}
+
+.member {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+}
+
+.member--link:focus-visible {
+  outline-offset: 6px;
+}
+
+.member__photo {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+// Greyscale until the card is hovered or focused, then full colour.
+.member__img {
+  filter: grayscale(1);
+  outline: 1px solid rgb(0 0 0 / 0.1);
+  outline-offset: -1px;
+  border-radius: inherit;
+  transition: filter 300ms ease-out;
+
+  @include lit-by(".member") {
+    filter: grayscale(0);
+  }
+}
+
+// Only a card that opens a profile lights up: on a plain card the accent
+// fill promised a click.
+.member__initials {
+  transition: background-color 200ms ease-out;
+
+  @include lit-by(".member--link") {
+    background: var(--color-accent);
+
+    span {
+      color: var(--color-on-accent);
+    }
+  }
+}
+
+// The person's place in the community, pinned to the photo's corner.
+.member__badge {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--color-surface-raised);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--color-text);
+
+  @media (max-width: 767px) {
+    bottom: 10px;
+    left: 10px;
+  }
+}
+
+// A role, not an action, so not the accent.
+.member__badge--strong {
+  background: var(--color-inverse);
+  color: var(--color-on-inverse);
+}
+
+.member__name {
+  margin-top: 22px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.member__position {
+  margin-top: 6px;
+  font-size: var(--text-md);
+}
+
+.member__focus {
+  margin-top: 8px;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
