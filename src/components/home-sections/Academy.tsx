@@ -1,6 +1,6 @@
 import { FC } from "react";
+import EmployerMarquee from "@/src/components/EmployerMarquee";
 import {
-  ACADEMY_ALUMNI_EMPLOYERS,
   ACADEMY_FACTS,
   ACADEMY_PROGRAMS,
   ACADEMY_URL,
@@ -11,7 +11,19 @@ import HomeSection from "./HomeSection";
 import scss from "./Academy.module.scss";
 
 const Academy: FC<{ index: number }> = ({ index }) => (
-  <HomeSection index={index} id="academy" label="Академия MotionWeb" title="Академия, из которой мы выросли." band tight>
+  <HomeSection
+    index={index}
+    id="academy"
+    label="Академия MotionWeb"
+    title="Академия, из которой мы выросли."
+    band
+    tight
+    after={
+      <div className={scss.alumni}>
+        <EmployerMarquee />
+      </div>
+    }
+  >
     <div className={scss.intro}>
       <div className={scss.intro__copy}>
         <p className={scss.lead}>
@@ -46,15 +58,6 @@ const Academy: FC<{ index: number }> = ({ index }) => (
           </div>
           <p className={scss.program__text}>{typograph(program.text)}</p>
           {program.note && <p className={scss.program__note}>{program.note}</p>}
-        </li>
-      ))}
-    </ul>
-
-    <p className={scss.alumni__label}>Где работают выпускники академии</p>
-    <ul className={scss.alumni}>
-      {ACADEMY_ALUMNI_EMPLOYERS.map((employer) => (
-        <li key={employer} className={scss.alumni__item}>
-          {employer}
         </li>
       ))}
     </ul>

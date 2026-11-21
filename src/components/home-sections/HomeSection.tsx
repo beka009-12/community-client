@@ -17,9 +17,11 @@ interface IHomeSectionProps {
   // Content follows the title closely, as a lead would.
   tight?: boolean;
   children: ReactNode;
+  // Full-bleed content after the container, e.g. the logo marquee.
+  after?: ReactNode;
 }
 
-const HomeSection: FC<IHomeSectionProps> = ({ index, label, title, lead, id, band, aside, tight, children }) => {
+const HomeSection: FC<IHomeSectionProps> = ({ index, label, title, lead, id, band, aside, tight, children, after }) => {
   const headingId = `${id ?? `section-${index}`}-title`;
   return (
     <section
@@ -42,6 +44,7 @@ const HomeSection: FC<IHomeSectionProps> = ({ index, label, title, lead, id, ban
         </div>
         {children}
       </div>
+      {after}
     </section>
   );
 };
