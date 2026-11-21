@@ -73,7 +73,7 @@ const AcademyInfo: FC = () => {
         <div className={scss.cards}>
           <InfoCard
             title="Программы"
-            rows={programs.map((program) => ({ title: program.title, text: program.duration }))}
+            rows={programs.map((program) => ({ title: program.title, text: program.summary ?? program.duration }))}
           />
           <InfoCard title="Дополнительно" rows={ACADEMY_EXTRA_COURSES} />
           <InfoCard
