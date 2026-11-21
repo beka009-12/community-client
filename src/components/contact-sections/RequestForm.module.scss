@@ -1,17 +1,30 @@
 @use "../../styles/hover" as *;
+@use "../../styles/chip" as *;
 
-.form {
+// A white card that starts on the dark intro and runs into the page.
+.form,
+.success {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  padding: clamp(24px, 4vw, 40px);
+  padding: clamp(24px, 3vw, 40px);
   border: 1px solid var(--color-line);
   border-radius: 24px;
-  background: var(--color-surface);
+  background: var(--color-surface-raised);
+  box-shadow: 0 16px 40px rgb(0 0 0 / 0.08);
+}
 
-  @media (min-width: 640px) {
-    grid-template-columns: repeat(2, 1fr);
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 16px;
+
+  @media (max-width: 639px) {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -19,27 +32,24 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-
-  label {
-    font-size: var(--text-sm);
-    font-weight: 500;
-  }
+  min-width: 0;
 
   input,
-  select,
   textarea {
-    min-height: 44px;
-    padding: 11px 14px;
+    width: 100%;
+    min-height: 52px;
+    padding: 0 16px;
     border: 1px solid var(--color-field-border);
-    border-radius: 10px;
+    border-radius: 12px;
     background: var(--color-field);
     color: var(--color-text);
     font-family: var(--font-body);
-    font-size: var(--text-base);
-    transition: border-color 0.2s ease;
+    font-size: var(--text-lg);
+    line-height: 1.55;
+    transition: border-color 150ms ease-out;
 
     &::placeholder {
-      color: var(--color-text-muted);
+      color: var(--color-text-subtle);
     }
 
     @include hover {
@@ -51,37 +61,79 @@
     }
   }
 
-  select {
-    cursor: pointer;
-  }
-
   textarea {
-    min-height: 120px;
+    min-height: 140px;
+    padding: 14px 16px;
     resize: vertical;
   }
 }
 
-.field--full {
-  @media (min-width: 640px) {
-    grid-column: 1 / -1;
+.label {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.label__optional {
+  font-weight: 400;
+  color: var(--color-text-subtle);
+}
+
+// «Что нужно сделать»: radio buttons drawn as the filter chips.
+.types {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+
+  legend {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+.types__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  clear: both;
+}
+
+.type {
+  @include chip;
+
+  position: relative;
+
+  input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: inherit;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  &:has(input:checked) {
+    @include chip-selected;
+  }
+
+  &:has(input:focus-visible) {
+    outline: 2px solid var(--color-accent-mark);
+    outline-offset: 2px;
   }
 }
 
 .submitRow {
   display: flex;
-
-  @media (min-width: 640px) {
-    grid-column: 1 / -1;
-  }
 }
 
 .success {
-  position: relative;
-  padding: clamp(24px, 4vw, 40px);
-  border: 1px solid var(--color-line);
-  border-radius: 24px;
-  background: var(--color-surface);
-
   h2 {
     margin-bottom: 8px;
     font-family: var(--font-display);
@@ -98,19 +150,11 @@
 
 @media (max-width: 639px) {
   .submitRow {
-    justify-content: stretch;
-
     :global(a),
     :global(button) {
       width: 100%;
     }
   }
-}
-
-.field__hint {
-  margin-top: -4px;
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
 }
 
 .field__error {
@@ -119,7 +163,6 @@
 }
 
 .field input[aria-invalid="true"],
-.field select[aria-invalid="true"],
 .field textarea[aria-invalid="true"] {
   border-color: var(--color-danger);
 }
@@ -131,8 +174,4 @@
   background: color-mix(in srgb, var(--color-danger) 6%, transparent);
   font-size: var(--text-sm);
   color: var(--color-text);
-
-  @media (min-width: 640px) {
-    grid-column: 1 / -1;
-  }
 }

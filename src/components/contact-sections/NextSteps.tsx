@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { ACADEMY_ADDRESS } from "@/src/data/academy";
 import { visibleSocials } from "@/src/data/socials";
 import { typograph } from "@/src/lib/typograph";
 import scss from "./NextSteps.module.scss";
@@ -35,13 +36,18 @@ const NextSteps: FC = () => {
         {STEPS.map((step, index) => (
           <li key={step.title} className={scss.step}>
             <span className={scss.step__number}>{index + 1}</span>
-            <div>
+            <div className={scss.step__body}>
               <h3 className={scss.step__title}>{step.title}</h3>
               <p className={scss.step__text}>{typograph(step.text)}</p>
             </div>
           </li>
         ))}
       </ol>
+
+      <div className={scss.place}>
+        <p className={scss.place__name}>Академия MotionWeb</p>
+        <p className={scss.place__address}>{ACADEMY_ADDRESS}</p>
+      </div>
 
       {channels.length > 0 && (
         <div className={scss.direct}>

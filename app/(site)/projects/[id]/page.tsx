@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProjectDetail from "@/src/components/projects-sections/ProjectDetail";
+import ClosingCall from "@/src/components/home-sections/ClosingCall";
 import { parseId } from "@/src/lib/route-id";
 import { withPeople } from "@/src/server/api/joins";
 import { getMembers } from "@/src/server/api/members";
@@ -42,16 +43,15 @@ const Page = async ({ params }: PageProps<"/projects/[id]">) => {
 
   const [projects, roster] = await Promise.all([getProjects(), getMembers()]);
   const index = projects.findIndex((item) => item.id === project.id);
-  const count = projects.length;
   // Wraps around; a single project, or one the cached list doesn't have
-  // yet, gets no pager.
-  const adjacent =
-    index === -1 || count < 2
-      ? null
-      : { prev: projects[(index - 1 + count) % count], next: projects[(index + 1) % count] };
+  // yet, gets no «Следующий проект».
+  const next = index === -1 || projects.length < 2 ? null : projects[(index + 1) % projects.length];
 
   return (
-    <ProjectDetail project={project} team={withPeople(project.members, roster)} adjacent={adjacent} />
+    <>
+      <ProjectDetail project={project} team={withPeople(project.members, roster)} next={next} />
+      <ClosingCall />
+    </>
   );
 };
 

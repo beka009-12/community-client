@@ -2,11 +2,20 @@ import { FC } from "react";
 import Form from "next/form";
 import Button from "@/src/ui/Button";
 import { TELEGRAM_URL } from "@/src/data/socials";
-import { PROJECT_TYPES } from "@/src/data/services";
 import { typograph } from "@/src/lib/typograph";
 import scss from "./ClosingCall.module.scss";
 
 const TITLE_LINES = ["Есть идея?", "Соберём под неё", "команду."];
+
+// Worded as the client would say it; each value is one of the request
+// form's project types (PROJECT_TYPES), which the form preselects.
+const CHOICES = [
+  { label: "Сайт или лендинг", type: "Сайты и лендинги" },
+  { label: "Веб-система", type: "Веб-системы" },
+  { label: "Telegram-бот", type: "Telegram-боты" },
+  { label: "AI-интеграция", type: "AI-интеграции" },
+  { label: "Пока не знаю", type: "Другое" },
+];
 
 // The same three steps as on the contact page.
 const STEPS = ["Разбираем заявку", "Собираем команду", "Созваниваемся с тимлидом"];
@@ -15,7 +24,7 @@ const STEPS = ["Разбираем заявку", "Собираем команд
 // request form as ?type=…, so the client starts the request right away; a
 // plain GET form, it works before any JavaScript loads.
 const ClosingCall: FC = () => (
-  <section className={scss.call} aria-labelledby="closing-title" data-footer-flush>
+  <section className={scss.call} aria-labelledby="closing-title">
     <div className={`theme-dark ${scss.panel}`}>
       <div className="container">
         <div className={scss.layout}>
@@ -43,10 +52,10 @@ const ClosingCall: FC = () => (
             <fieldset className={scss.types}>
               <legend className={scss.start__title}>Что нужно сделать?</legend>
               <div className={scss.chips}>
-                {PROJECT_TYPES.map((type) => (
-                  <label key={type} className={scss.chip}>
-                    <input type="radio" name="type" value={type} className={scss.chip__input} />
-                    {type}
+                {CHOICES.map((choice) => (
+                  <label key={choice.type} className={scss.chip}>
+                    <input type="radio" name="type" value={choice.type} className={scss.chip__input} />
+                    {choice.label}
                   </label>
                 ))}
               </div>

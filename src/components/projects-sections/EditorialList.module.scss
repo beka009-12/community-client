@@ -10,7 +10,7 @@
 
 .list {
   list-style: none;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-line);
 }
 
 .row {
@@ -18,10 +18,10 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 12px 32px;
-  min-height: 104px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--color-border);
+  gap: 12px 24px;
+  min-height: 98px;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--color-line);
 }
 
 .row__name {
@@ -32,23 +32,27 @@
   white-space: nowrap;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
   line-height: 1.15;
   letter-spacing: -0.01em;
   transition: color 150ms ease-out;
 }
 
 .row__category {
-  min-width: 112px;
+  width: 140px;
+  flex-shrink: 0;
   font-size: var(--text-sm);
+  line-height: 1.45;
   color: var(--color-text-muted);
 }
 
 // Pills differ in width; a fixed column keeps the categories in line.
 .row__status {
   display: flex;
+  flex-shrink: 0;
   justify-content: flex-end;
-  min-width: 148px;
+  width: 150px;
+  margin-left: 8px;
 }
 
 .row[data-active="true"] .row__name,

@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 import { typograph } from "@/src/lib/typograph";
+import { titleLines } from "@/src/lib/title-lines";
 import scss from "./HomeSection.module.scss";
 
 interface IHomeSectionProps {
@@ -19,10 +20,45 @@ interface IHomeSectionProps {
   children: ReactNode;
   // Full-bleed content after the container, e.g. the logo marquee.
   after?: ReactNode;
+  // A column to the right of the whole heading block (eyebrow, title and
+  // `top`), its top on the eyebrow's line, e.g. the academy's facts.
+  beside?: ReactNode;
+  // Under the title, inside the left column when `beside` is set.
+  top?: ReactNode;
 }
 
-const HomeSection: FC<IHomeSectionProps> = ({ index, label, title, lead, id, band, aside, tight, children, after }) => {
+const HomeSection: FC<IHomeSectionProps> = ({
+  index,
+  label,
+  title,
+  lead,
+  id,
+  band,
+  aside,
+  tight,
+  children,
+  after,
+  beside,
+  top,
+}) => {
   const headingId = `${id ?? `section-${index}`}-title`;
+  const heading = (
+    <>
+      <p className={scss.section__eyebrow}>
+        {String(index).padStart(2, "0")} / {label}
+      </p>
+      <div className={`${scss.section__head} ${tight || top ? scss["section__head--tight"] : ""}`}>
+        <div className={scss.section__titles}>
+          <h2 id={headingId} className={scss.section__title}>
+            {titleLines(title)}
+          </h2>
+          {lead && <p className={scss.section__lead}>{typograph(lead)}</p>}
+        </div>
+        {aside}
+      </div>
+      {top}
+    </>
+  );
   return (
     <section
       id={id}
@@ -30,18 +66,14 @@ const HomeSection: FC<IHomeSectionProps> = ({ index, label, title, lead, id, ban
       className={`${scss.section} ${band ? scss["section--band"] : ""}`}
     >
       <div className="container">
-        <p className={scss.section__eyebrow}>
-          {String(index).padStart(2, "0")} / {label}
-        </p>
-        <div className={`${scss.section__head} ${tight ? scss["section__head--tight"] : ""}`}>
-          <div className={scss.section__titles}>
-            <h2 id={headingId} className={scss.section__title}>
-              {typograph(title)}
-            </h2>
-            {lead && <p className={scss.section__lead}>{typograph(lead)}</p>}
+        {beside ? (
+          <div className={scss.section__split}>
+            <div className={scss.section__main}>{heading}</div>
+            {beside}
           </div>
-          {aside}
-        </div>
+        ) : (
+          heading
+        )}
         {children}
       </div>
       {after}

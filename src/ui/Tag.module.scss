@@ -1,0 +1,31 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+.tag--neutral {
+  background: var(--color-fill);
+}
+
+.tag--raised {
+  background: var(--color-surface-raised);
+}
+
+.tag--accent {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.tag--outline {
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}

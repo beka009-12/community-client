@@ -4,6 +4,12 @@
   padding-bottom: clamp(64px, 8vw, 112px);
 }
 
+.more {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
 .empty {
   color: var(--color-text-muted);
 

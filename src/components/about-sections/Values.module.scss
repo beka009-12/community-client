@@ -1,43 +1,64 @@
 .values {
-  padding-top: clamp(64px, 7vw, 96px);
-  padding-bottom: clamp(72px, 8vw, 104px);
+  padding-top: clamp(64px, 7.2vw, 104px);
+  padding-bottom: clamp(64px, 7.2vw, 104px);
   background: var(--color-surface);
 }
 
 .values__title {
-  font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.625rem, 1.3rem + 1vw, 2rem);
-  line-height: 1.25;
+  font-size: clamp(2rem, 1.3rem + 2.1vw, 2.875rem);
+  line-height: 1.1;
   letter-spacing: -0.01em;
 }
 
+// Three columns split by hairlines, no cards.
 .values__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: clamp(32px, 4vw, 48px);
+  margin-top: 56px;
   list-style: none;
 
   @media (max-width: 1024px) {
     grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
   }
 }
 
 .value {
-  padding: 28px 28px 32px;
-  border-radius: 16px;
-  background: var(--color-surface-raised);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 8px 40px;
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  & + & {
+    border-left: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 1024px) {
+    padding: 0;
+
+    & + & {
+      padding-top: 32px;
+      border-top: 1px solid var(--color-border);
+      border-left: none;
+    }
+  }
 }
 
 .value__title {
-  font-size: 1.375rem;
+  font-size: 2rem;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
 .value__text {
-  margin-top: 12px;
-  font-size: var(--text-base);
+  max-width: 22em;
+  font-size: var(--text-lg);
+  line-height: 1.55;
   color: var(--color-text-muted);
 }

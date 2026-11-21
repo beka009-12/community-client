@@ -24,6 +24,8 @@ export interface AcademyProgram {
   text: string;
   // Extra line under the text (the IT club's own numbers).
   note?: string;
+  // The longer line on /about, as motion.kg words it.
+  summary?: string;
   // The IT club, which is this community, stands out from the courses.
   highlight?: boolean;
 }
@@ -33,16 +35,19 @@ export const ACADEMY_PROGRAMS: AcademyProgram[] = [
     duration: "18 мес + 1 мес стажировки",
     title: "JavaScript-инженер",
     text: "HTML · CSS · JavaScript · TypeScript · React · Redux · Git",
+    summary: "18 месяцев + 1 месяц стажировки в подарок",
   },
   {
     duration: "15 мес + 1 мес стажировки",
     title: "AI-разработка",
     text: "Python · PostgreSQL · Docker · Linux · Nginx",
+    summary: "15 месяцев + 1 месяц стажировки в подарок",
   },
   {
     duration: "4 месяца",
     title: "IT-шаг для детей",
     text: "HTML · CSS · JavaScript · Python",
+    summary: "4 месяца: HTML, CSS, JavaScript, Python",
   },
   {
     duration: "3–6 месяцев",
@@ -55,10 +60,10 @@ export const ACADEMY_PROGRAMS: AcademyProgram[] = [
 
 // The academy's own counters on motion.kg.
 export const ACADEMY_NUMBERS: { value: string; label: string }[] = [
-  { value: "2020", label: "год основания, Бишкек" },
-  { value: "5+", label: "лет учит программированию" },
+  { value: "5+", label: "лет учим программированию" },
   { value: "15+", label: "сотрудников в академии" },
   { value: "95%", label: "положительных отзывов студентов" },
+  { value: "100+", label: "выпускников IT Клуба работают" },
 ];
 
 // Courses next to the programs (motion.kg, «Негизги курстар»).

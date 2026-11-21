@@ -15,16 +15,9 @@ const Academy: FC<{ index: number }> = ({ index }) => (
     index={index}
     id="academy"
     label="Академия MotionWeb"
-    title="Академия, из которой мы выросли."
+    title={"Академия, из которой\nмы выросли."}
     band
-    tight
-    after={
-      <div className={scss.alumni}>
-        <EmployerMarquee />
-      </div>
-    }
-  >
-    <div className={scss.intro}>
+    top={
       <div className={scss.intro__copy}>
         <p className={scss.lead}>
           {typograph(
@@ -35,6 +28,8 @@ const Academy: FC<{ index: number }> = ({ index }) => (
           Сайт академии — motion.kg
         </Button>
       </div>
+    }
+    beside={
       <dl className={scss.facts}>
         {ACADEMY_FACTS.map((fact) => (
           <div key={fact.label} className={scss.fact}>
@@ -43,8 +38,13 @@ const Academy: FC<{ index: number }> = ({ index }) => (
           </div>
         ))}
       </dl>
-    </div>
-
+    }
+    after={
+      <div className={scss.alumni}>
+        <EmployerMarquee />
+      </div>
+    }
+  >
     <h3 className={scss.subtitle}>Программы академии</h3>
     <ul className={scss.programs}>
       {ACADEMY_PROGRAMS.map((program) => (

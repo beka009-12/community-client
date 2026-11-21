@@ -18,8 +18,8 @@ export const clientRequestSchema = z.object({
   email: z.email("Введите email в формате name@company.kg").max(254, maxLengthMessage(254)),
   phone: requiredText(1, 128, "Телефон"),
   title: requiredText(2, 150, "Название проекта"),
-  description: requiredText(10, 2000, "Описание проекта"),
-  project_type: z.enum(PROJECT_TYPES, "Выберите тип из списка"),
+  description: requiredText(10, 2000, "Описание задачи"),
+  project_type: z.enum(PROJECT_TYPES, "Выберите, что нужно сделать"),
   budget,
 });
 

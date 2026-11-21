@@ -8,8 +8,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   size?: "md" | "lg";
   href?: string;
-  // Opens in a new tab and says so with a ↗.
+  // Opens in a new tab and says so with a ↗ (unless arrow is false, e.g. a PDF).
   external?: boolean;
+  arrow?: boolean;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -20,6 +21,7 @@ const Button: FC<ButtonProps> = ({
   type = "button",
   href,
   external = false,
+  arrow = true,
   ...rest
 }) => {
   const combinedClassName = [scss.button, scss[`button--${variant}`], scss[`button--${size}`], className].join(
@@ -30,18 +32,20 @@ const Button: FC<ButtonProps> = ({
     return (
       <a href={href} target="_blank" rel="noreferrer" className={combinedClassName}>
         {children}
-        <svg
-          className={scss.button__external}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M7 17 17 7M8 7h9v9" />
-        </svg>
+        {arrow && (
+          <svg
+            className={scss.button__external}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M7 17 17 7M8 7h9v9" />
+          </svg>
+        )}
       </a>
     );
   }

@@ -7,13 +7,16 @@ import scss from "./Contact.module.scss";
 const Contact = () => (
   <>
     <PageIntro
+      className={scss.intro}
       crumb="Контакты"
-      title="Расскажите о проекте."
+      title={"Расскажите\nо проекте."}
       lead="Изучим заявку и вернёмся с вопросами или предложением. Достаточно пары предложений — детали обсудим на созвоне."
     />
-    <div className={`container ${scss.layout}`}>
-      <RequestForm />
-      <NextSteps />
+    <div className={scss.request}>
+      <div className={`container ${scss.layout}`}>
+        <RequestForm />
+        <NextSteps />
+      </div>
     </div>
   </>
 );

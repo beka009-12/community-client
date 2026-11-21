@@ -42,13 +42,13 @@
   }
 }
 
-// A quiet filled button next to the primary one (the home hero).
+// A quiet filled button: grey on light pages, graphite on dark ones.
 .button--secondary {
-  background: var(--color-surface-raised);
+  background: var(--color-fill);
   color: var(--color-text);
 
   @include hover {
-    background: var(--color-border);
+    background: var(--color-fill-hover);
   }
 }
 

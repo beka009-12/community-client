@@ -24,9 +24,9 @@
 
 .member__photo {
   position: relative;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 278 / 340;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 16px;
   background: var(--color-surface);
 }
 
@@ -45,8 +45,14 @@
 
 // Only a card that opens a profile lights up: on a plain card the accent
 // fill promised a click.
-.member__initials {
+// Doubled class: beats the Avatar fallback's own sizes.
+.member__initials.member__initials {
   transition: background-color 200ms ease-out;
+
+  span {
+    font-size: 26cqmin;
+    color: var(--color-border);
+  }
 
   @include lit-by(".member--link") {
     background: var(--color-accent);
@@ -62,14 +68,6 @@
   position: absolute;
   bottom: 16px;
   left: 16px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: var(--color-surface-raised);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  line-height: 1.4;
-  text-transform: uppercase;
-  color: var(--color-text);
 
   @media (max-width: 767px) {
     bottom: 10px;
@@ -77,26 +75,22 @@
   }
 }
 
-// A role, not an action, so not the accent.
-.member__badge--strong {
-  background: var(--color-inverse);
-  color: var(--color-on-inverse);
-}
-
 .member__name {
-  margin-top: 22px;
-  font-size: 1.25rem;
+  margin-top: 20px;
+  font-size: var(--text-xl);
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .member__position {
   margin-top: 6px;
-  font-size: var(--text-md);
+  font-size: var(--text-lg);
+  line-height: 1.55;
 }
 
 .member__focus {
-  margin-top: 8px;
+  margin-top: 4px;
+  line-height: 1.45;
   font-size: var(--text-sm);
   color: var(--color-text-muted);
 }

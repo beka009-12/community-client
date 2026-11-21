@@ -1,6 +1,8 @@
+// Every home section: 104px above and below at 1440, the «0N /» line,
+// the title, an optional lead, 48px to the content.
 .section {
-  padding-top: clamp(56px, 6vw, 80px);
-  padding-bottom: clamp(64px, 7vw, 96px);
+  padding-top: clamp(64px, 7.2vw, 104px);
+  padding-bottom: clamp(64px, 7.2vw, 104px);
 }
 
 .section--band {
@@ -11,6 +13,7 @@
   font-size: var(--text-2xs);
   font-weight: 500;
   line-height: 1.4;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--color-text-muted);
 }
@@ -21,12 +24,29 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 16px 40px;
-  margin-top: clamp(20px, 2.4vw, 28px);
-  margin-bottom: clamp(36px, 4.4vw, 56px);
+  margin-top: 16px;
+  margin-bottom: 48px;
 }
 
 .section__head--tight {
   margin-bottom: 28px;
+}
+
+// Heading block on the left, a column beside it from the eyebrow down.
+.section__split {
+  display: grid;
+  grid-template-columns: minmax(0, 640px) minmax(280px, 440px);
+  justify-content: space-between;
+  align-items: start;
+  gap: 40px 64px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.section__main {
+  min-width: 0;
 }
 
 .section__titles {
@@ -40,13 +60,15 @@
 .section__title {
   font-size: clamp(2rem, 1.3rem + 2.1vw, 2.875rem);
   font-weight: 500;
-  line-height: 1.13;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-wrap: initial;
   overflow-wrap: anywhere;
 }
 
 .section__lead {
   max-width: 62ch;
-  font-size: 1.125rem;
-  line-height: 1.4;
+  font-size: var(--text-lg);
+  line-height: 1.55;
   color: var(--color-text-muted);
 }

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { typograph } from "@/src/lib/typograph";
+import Tag from "@/src/ui/Tag";
 import HomeSection from "./HomeSection";
 import scss from "./WhoWeAre.module.scss";
 
@@ -19,7 +20,7 @@ const WhoWeAre: FC<{ index: number }> = ({ index }) => (
     index={index}
     id="who-we-are"
     label="Кто мы"
-    title="Не учебный проект. Команда для настоящих задач."
+    title={"Не учебный проект.\nКоманда для настоящих задач."}
     tight
   >
     <div className={scss.layout}>
@@ -40,16 +41,16 @@ const WhoWeAre: FC<{ index: number }> = ({ index }) => (
       </div>
 
       <div className={scss.chain}>
-        <span className={scss.chain__pill}>Головная организация</span>
+        <Tag>Головная организация</Tag>
         <p className={scss.chain__name}>MotionWeb</p>
-        <p className={scss.chain__meta}>IT-академия в Бишкеке · с 2020 года</p>
+        <p className={scss.chain__meta}>IT-академия в Бишкеке, с 2020 года</p>
         <span className={scss.chain__arrow} aria-hidden="true">
           ↓
         </span>
         <div className={scss.chain__community}>
           <p className={scss.chain__communityName}>Motion Community</p>
           <p className={scss.chain__communityMeta}>
-            {typograph("IT Клуб академии · стажировка на реальных проектах")}
+            {typograph("IT Клуб академии: стажировка на реальных проектах")}
           </p>
         </div>
       </div>

@@ -7,6 +7,7 @@ import type { HomeProject } from "@/src/data/home-mock";
 import { PROJECT_STATUS_LABELS } from "@/src/lib/api-labels";
 import { typograph } from "@/src/lib/typograph";
 import type { ProjectListItem } from "@/src/server/api/schemas";
+import Tag from "@/src/ui/Tag";
 import HomeSection from "./HomeSection";
 import scss from "./HomeProjects.module.scss";
 
@@ -75,11 +76,13 @@ const HomeProjects: FC<IHomeProjectsProps> = ({ index, projects }) => (
             <h3 className={scss.card__title}>{project.title}</h3>
             {project.description && <p className={scss.card__text}>{typograph(project.description)}</p>}
             <span className={scss.card__meta}>
-              {project.tags.map((tag) => (
-                <span key={tag} className={scss.card__tag}>
-                  {tag}
-                </span>
-              ))}
+              <span className={scss.card__tags}>
+                {project.tags.map((tag) => (
+                  <Tag key={tag} tone="raised">
+                    {tag}
+                  </Tag>
+                ))}
+              </span>
               {project.teamLabel && <span className={scss.card__team}>{project.teamLabel}</span>}
             </span>
           </CardShell>

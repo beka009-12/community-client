@@ -6,6 +6,7 @@ import type { HomePerson } from "@/src/data/home-mock";
 import { positionLabel } from "@/src/lib/api-labels";
 import { fullName } from "@/src/lib/people";
 import type { MemberListItem } from "@/src/server/api/schemas";
+import Tag from "@/src/ui/Tag";
 import HomeSection from "./HomeSection";
 import scss from "./HomeTeam.module.scss";
 
@@ -62,11 +63,9 @@ const HomeTeam: FC<IHomeTeamProps> = ({ index, people }) => (
                 fallbackClassName={scss.member__initials}
               />
               {person.badge && (
-                <span
-                  className={`${scss.member__badge} ${person.badge.strong ? scss["member__badge--strong"] : ""}`}
-                >
+                <Tag tone={person.badge.strong ? "accent" : "raised"} className={scss.member__badge}>
                   {person.badge.label}
-                </span>
+                </Tag>
               )}
             </span>
             <span className={scss.member__name}>{person.name}</span>

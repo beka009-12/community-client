@@ -1,9 +1,10 @@
 .history {
   display: grid;
-  grid-template-columns: minmax(220px, 340px) minmax(0, 1fr);
+  grid-template-columns: minmax(220px, 360px) minmax(0, 720px);
+  justify-content: space-between;
   gap: 32px 64px;
-  padding-top: clamp(56px, 7vw, 96px);
-  padding-bottom: clamp(72px, 8vw, 112px);
+  padding-top: clamp(64px, 7.2vw, 104px);
+  padding-bottom: clamp(64px, 7.2vw, 104px);
 
   @media (max-width: 1024px) {
     grid-template-columns: minmax(0, 1fr);
@@ -20,6 +21,8 @@
 
 .history__lead {
   margin-top: 16px;
+  font-size: var(--text-lg);
+  line-height: 1.55;
   color: var(--color-text-muted);
 }
 
@@ -33,14 +36,15 @@
   position: relative;
   display: grid;
   grid-template-columns: 110px minmax(0, 1fr);
-  gap: 8px 48px;
+  gap: 8px 64px;
   padding-bottom: 40px;
 
+  // Year, 24px, the 16px rail, 24px, the text.
   &::before {
     content: "";
     position: absolute;
-    top: 10px;
-    left: 128px;
+    top: 9px;
+    left: 136px;
     width: 12px;
     height: 12px;
     border: 2px solid var(--color-field-border);
@@ -51,9 +55,9 @@
   &:not(:last-child)::after {
     content: "";
     position: absolute;
-    top: 26px;
+    top: 21px;
     bottom: 0;
-    left: 133px;
+    left: 141px;
     width: 2px;
     background: var(--color-border);
   }
@@ -86,7 +90,8 @@
 .event__year {
   font-size: var(--text-2xl);
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
   font-variant-numeric: tabular-nums;
   color: var(--color-text-subtle);
 
@@ -98,12 +103,13 @@
 .event__title {
   font-size: var(--text-xl);
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .event__text {
   max-width: 40em;
   margin-top: 8px;
   font-size: var(--text-md);
+  line-height: 1.5;
   color: var(--color-text-muted);
 }

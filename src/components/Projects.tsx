@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useMemo, useRef, useState } from "react";
-import Header from "@/src/components/projects-sections/Header";
+import Header, { type CategoryTab } from "@/src/components/projects-sections/Header";
 import ProjectListing from "@/src/components/projects-sections/ProjectListing";
 import Button from "@/src/ui/Button";
 import type { ProjectStatus } from "@/src/lib/api-enums";
@@ -20,25 +20,44 @@ const emptyText = (category: string | null, status: ProjectStatus | null): strin
   return filters.length > 0 ? `Нет проектов ${filters.join(" ")}.` : "Проектов пока нет.";
 };
 
-// Figures for the intro: the whole showcase, then what is being built now.
-const introFacts = (projects: ProjectListItem[]): IntroFact[] => {
-  const total = projects.length;
-  const inProgress = projects.filter((project) => project.status === "In_progress").length;
+// Figures for the intro, as in the mockup: launched, directions, in work.
+const introFacts = (projects: ProjectListItem[], categories: string[]): IntroFact[] => {
   const completed = projects.filter((project) => project.status === "Completed").length;
-  return [
-    { value: String(total), label: plural(total, "проект на витрине", "проекта на витрине", "проектов на витрине") },
-    { value: String(completed), label: plural(completed, "проект запущен", "проекта запущено", "проектов запущено") },
-    { value: String(inProgress), label: "сейчас в работе" },
-  ].filter((fact) => fact.value !== "0");
+  const inProgress = projects.filter((project) => project.status === "In_progress").length;
+  const facts = [
+    { count: completed, label: plural(completed, "проект запущен", "проекта запущено", "проектов запущено") },
+    {
+      count: categories.length,
+      label: `${plural(categories.length, "направление", "направления", "направлений")}: ${categories.join(", ")}`,
+    },
+    {
+      count: inProgress,
+      label: plural(inProgress, "проект сейчас в разработке", "проекта сейчас в разработке", "проектов сейчас в разработке"),
+    },
+  ].filter((fact) => fact.count > 0);
+  return facts.map((fact) => ({ value: String(fact.count), label: fact.label }));
 };
+
+// The list shows this many rows, then «Показать ещё».
+const PAGE_SIZE = 8;
 
 const Projects: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
   // null = all. Categories are free text in the API, so the tabs come
   // from the data itself.
   const [category, setCategory] = useState<string | null>(null);
   const [status, setStatus] = useState<ProjectStatus | null>(null);
+  const [limit, setLimit] = useState(PAGE_SIZE);
   const filtersRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const categories = [...new Set(projects.map((project) => project.category))];
+  const tabs: CategoryTab[] = [
+    { key: null, label: "Все", count: projects.length },
+    ...categories.map((item) => ({
+      key: item,
+      label: item,
+      count: projects.filter((project) => project.category === item).length,
+    })),
+  ];
   const filtered = category !== null || status !== null;
 
   const visible = useMemo(
@@ -51,9 +70,33 @@ const Projects: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
     [projects, category, status],
   );
 
+  const shown = visible.slice(0, limit);
+  const rest = visible.length - shown.length;
+
+  // A new filter starts the list from its first page again.
+  const changeCategory = (next: string | null) => {
+    setCategory(next);
+    setLimit(PAGE_SIZE);
+  };
+  const changeStatus = (next: ProjectStatus | null) => {
+    setStatus(next);
+    setLimit(PAGE_SIZE);
+  };
+
+  // The new rows get the focus, so a keyboard user lands on them, not back
+  // on a button that has moved down the page.
+  const showMore = () => {
+    const first = shown.length;
+    setLimit((current) => current + PAGE_SIZE);
+    requestAnimationFrame(() => {
+      listRef.current?.querySelectorAll<HTMLAnchorElement>("li a")[first]?.focus();
+    });
+  };
+
   const resetFilters = () => {
     setCategory(null);
     setStatus(null);
+    setLimit(PAGE_SIZE);
     // The reset button unmounts with the empty state; «Все» takes the focus.
     filtersRef.current?.querySelector<HTMLButtonElement>("[aria-pressed]")?.focus();
   };
@@ -62,16 +105,23 @@ const Projects: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
     <div>
       <div ref={filtersRef}>
         <Header
-          facts={introFacts(projects)}
-          categories={categories}
+          facts={introFacts(projects, categories)}
+          tabs={tabs}
           category={category}
-          onCategoryChange={setCategory}
+          onCategoryChange={changeCategory}
           status={status}
-          onStatusChange={setStatus}
+          onStatusChange={changeStatus}
         />
       </div>
-      <div className={`container ${scss.list}`}>
-        {visible.length > 0 && <ProjectListing projects={visible} />}
+      <div ref={listRef} className={`container ${scss.list}`}>
+        {shown.length > 0 && <ProjectListing projects={shown} />}
+        {rest > 0 && (
+          <div className={scss.more}>
+            <Button variant="secondary" onClick={showMore}>
+              Показать ещё {Math.min(rest, PAGE_SIZE)} {plural(Math.min(rest, PAGE_SIZE), "проект", "проекта", "проектов")}
+            </Button>
+          </div>
+        )}
         {/* Always rendered: a live region announces reliably only when it
             exists before its text changes. */}
         <p role="status" className={scss.empty}>

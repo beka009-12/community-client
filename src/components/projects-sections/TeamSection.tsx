@@ -1,26 +1,37 @@
 import { FC } from "react";
 import Link from "next/link";
 import Avatar from "@/src/ui/Avatar";
-import { MEMBERSHIP_ROLE_LABELS, positionLabel } from "@/src/lib/api-labels";
+import { positionLabel } from "@/src/lib/api-labels";
 import { fullName } from "@/src/lib/people";
 import type { TeamPerson } from "@/src/server/api/joins";
 import scss from "./TeamSection.module.scss";
 
+// The lead says so first; everyone else is their position.
+const caption = ({ member, role }: TeamPerson): string => {
+  const position = positionLabel(member.position);
+  if (role === "Team_Lead") return position ? `Тимлид, ${position}` : "Тимлид";
+  return position ?? "Участник";
+};
+
 const TeamSection: FC<{ people: TeamPerson[] }> = ({ people }) => (
   <ul className={scss.team}>
-    {people.map(({ member, role }) => {
-      const name = fullName(member);
-      const caption = [MEMBERSHIP_ROLE_LABELS[role], positionLabel(member.position)]
-        .filter(Boolean)
-        .join(", ");
+    {people.map((person) => {
+      const name = fullName(person.member);
       return (
-        <li key={member.id}>
-          <Link href={`/team/${member.id}`} className={scss.member}>
+        <li key={person.member.id}>
+          <Link href={`/team/${person.member.id}`} className={scss.member}>
             <span className={scss.member__avatar}>
-              <Avatar src={member.avatar} name={name} imageClassName={scss.member__avatarImg} />
+              <Avatar
+                src={person.member.avatar}
+                name={name}
+                imageClassName={scss.member__avatarImg}
+                fallbackClassName={scss.member__initials}
+              />
             </span>
-            <span className={scss.member__name}>{name}</span>
-            <span className={scss.member__caption}>{caption}</span>
+            <span className={scss.member__text}>
+              <span className={scss.member__name}>{name}</span>
+              <span className={scss.member__caption}>{caption(person)}</span>
+            </span>
           </Link>
         </li>
       );

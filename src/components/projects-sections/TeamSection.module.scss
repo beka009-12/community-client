@@ -2,52 +2,68 @@
 
 .team {
   list-style: none;
-  border-bottom: 1px solid var(--color-line);
 }
 
 .member {
-  display: grid;
-  grid-template-columns: 40px 1fr auto;
+  display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   padding: 12px 0;
-  border-top: 1px solid var(--color-line);
+
+  li + li & {
+    border-top: 1px solid var(--color-line);
+  }
 
   @include hover {
     .member__name {
       color: var(--color-accent-text);
     }
   }
-
-  @media (max-width: 559px) {
-    grid-template-columns: 40px 1fr;
-
-    .member__caption {
-      grid-column: 2;
-      margin-top: -12px;
-    }
-  }
 }
 
 .member__avatar {
   position: relative;
+  flex-shrink: 0;
   width: 40px;
   height: 40px;
   overflow: hidden;
   border-radius: 50%;
-  background: var(--color-field);
+  background: var(--color-fill);
 }
 
 .member__avatarImg {
   object-fit: cover;
 }
 
+// Doubled class: beats the Avatar fallback's own background and size.
+.member__initials.member__initials {
+  background: var(--color-fill);
+
+  span {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--color-text-muted);
+  }
+}
+
+.member__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
 .member__name {
+  font-size: var(--text-md);
   font-weight: 500;
-  transition: color 0.2s ease;
+  line-height: 1.4;
+  transition: color 150ms ease-out;
 }
 
 .member__caption {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
+  line-height: 1.4;
   color: var(--color-text-muted);
 }

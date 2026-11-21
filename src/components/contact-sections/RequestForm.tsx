@@ -14,26 +14,20 @@ import scss from "./RequestForm.module.scss";
 interface FieldProps {
   name: string;
   label: string;
-  full?: boolean;
-  // Shown before anyone types, so the requirement isn't learned from an error.
-  hint?: string;
+  optional?: boolean;
   error?: string;
   children: (describedBy: string | undefined) => ReactNode;
 }
 
-const Field: FC<FieldProps> = ({ name, label, full, hint, error, children }) => {
-  const hintId = hint ? `request-${name}-hint` : undefined;
+const Field: FC<FieldProps> = ({ name, label, optional, error, children }) => {
   const errorId = error ? `request-${name}-error` : undefined;
-  const describedBy = [hintId, errorId].filter(Boolean).join(" ") || undefined;
   return (
-    <div className={`${scss.field} ${full ? scss["field--full"] : ""}`}>
-      <label htmlFor={`request-${name}`}>{label}</label>
-      {hint && (
-        <p id={hintId} className={scss.field__hint}>
-          {hint}
-        </p>
-      )}
-      {children(describedBy)}
+    <div className={scss.field}>
+      <label htmlFor={`request-${name}`} className={scss.label}>
+        {label}
+        {optional && <span className={scss.label__optional}>необязательно</span>}
+      </label>
+      {children(errorId)}
       {error && (
         <p id={errorId} className={scss.field__error}>
           {error}
@@ -51,9 +45,9 @@ const focusOnMount = (node: HTMLElement | null) => {
   node?.focus();
 };
 
-// Form only — the page heading lives in Contact. Field
-// names mirror the ClientRequest entity (ТЗ §9); the request lands in
-// the admin's "Заявки".
+// Form only — the page heading lives in Contact. Field names mirror the
+// API's ClientRequestCreate, which requires company and phone, so those two
+// aren't marked «необязательно» as in the mockup.
 const RequestForm: FC = () => {
   const [state, formAction, pending] = useActionState(
     submitClientRequest,
@@ -74,14 +68,16 @@ const RequestForm: FC = () => {
   }, [state]);
 
   // The closing call on other pages links here as ?type=…; the type picked
-  // there is preselected unless the form already holds one. Read from the
-  // URL after mount, so the page stays static (no useSearchParams).
-  const typeRef = useRef<HTMLSelectElement>(null);
+  // there is preselected unless one is already chosen. Read from the URL
+  // after mount, so the page stays static (no useSearchParams).
   useEffect(() => {
-    const select = typeRef.current;
+    const form = formRef.current;
     const type = new URLSearchParams(window.location.search).get("type");
-    if (!select || select.value || !type) return;
-    if ((PROJECT_TYPES as readonly string[]).includes(type)) select.value = type;
+    if (!form || !type || form.querySelector('input[name="project_type"]:checked')) return;
+    const option = [...form.querySelectorAll<HTMLInputElement>('input[name="project_type"]')].find(
+      (input) => input.value === type,
+    );
+    if (option) option.checked = true;
   }, []);
 
   const value = (name: string) => state.values?.[name] ?? "";
@@ -92,6 +88,7 @@ const RequestForm: FC = () => {
     "aria-invalid": Boolean(errors[name]),
     "aria-describedby": describedBy,
   });
+  const typeErrorId = errors.project_type ? "request-project_type-error" : undefined;
 
   return (
     // initial={false}: the form is server-rendered visible; only the
@@ -128,104 +125,112 @@ const RequestForm: FC = () => {
           exit={{ opacity: 0, y: offset }}
           transition={springs.snappy}
         >
-          <Field name="name" label="Имя" error={errors.name}>
-            {(describedBy) => (
-              <input
-                {...inputProps("name", describedBy)}
-                type="text"
-                autoComplete="name"
-                required
-              />
-            )}
-          </Field>
+          <div className={scss.row}>
+            <Field name="name" label="Имя" error={errors.name}>
+              {(describedBy) => (
+                <input
+                  {...inputProps("name", describedBy)}
+                  type="text"
+                  autoComplete="name"
+                  placeholder="Как к вам обращаться"
+                  required
+                />
+              )}
+            </Field>
 
-          <Field name="company" label="Компания" error={errors.company}>
-            {(describedBy) => (
-              <input
-                {...inputProps("company", describedBy)}
-                type="text"
-                autoComplete="organization"
-                required
-              />
-            )}
-          </Field>
+            <Field name="company" label="Компания" error={errors.company}>
+              {(describedBy) => (
+                <input
+                  {...inputProps("company", describedBy)}
+                  type="text"
+                  autoComplete="organization"
+                  placeholder="Название компании"
+                  required
+                />
+              )}
+            </Field>
+          </div>
 
-          <Field name="email" label="Email" error={errors.email}>
-            {(describedBy) => (
-              <input
-                {...inputProps("email", describedBy)}
-                type="email"
-                autoComplete="email"
-                required
-              />
-            )}
-          </Field>
+          <div className={scss.row}>
+            <Field name="email" label="Email" error={errors.email}>
+              {(describedBy) => (
+                <input
+                  {...inputProps("email", describedBy)}
+                  type="email"
+                  autoComplete="email"
+                  placeholder="name@company.kg"
+                  required
+                />
+              )}
+            </Field>
 
-          <Field name="phone" label="Телефон" error={errors.phone}>
-            {(describedBy) => (
-              <input
-                {...inputProps("phone", describedBy)}
-                type="tel"
-                autoComplete="tel"
-                required
-              />
-            )}
-          </Field>
+            <Field name="phone" label="Телефон" error={errors.phone}>
+              {(describedBy) => (
+                <input
+                  {...inputProps("phone", describedBy)}
+                  type="tel"
+                  autoComplete="tel"
+                  placeholder="+996 ___ ___ ___"
+                  required
+                />
+              )}
+            </Field>
+          </div>
 
           <Field name="title" label="Название проекта" error={errors.title}>
             {(describedBy) => (
               <input
                 {...inputProps("title", describedBy)}
                 type="text"
+                placeholder="Например, личный кабинет для клиентов"
                 required
               />
             )}
           </Field>
 
-          <Field
-            name="project_type"
-            label="Тип проекта"
-            error={errors.project_type}
-          >
+          <fieldset className={scss.types}>
+            <legend className={scss.label}>Что нужно сделать</legend>
+            <div className={scss.types__list}>
+              {PROJECT_TYPES.map((type, index) => (
+                <label key={type} className={scss.type}>
+                  <input
+                    type="radio"
+                    name="project_type"
+                    value={type}
+                    defaultChecked={value("project_type") === type}
+                    aria-invalid={index === 0 ? Boolean(errors.project_type) : undefined}
+                    aria-describedby={typeErrorId}
+                    required
+                  />
+                  {type}
+                </label>
+              ))}
+            </div>
+            {errors.project_type && (
+              <p id={typeErrorId} className={scss.field__error}>
+                {errors.project_type}
+              </p>
+            )}
+          </fieldset>
+
+          <Field name="description" label="Описание задачи" error={errors.description}>
             {(describedBy) => (
-              <select ref={typeRef} {...inputProps("project_type", describedBy)} required>
-                <option value="">Выберите тип</option>
-                {PROJECT_TYPES.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
+              <textarea
+                {...inputProps("description", describedBy)}
+                rows={4}
+                placeholder="Что нужно сделать, для кого и к какому сроку"
+                required
+              />
             )}
           </Field>
 
-          <Field
-            name="budget"
-            label="Бюджет, сом (необязательно)"
-            error={errors.budget}
-          >
+          <Field name="budget" label="Бюджет" optional error={errors.budget}>
             {(describedBy) => (
               <input
                 {...inputProps("budget", describedBy)}
                 type="text"
                 inputMode="numeric"
-                placeholder={"Например, 300\u00A0000"}
-              />
-            )}
-          </Field>
-
-          <Field
-            name="description"
-            label="Описание проекта"
-            full
-            hint="Что нужно сделать, для кого и к какому сроку"
-            error={errors.description}
-          >
-            {(describedBy) => (
-              <textarea
-                {...inputProps("description", describedBy)}
-                rows={5}
-                required
+                placeholder={"Например, 300 000 сом"}
               />
             )}
           </Field>
@@ -237,7 +242,7 @@ const RequestForm: FC = () => {
           )}
 
           <div className={scss.submitRow}>
-            <Button type="submit" variant="primary" aria-disabled={pending}>
+            <Button type="submit" variant="primary" size="lg" aria-disabled={pending}>
               {pending ? "Отправляем…" : "Отправить заявку"}
             </Button>
           </div>
