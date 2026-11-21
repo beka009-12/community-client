@@ -8,6 +8,7 @@ import scss from "./Footer.module.scss";
 
 const NAV_LINKS = [
   { href: "/", label: "Главная" },
+  { href: "/about", label: "О нас" },
   { href: "/projects", label: "Проекты" },
   { href: "/team", label: "Команда" },
   { href: "/contact", label: "Контакты" },
@@ -41,7 +42,7 @@ const Footer: FC<FooterProps> = async ({ loginHref }) => {
               height={134}
               className={scss.logo}
             />
-            <p className={scss.muted}>Сообщество разработчиков, Бишкек</p>
+            <p className={scss.muted}>Проектная команда при MotionWeb</p>
           </div>
 
           <div className={scss.footer__columns}>

@@ -10,6 +10,13 @@
   background: var(--color-surface);
 }
 
+// A page that ends on a full-bleed band (home's dark closing call, the
+// about page's values) meets the footer edge to edge; the top line still
+// parts a grey band from the grey footer.
+:global(main:has([data-footer-flush])) + .footer {
+  margin-top: 0;
+}
+
 .footer__top {
   display: flex;
   flex-wrap: wrap;
