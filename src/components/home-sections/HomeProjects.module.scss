@@ -21,26 +21,17 @@
   outline-offset: 6px;
 }
 
-// The screenshot sits on a tinted plate, like a device on a desk. Mixed in
-// oklab: in srgb the tint drifted 12° towards violet.
+// The cover fills the card edge to edge, no plate around it.
 .card__plate {
   display: block;
-  padding: clamp(20px, 2.5vw, 36px) clamp(20px, 2.5vw, 36px) clamp(16px, 1.9vw, 27px);
-  border-radius: 12px;
-  background: color-mix(in oklab, var(--color-accent) 9%, var(--color-surface-raised));
-  transition: background-color 200ms ease-out;
-
-  @include lit-by(".card--link") {
-    background: color-mix(in oklab, var(--color-accent) 15%, var(--color-surface-raised));
-  }
 }
 
 .card__shot {
   position: relative;
   display: block;
-  aspect-ratio: 572 / 311;
+  aspect-ratio: 644 / 372;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 16px;
   background: var(--color-surface-raised);
 }
 
@@ -49,10 +40,15 @@
 }
 
 .card__title {
-  margin-top: 28px;
+  margin-top: 24px;
   font-size: clamp(1.375rem, 1.15rem + 0.6vw, 1.5625rem);
   font-weight: 500;
   line-height: 1.4;
+  transition: color 200ms ease-out;
+
+  @include lit-by(".card--link") {
+    color: var(--color-accent-text);
+  }
 }
 
 .card__text {
