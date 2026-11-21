@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Projects from "@/src/components/Projects";
+import ClosingCall from "@/src/components/home-sections/ClosingCall";
 import { getProjects } from "@/src/server/api/projects";
 
 export const metadata: Metadata = {
@@ -8,6 +9,11 @@ export const metadata: Metadata = {
     "Проекты Motion Community: что мы делаем и что уже в работе.",
 };
 
-const Page = async () => <Projects projects={await getProjects()} />;
+const Page = async () => (
+  <>
+    <Projects projects={await getProjects()} />
+    <ClosingCall />
+  </>
+);
 
 export default Page;

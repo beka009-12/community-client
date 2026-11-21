@@ -73,6 +73,17 @@ const RequestForm: FC = () => {
       ?.focus();
   }, [state]);
 
+  // The closing call on other pages links here as ?type=…; the type picked
+  // there is preselected unless the form already holds one. Read from the
+  // URL after mount, so the page stays static (no useSearchParams).
+  const typeRef = useRef<HTMLSelectElement>(null);
+  useEffect(() => {
+    const select = typeRef.current;
+    const type = new URLSearchParams(window.location.search).get("type");
+    if (!select || select.value || !type) return;
+    if ((PROJECT_TYPES as readonly string[]).includes(type)) select.value = type;
+  }, []);
+
   const value = (name: string) => state.values?.[name] ?? "";
   const inputProps = (name: string, describedBy: string | undefined) => ({
     id: `request-${name}`,
@@ -177,7 +188,7 @@ const RequestForm: FC = () => {
             error={errors.project_type}
           >
             {(describedBy) => (
-              <select {...inputProps("project_type", describedBy)} required>
+              <select ref={typeRef} {...inputProps("project_type", describedBy)} required>
                 <option value="">Выберите тип</option>
                 {PROJECT_TYPES.map((type) => (
                   <option key={type} value={type}>

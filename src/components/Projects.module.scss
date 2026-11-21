@@ -1,5 +1,7 @@
+// Room before the closing call that ends the page.
 .list {
   padding-top: 32px;
+  padding-bottom: clamp(64px, 8vw, 112px);
 }
 
 .empty {
