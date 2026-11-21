@@ -1,20 +1,14 @@
 @use "../../styles/hover" as *;
 
-// An inset grey panel with rounded corners, 16px off the window edges. The
-// container inside keeps the content on the same edges as the page above.
+// An inset grey panel with rounded corners, 16px off the window edges and
+// off whatever ends the page above it. The container inside keeps the
+// content on the same edges as the page.
 .footer {
-  margin-top: clamp(80px, 9vw, 128px);
-  padding: 0 16px 16px;
+  padding: 16px;
 
   @media (max-width: 640px) {
-    padding: 0 8px 8px;
+    padding: 8px;
   }
-}
-
-// A page that ends on the closing call (an inset panel itself) leaves one
-// 16px gap between the two panels.
-:global(main:has([data-footer-flush])) + .footer {
-  margin-top: 0;
 }
 
 .panel {

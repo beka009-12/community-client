@@ -24,8 +24,10 @@ const isActive = (pathname: string, href: string) =>
   pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
 // Pages that open on a dark block (home hero, PageIntro): the header is dark
-// over it.
+// over it. Every page does, project and member pages included.
 const DARK_TOP_PATHS = new Set(["/", "/about", "/projects", "/team", "/contact"]);
+const isDarkTop = (pathname: string) =>
+  DARK_TOP_PATHS.has(pathname) || /^\/(projects|team)\/[^/]+$/.test(pathname);
 
 const Header: FC = () => {
   const pathname = usePathname();
@@ -36,13 +38,9 @@ const Header: FC = () => {
   const burgerRef = useRef<HTMLButtonElement>(null);
   // Dark while the page's dark top block is behind it.
   const heroDark = useSyncExternalStore(heroTheme.subscribe, heroTheme.get, () => true);
-  const overDark = DARK_TOP_PATHS.has(pathname) && heroDark;
-  const overHero = pathname === "/" && overDark;
-  // One filled action per screen: the header's button steps aside where the
-  // page shows the same action itself. Hidden on /contact, which it leads to;
-  // quiet over the home hero and on a profile, whose own buttons are filled.
+  const overDark = isDarkTop(pathname) && heroDark;
+  // Hidden on /contact, the page it leads to.
   const ctaHidden = pathname === "/contact";
-  const ctaVariant = overHero ? "secondary" : pathname.startsWith("/team/") ? "outline" : "primary";
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -82,7 +80,7 @@ const Header: FC = () => {
             );
           })}
           {!ctaHidden && (
-            <Button href="/contact" variant={ctaVariant} className={scss.nav__cta}>
+            <Button href="/contact" className={scss.nav__cta}>
               Обсудить проект
             </Button>
           )}
