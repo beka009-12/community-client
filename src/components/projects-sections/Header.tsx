@@ -1,6 +1,7 @@
 "use client";
 
 import { FC } from "react";
+import type { IntroFact } from "@/src/ui/PageIntro";
 import PageIntro from "@/src/ui/PageIntro";
 import Select from "@/src/ui/Select";
 import type { ProjectStatus } from "@/src/lib/api-enums";
@@ -19,6 +20,7 @@ const STATUS_OPTIONS = [
 ];
 
 interface HeaderProps {
+  facts?: IntroFact[];
   categories: string[];
   category: string | null;
   onCategoryChange: (category: string | null) => void;
@@ -27,6 +29,7 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({
+  facts,
   categories,
   category,
   onCategoryChange,
@@ -39,8 +42,14 @@ const Header: FC<HeaderProps> = ({
   ];
 
   return (
-    <PageIntro title="Проекты">
-      <div className={scss.filters}>
+    <>
+      <PageIntro
+        crumb="Проекты"
+        title="Что мы уже сделали."
+        lead="Сайты, веб-системы, Telegram-боты и AI-интеграции, которые собрали команды сообщества."
+        facts={facts}
+      />
+      <div className={`container ${scss.filters}`}>
         <div className={scss.tabs} role="group" aria-label="Фильтр по категории">
           {tabs.map((item) => (
             <button
@@ -61,7 +70,7 @@ const Header: FC<HeaderProps> = ({
           ariaLabel="Фильтр по статусу"
         />
       </div>
-    </PageIntro>
+    </>
   );
 };
 

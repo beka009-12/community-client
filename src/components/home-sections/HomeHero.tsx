@@ -1,10 +1,10 @@
 "use client";
 
-import { FC, useEffect, useRef } from "react";
+import { FC, useRef } from "react";
 import HeroLogoParticles from "@/src/animation/HeroLogoParticles";
 import Button from "@/src/ui/Button";
 import { useMediaQuery } from "@/src/hooks/useMediaQuery";
-import { heroTheme } from "@/src/lib/hero-theme";
+import { useDarkTop } from "@/src/hooks/useDarkTop";
 import { typograph } from "@/src/lib/typograph";
 import scss from "./HomeHero.module.scss";
 
@@ -19,23 +19,7 @@ const HomeHero: FC = () => {
   const isCompact = useMediaQuery("(max-width: 1024px)");
 
   // The header stays dark while the hero is behind it.
-  useEffect(() => {
-    const hero = heroRef.current;
-    if (!hero) return;
-    const headerHeight =
-      parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 80;
-    const update = () => heroTheme.set(hero.getBoundingClientRect().bottom > headerHeight);
-
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-      // The next visit to home starts on the dark hero again.
-      heroTheme.set(true);
-    };
-  }, []);
+  useDarkTop(heroRef);
 
   return (
     <section ref={heroRef} className={`theme-dark ${scss.hero}`} aria-labelledby="home-title">

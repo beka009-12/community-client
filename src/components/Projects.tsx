@@ -7,6 +7,8 @@ import Button from "@/src/ui/Button";
 import type { ProjectStatus } from "@/src/lib/api-enums";
 import { PROJECT_STATUS_LABELS } from "@/src/lib/api-labels";
 import type { ProjectListItem } from "@/src/server/api/schemas";
+import { plural } from "@/src/lib/plural";
+import type { IntroFact } from "@/src/ui/PageIntro";
 import scss from "./Projects.module.scss";
 
 // Names the filters that left nothing, so the client knows what to change.
@@ -16,6 +18,18 @@ const emptyText = (category: string | null, status: ProjectStatus | null): strin
     status !== null && `со статусом «${PROJECT_STATUS_LABELS[status]}»`,
   ].filter(Boolean);
   return filters.length > 0 ? `Нет проектов ${filters.join(" ")}.` : "Проектов пока нет.";
+};
+
+// Figures for the intro: the whole showcase, then what is being built now.
+const introFacts = (projects: ProjectListItem[]): IntroFact[] => {
+  const total = projects.length;
+  const inProgress = projects.filter((project) => project.status === "In_progress").length;
+  const completed = projects.filter((project) => project.status === "Completed").length;
+  return [
+    { value: String(total), label: plural(total, "проект на витрине", "проекта на витрине", "проектов на витрине") },
+    { value: String(completed), label: plural(completed, "проект запущен", "проекта запущено", "проектов запущено") },
+    { value: String(inProgress), label: "сейчас в работе" },
+  ].filter((fact) => fact.value !== "0");
 };
 
 const Projects: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
@@ -48,6 +62,7 @@ const Projects: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
     <div>
       <div ref={filtersRef}>
         <Header
+          facts={introFacts(projects)}
           categories={categories}
           category={category}
           onCategoryChange={setCategory}
