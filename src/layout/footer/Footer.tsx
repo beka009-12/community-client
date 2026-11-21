@@ -1,9 +1,12 @@
 import { FC } from "react";
-import Image from "next/image";
 import { cacheLife } from "next/cache";
 import Link from "next/link";
 import Button from "@/src/ui/Button";
-import { visibleSocials } from "@/src/data/socials";
+import LogoLockup from "@/src/ui/LogoLockup";
+import SocialIcon from "@/src/ui/SocialIcon";
+import { FOOTER_SOCIALS, socialHref } from "@/src/data/socials";
+import { ACADEMY_URL } from "@/src/data/academy";
+import { typograph } from "@/src/lib/typograph";
 import scss from "./Footer.module.scss";
 
 const NAV_LINKS = [
@@ -26,64 +29,93 @@ interface FooterProps {
   loginHref: string;
 }
 
+// An inset grey panel, like the dark closing call above it.
 const Footer: FC<FooterProps> = async ({ loginHref }) => {
   const year = await currentYear();
-  const socials = visibleSocials();
 
   return (
     <footer className={scss.footer}>
-      <div className="container">
-        <div className={scss.footer__top}>
-          <div className={scss.footer__brand}>
-            <Image
-              src="/brand/motion-logo.svg"
-              alt="Motion Community"
-              width={253}
-              height={134}
-              className={scss.logo}
-            />
-            <p className={scss.muted}>Проектная команда при MotionWeb</p>
-          </div>
-
-          <div className={scss.footer__columns}>
-            <nav aria-label="Навигация в подвале" className={scss.column}>
-              <span className={scss.column__label}>Навигация</span>
-              <ul className={scss.links}>
-                {NAV_LINKS.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href}>{link.label}</Link>
-                  </li>
-                ))}
+      <div className={scss.panel}>
+        <div className="container">
+          <div className={scss.footer__top}>
+            <div className={scss.footer__brand}>
+              <Link href="/" className={scss.logo} aria-label="Motion Community — на главную">
+                <LogoLockup size="lg" />
+              </Link>
+              <p className={scss.muted}>
+                {typograph(
+                  "Проектная команда при IT-академии MotionWeb. Делаем сайты, веб-системы, Telegram-ботов и AI-интеграции.",
+                )}
+              </p>
+              <ul className={scss.socials} aria-label="Мы в соцсетях">
+                {FOOTER_SOCIALS.map((network) => {
+                  const href = socialHref(network);
+                  const content = (
+                    <>
+                      <SocialIcon network={network} className={scss.social__icon} />
+                      {network}
+                    </>
+                  );
+                  return (
+                    <li key={network}>
+                      {href ? (
+                        <a href={href} target="_blank" rel="noreferrer" className={scss.social}>
+                          {content}
+                        </a>
+                      ) : (
+                        <span className={scss.social}>{content}</span>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
-            </nav>
+            </div>
 
-            {socials.length > 0 && (
-              <div className={scss.column}>
-                <span className={scss.column__label}>Соцсети</span>
+            <div className={scss.footer__columns}>
+              <nav aria-label="Навигация в подвале" className={scss.column}>
+                <span className={scss.column__label}>Сайт</span>
                 <ul className={scss.links}>
-                  {socials.map((social) => (
-                    <li key={social.label}>
-                      <a href={social.href} target="_blank" rel="noreferrer">
-                        {social.label}
-                      </a>
+                  {NAV_LINKS.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href}>{link.label}</Link>
                     </li>
                   ))}
                 </ul>
-              </div>
-            )}
+              </nav>
 
-            <div className={scss.column}>
-              <span className={scss.column__label}>Для участников</span>
-              <Button href={loginHref} variant="outline">
-                Войти в портал
-              </Button>
+              <div className={scss.column}>
+                <span className={scss.column__label}>Связаться</span>
+                <ul className={scss.links}>
+                  <li>
+                    <Link href="/contact" className={scss.links__accent}>
+                      Обсудить проект
+                    </Link>
+                  </li>
+                  <li className={scss.links__text}>Бишкек, Кыргызстан</li>
+                  <li className={scss.links__text}>Работаем онлайн</li>
+                </ul>
+              </div>
+
+              <div className={scss.column}>
+                <span className={scss.column__label}>Участникам</span>
+                <Button href={loginHref} variant="outline">
+                  Войти в портал
+                </Button>
+                <ul className={scss.links}>
+                  <li>
+                    <a href={ACADEMY_URL} target="_blank" rel="noreferrer">
+                      Академия MotionWeb ↗
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className={scss.footer__bottom}>
-          <span>© {year} Motion Community</span>
-          <span>Бишкек, Кыргызстан</span>
+          <div className={scss.footer__bottom}>
+            <span>© {year} Motion Community</span>
+            <span>Часть IT-академии MotionWeb</span>
+          </div>
         </div>
       </div>
     </footer>
