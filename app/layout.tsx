@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Unbounded, Onest } from "next/font/google";
+import { Onest, Montserrat } from "next/font/google";
 import "./globals.scss";
-
-const displayFont = Unbounded({
-  variable: "--font-unbounded",
-  subsets: ["latin", "cyrillic"],
-  weight: ["500", "700", "800"],
-});
 
 const onest = Onest({
   variable: "--font-onest",
   subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600"],
+});
+
+// Only the logo lockup's «COMMUNITY» uses it.
+const wordmark = Montserrat({
+  variable: "--font-wordmark",
+  subsets: ["latin"],
+  weight: ["700"],
 });
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ru"
-      className={`${displayFont.variable} ${onest.variable}`}
+      className={`${onest.variable} ${wordmark.variable}`}
     >
       <body cz-shortcut-listen="true">{children}</body>
     </html>
