@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import MemberProfile from "@/src/components/MemberProfile";
-import { positionLabel } from "@/src/lib/api-labels";
+import { positionsLabel } from "@/src/lib/api-labels";
 import { fullName } from "@/src/lib/people";
 import { parseId } from "@/src/lib/route-id";
 import { getMember, getMembers } from "@/src/server/api/members";
@@ -32,7 +32,7 @@ export async function generateMetadata({
   if (!member) return {};
   return {
     title: `${fullName(member)} — Motion Community`,
-    description: [positionLabel(member.position), member.bio].filter(Boolean).join(". "),
+    description: [positionsLabel(member.positions), member.bio].filter(Boolean).join(". "),
   };
 }
 

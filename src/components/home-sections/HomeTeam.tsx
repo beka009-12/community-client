@@ -3,7 +3,7 @@ import Link from "next/link";
 import Avatar from "@/src/ui/Avatar";
 import Button from "@/src/ui/Button";
 import type { HomePerson } from "@/src/data/home-mock";
-import { positionLabel } from "@/src/lib/api-labels";
+import { positionsLabel } from "@/src/lib/api-labels";
 import { fullName } from "@/src/lib/people";
 import type { MemberListItem } from "@/src/server/api/schemas";
 import Tag from "@/src/ui/Tag";
@@ -19,7 +19,7 @@ export const peopleFromApi = (members: MemberListItem[]): HomePerson[] =>
     .map((member) => ({
       key: String(member.id),
       name: fullName(member),
-      position: positionLabel(member.position) ?? "Участник",
+      position: positionsLabel(member.positions) ?? "Участник",
       photo: member.avatar,
       href: `/team/${member.id}`,
     }));

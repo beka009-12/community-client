@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MEMBERSHIP_ROLES, POSITIONS, PROJECT_STATUSES } from "@/src/lib/api-enums";
+import { isPosition, MEMBERSHIP_ROLES, PROJECT_STATUSES } from "@/src/lib/api-enums";
 import { mediaUrl } from "@/src/lib/media";
 
 // Shapes of the public endpoints (Swagger: API_URL + /api/docs/). Objects
@@ -9,8 +9,13 @@ const text = z.string().nullish().transform((value) => value ?? "");
 const url = z.string().nullish().transform((value) => value || null);
 // Uploaded files go through our /media rewrite, never straight to the API host.
 const media = z.string().nullish().transform((value) => mediaUrl(value));
-// Fresh accounts have no position yet; anything unknown reads as "none".
-const position = z.enum(POSITIONS).nullable().catch(null);
+// The main direction first. Fresh accounts have none yet; a value the
+// frontend doesn't know is skipped, not the whole member.
+const positions = z
+  .array(z.unknown())
+  .nullish()
+  .catch(null)
+  .transform((values) => (values ?? []).filter(isPosition));
 
 // A row that doesn't match (say, an enum value the frontend doesn't know yet)
 // is logged and dropped, so one odd row never takes a whole page down.
@@ -29,7 +34,7 @@ export const memberListItemSchema = z.object({
   id: z.number(),
   first_name: text,
   last_name: text,
-  position,
+  positions,
   avatar: media,
 });
 

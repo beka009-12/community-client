@@ -1,14 +1,14 @@
 import { FC } from "react";
 import Link from "next/link";
 import Avatar from "@/src/ui/Avatar";
-import { positionLabel } from "@/src/lib/api-labels";
+import { positionsLabel } from "@/src/lib/api-labels";
 import { fullName } from "@/src/lib/people";
 import type { TeamPerson } from "@/src/server/api/joins";
 import scss from "./TeamSection.module.scss";
 
-// The lead says so first; everyone else is their position.
+// The lead says so first; everyone else is their directions.
 const caption = ({ member, role }: TeamPerson): string => {
-  const position = positionLabel(member.position);
+  const position = positionsLabel(member.positions);
   if (role === "Team_Lead") return position ? `Тимлид, ${position}` : "Тимлид";
   return position ?? "Участник";
 };

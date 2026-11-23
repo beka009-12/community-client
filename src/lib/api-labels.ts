@@ -7,6 +7,7 @@ export const POSITION_LABELS: Record<Position, string> = {
   UI_UX_Designer: "UI/UX-дизайнер",
   QA_Engineer: "QA-инженер",
   Mobile_Developer: "Mobile-разработчик",
+  AI_ML_Engineer: "AI/ML-инженер",
 };
 
 // Filter chips and the team grid, where the role is a column, not a title.
@@ -17,11 +18,15 @@ export const POSITION_SHORT_LABELS: Record<Position, string> = {
   UI_UX_Designer: "UI/UX",
   QA_Engineer: "QA",
   Mobile_Developer: "Mobile",
+  AI_ML_Engineer: "AI/ML",
 };
 
-// Fresh accounts can have no position yet.
-export const positionLabel = (position: Position | null): string | null =>
-  position ? POSITION_LABELS[position] : null;
+// Every direction a member works in, the main one first. Fresh accounts
+// can have none yet.
+export const positionsLabel = (
+  positions: readonly Position[],
+  labels: Record<Position, string> = POSITION_LABELS,
+): string | null => (positions.length ? positions.map((position) => labels[position]).join(", ") : null);
 
 export const PROJECT_STATUS_LABELS: Record<ProjectStatus, string> = {
   Planned: "В планах",

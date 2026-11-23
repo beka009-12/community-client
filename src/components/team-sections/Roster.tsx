@@ -7,7 +7,7 @@ import { motionTokens, springs } from "@/src/lib/motion-tokens";
 import Avatar from "@/src/ui/Avatar";
 import Button from "@/src/ui/Button";
 import { POSITIONS, type Position } from "@/src/lib/api-enums";
-import { POSITION_SHORT_LABELS } from "@/src/lib/api-labels";
+import { POSITION_SHORT_LABELS, positionsLabel } from "@/src/lib/api-labels";
 import { fullName } from "@/src/lib/people";
 import type { MemberListItem } from "@/src/server/api/schemas";
 import scss from "./Roster.module.scss";
@@ -29,13 +29,13 @@ const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
     const present = POSITIONS.map((position) => ({
       key: position as FilterKey,
       label: POSITION_SHORT_LABELS[position],
-      count: members.filter((member) => member.position === position).length,
+      count: members.filter((member) => member.positions.includes(position)).length,
     })).filter((item) => item.count > 0);
     return [{ key: "all" as FilterKey, label: "Все", count: members.length }, ...present];
   }, [members]);
 
   const visible =
-    filter === "all" ? members : members.filter((member) => member.position === filter);
+    filter === "all" ? members : members.filter((member) => member.positions.includes(filter));
   const shown = showAll ? visible : visible.slice(0, FIRST_ROWS);
 
   // The first newly shown person takes the focus, not a button that is gone.
@@ -75,7 +75,7 @@ const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
           <AnimatePresence mode="popLayout" initial={false}>
             {shown.map((member) => {
               const name = fullName(member);
-              const position = member.position ? POSITION_SHORT_LABELS[member.position] : "Участник";
+              const position = positionsLabel(member.positions, POSITION_SHORT_LABELS) ?? "Участник";
               return (
                 <motion.li
                   key={member.id}
