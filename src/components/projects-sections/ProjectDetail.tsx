@@ -71,7 +71,7 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, team, next }) => {
       <div className={scss.cover}>
         <div className="container">
           <div className={scss.cover__frame}>
-            <ProjectCover src={project.image} name={project.name} />
+            <ProjectCover src={project.image} name={project.name} sizes="(max-width: 1440px) 100vw, 1400px" eager />
           </div>
         </div>
       </div>
@@ -133,7 +133,7 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, team, next }) => {
               {next.category && <span className={scss.next__meta}>{next.category}</span>}
             </span>
             <span className={scss.next__preview}>
-              <ProjectCover src={next.image} name={next.name} />
+              <ProjectCover src={next.image} name={next.name} sizes="(max-width: 480px) 100vw, 440px" />
             </span>
           </Link>
         </nav>

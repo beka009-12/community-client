@@ -59,6 +59,7 @@ const HomeTeam: FC<IHomeTeamProps> = ({ index, people }) => (
               <Avatar
                 src={person.photo}
                 name={person.name}
+                sizes="(max-width: 767px) 50vw, 340px"
                 imageClassName={scss.member__img}
                 fallbackClassName={scss.member__initials}
               />

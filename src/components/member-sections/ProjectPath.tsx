@@ -18,7 +18,7 @@ const ProjectPath: FC<{ projects: MemberProject[] }> = ({ projects }) => {
         <li key={project.id}>
           <Link href={`/projects/${project.id}`} className={scss.row}>
             <span className={scss.row__thumb}>
-              <ProjectCover src={project.image} name={project.name} />
+              <ProjectCover src={project.image} name={project.name} sizes="120px" />
             </span>
             <span className={scss.row__text}>
               <span className={scss.row__name}>{project.name}</span>

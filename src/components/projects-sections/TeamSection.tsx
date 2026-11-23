@@ -24,6 +24,7 @@ const TeamSection: FC<{ people: TeamPerson[] }> = ({ people }) => (
               <Avatar
                 src={person.member.avatar}
                 name={name}
+                sizes="40px"
                 imageClassName={scss.member__avatarImg}
                 fallbackClassName={scss.member__initials}
               />
