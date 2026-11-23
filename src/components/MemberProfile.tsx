@@ -4,7 +4,7 @@ import Button from "@/src/ui/Button";
 import PageIntro from "@/src/ui/PageIntro";
 import Tag from "@/src/ui/Tag";
 import ProjectPath from "@/src/components/member-sections/ProjectPath";
-import { positionLabel } from "@/src/lib/api-labels";
+import { positionsLabel } from "@/src/lib/api-labels";
 import { fullName } from "@/src/lib/people";
 import { typograph } from "@/src/lib/typograph";
 import { splitSkills } from "@/src/server/api/joins";
@@ -28,7 +28,7 @@ const MemberProfile: FC<{ member: MemberDetail }> = ({ member }) => {
     .map((part) => part?.trim())
     .filter(Boolean)
     .join("\n") || name;
-  const position = positionLabel(member.position);
+  const position = positionsLabel(member.positions);
   const skills = splitSkills(member.skills);
   const leads = member.projects.some((project) => project.role === "Team_Lead");
 

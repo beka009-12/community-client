@@ -8,8 +8,11 @@ export const POSITIONS = [
   "UI_UX_Designer",
   "QA_Engineer",
   "Mobile_Developer",
+  "AI_ML_Engineer",
 ] as const;
 export type Position = (typeof POSITIONS)[number];
+
+export const isPosition = (value: unknown): value is Position => (POSITIONS as readonly unknown[]).includes(value);
 
 export const PROJECT_STATUSES = ["Planned", "In_progress", "Completed", "Paused"] as const;
 export type ProjectStatus = (typeof PROJECT_STATUSES)[number];
