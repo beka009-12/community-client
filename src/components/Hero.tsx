@@ -8,18 +8,21 @@ import HomeProjects from "./home-sections/HomeProjects";
 import HomeTeam from "./home-sections/HomeTeam";
 import Process from "./home-sections/Process";
 import ClosingCall from "./home-sections/ClosingCall";
-import { MOCK_PEOPLE, MOCK_PROJECTS, MOCK_STATS } from "@/src/data/home-mock";
+import { MOCK_PEOPLE, MOCK_PROJECTS, type StatCard } from "@/src/data/home-mock";
 
 interface IHomeBlock {
   key: string;
   render: (index: number) => ReactNode;
 }
 
-// TODO: home runs on mock content for now (see src/data/home-mock.ts). To go
-// live: await getStats/getProjects/getMembers and pass them through
-// statCardsFromApi, projectFromApi (first 4) and peopleFromApi.
-const Home: FC = () => {
-  const stats = MOCK_STATS;
+interface IHomeProps {
+  stats: StatCard[];
+}
+
+// TODO: projects and people still run on mock content (see src/data/home-mock.ts).
+// To go live: await getProjects/getMembers and pass them through
+// projectFromApi (first 4) and peopleFromApi.
+const Home: FC<IHomeProps> = ({ stats }) => {
   const projects = MOCK_PROJECTS;
   const people = MOCK_PEOPLE;
 
