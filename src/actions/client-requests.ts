@@ -29,7 +29,11 @@ const echo = (formData: FormData): Record<string, string> =>
 // share our server's limit.
 async function visitorIp(): Promise<string | null> {
   const list = await headers();
-  return list.get("x-forwarded-for")?.split(",")[0]?.trim() || list.get("x-real-ip") || null;
+  return (
+    list.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    list.get("x-real-ip") ||
+    null
+  );
 }
 
 // Public: clients have no account (ТЗ §3), so no session check here.

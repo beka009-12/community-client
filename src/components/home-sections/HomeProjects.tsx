@@ -20,11 +20,11 @@ export const projectFromApi = (project: ProjectListItem): HomeProject => ({
   href: `/projects/${project.id}`,
 });
 
-// API covers come from the backend host as plain URLs; bundled images go
-// through next/image.
+// API covers come as URLs (ProjectCover), mock ones as bundled imports:
+// both are resized by next/image.
 const Cover: FC<{ project: HomeProject }> = ({ project }) =>
   typeof project.image === "string" || project.image === null ? (
-    <ProjectCover src={project.image} name={project.title} />
+    <ProjectCover src={project.image} name={project.title} sizes="(max-width: 767px) 100vw, 560px" />
   ) : (
     <Image
       src={project.image}

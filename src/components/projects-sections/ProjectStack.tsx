@@ -67,7 +67,7 @@ const Plate: FC<PlateProps> = ({ project, index, total, progress, onFocus }) => 
             if (event.currentTarget.matches(":focus-visible")) onFocus(index);
           }}
         >
-          <ProjectCover src={project.image} name={project.name} />
+          <ProjectCover src={project.image} name={project.name} sizes="100vw" />
           <span className={scss.plate__shade} aria-hidden="true" />
 
           <span className={scss.plate__top}>

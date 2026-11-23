@@ -53,6 +53,7 @@ const MemberProfile: FC<{ member: MemberDetail }> = ({ member }) => {
             <Avatar
               src={member.avatar}
               name={name}
+              sizes="320px"
               imageClassName={scss.photo__img}
               fallbackClassName={scss.photo__initials}
               eager

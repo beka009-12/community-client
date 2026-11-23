@@ -34,6 +34,7 @@ const Grid: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
                   <ProjectCover
                     src={project.image}
                     name={project.name}
+                    sizes="(max-width: 639px) 100vw, (max-width: 1440px) 50vw, 720px"
                     imageClassName={scss.card__image}
                   />
                 </div>

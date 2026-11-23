@@ -7,6 +7,15 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   images: {
+    // Uploads (src/lib/media.ts) and bundled imports only. Uploads get new
+    // file names on every change, so a resized copy can live for a month.
+    localPatterns: [
+      { pathname: "/media/**", search: "" },
+      { pathname: "/_next/static/media/**", search: "" },
+    ],
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 60 * 60 * 24 * 31,
+    qualities: [75],
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

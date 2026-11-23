@@ -90,6 +90,7 @@ const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
                       <Avatar
                         src={member.avatar}
                         name={name}
+                        sizes="(max-width: 479px) 50vw, (max-width: 767px) 33vw, (max-width: 1100px) 25vw, 240px"
                         imageClassName={scss.card__img}
                         fallbackClassName={scss.card__initials}
                       />

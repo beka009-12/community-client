@@ -92,6 +92,7 @@ const EditorialList: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
           <ProjectCover
             src={previewProject.image}
             name={previewProject.name}
+            sizes="300px"
             imageClassName={scss.preview__image}
           />
         )}

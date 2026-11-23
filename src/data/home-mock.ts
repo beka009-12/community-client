@@ -1,7 +1,6 @@
 // TODO: mock content for home, copied from the Figma mockup (frame 2:2),
 // until the API has real projects and people. Switch Hero.tsx back to
-// getStats/getProjects/getMembers with the `…FromApi` mappers next to each
-// section.
+// getProjects/getMembers with the `…FromApi` mappers next to each section.
 import type { StaticImageData } from "next/image";
 import systemsPhoto from "@/src/assets/services/systems.jpg";
 import webPhoto from "@/src/assets/services/web.jpg";
@@ -31,13 +30,6 @@ export interface HomePerson {
   photo: string | null;
   href: string | null;
 }
-
-export const MOCK_STATS: StatCard[] = [
-  { value: "24", label: "участника сообщества" },
-  { value: "12", label: "запущенных проектов" },
-  { value: "4", label: "ментора из индустрии" },
-  { value: "2023", label: "год основания" },
-];
 
 export const MOCK_PROJECTS: HomeProject[] = [
   {
