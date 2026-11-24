@@ -1,9 +1,9 @@
 import { FC } from "react";
 import PageIntro from "@/src/ui/PageIntro";
-import { CLUB_FACTS } from "@/src/data/about";
-import MemberPath from "./about-sections/MemberPath";
+import Story from "./about-sections/Story";
+import Activities from "./about-sections/Activities";
+import Experience from "./about-sections/Experience";
 import AcademyInfo from "./about-sections/AcademyInfo";
-import History from "./about-sections/History";
 import Values from "./about-sections/Values";
 import ClosingCall from "./home-sections/ClosingCall";
 
@@ -13,11 +13,11 @@ const About: FC = () => (
       crumb="О нас"
       title={"Растим разработчиков\nи делаем продукты."}
       lead="Motion Community — проектная команда при IT-академии MotionWeb. Собираем выпускников и менторов, чтобы делать цифровые продукты для бизнеса."
-      facts={CLUB_FACTS}
     />
-    <MemberPath />
+    <Story />
+    <Activities />
+    <Experience />
     <AcademyInfo />
-    <History />
     <Values />
     <ClosingCall />
   </>

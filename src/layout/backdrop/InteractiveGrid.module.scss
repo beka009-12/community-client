@@ -1,0 +1,56 @@
+// The mockup's 1440px frame, centred on the window like the page content.
+.box {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1440px;
+  margin-left: -720px;
+  overflow: hidden;
+}
+
+// Mask circles from the Figma frames: home around the particle logo,
+// inner pages in the top-right corner.
+.box--home {
+  height: 1000px;
+  -webkit-mask-image: radial-gradient(circle 600px at 900px 465px, #000 0%, rgb(0 0 0 / 0.55) 50%, transparent 100%);
+  mask-image: radial-gradient(circle 600px at 900px 465px, #000 0%, rgb(0 0 0 / 0.55) 50%, transparent 100%);
+}
+
+.box--section {
+  height: 820px;
+  -webkit-mask-image: radial-gradient(circle 520px at 1060px 295px, #000 0%, rgb(0 0 0 / 0.55) 50%, transparent 100%);
+  mask-image: radial-gradient(circle 520px at 1060px 295px, #000 0%, rgb(0 0 0 / 0.55) 50%, transparent 100%);
+}
+
+// Tall enough to cover the box after the skew pushes its right side down
+// by 1440 × tan 12° ≈ 306px.
+.grid {
+  position: absolute;
+  top: -340px;
+  left: 0;
+  width: calc(100% + 48px);
+  height: calc(100% + 700px);
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.14) 1px, transparent 1px);
+  background-size: 48px 48px;
+  transform: skewY(12deg);
+  transform-origin: 0 0;
+}
+
+// Lights up in 150ms, fades out slowly behind the pointer.
+.cell {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  background: rgb(255 255 255 / 0.12);
+  opacity: 0;
+  transition: opacity 900ms ease-out;
+
+  &[data-lit] {
+    opacity: 1;
+    transition-duration: 150ms;
+  }
+}

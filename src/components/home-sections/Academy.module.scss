@@ -87,7 +87,7 @@
 .program__duration {
   padding: 6px 12px;
   border-radius: 999px;
-  background: var(--color-fill);
+  background: var(--color-surface);
   font-size: var(--text-xs);
   line-height: 1.4;
 }
@@ -120,11 +120,8 @@
     flex: 0 0 auto;
   }
 
-  // Outlined, so the text sits on the accent itself (6:1); a white veil
-  // lightened the fill under it to 4.4:1.
   .program__duration {
-    background: none;
-    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-on-accent) 45%, transparent);
+    background: rgb(0 0 0 / 0.1);
   }
 
   .program__text {

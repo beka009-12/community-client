@@ -1,0 +1,13 @@
+// Same rhythm as «Участники» below it: the roster's own top padding is the
+// gap between the two grids.
+.admins {
+  padding-top: clamp(56px, 5vw, 72px);
+}
+
+.title {
+  margin-bottom: 32px;
+  font-size: clamp(2rem, 1.3rem + 2.1vw, 2.875rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}

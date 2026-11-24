@@ -8,7 +8,6 @@ import type { ProjectStatus } from "@/src/lib/api-enums";
 import { PROJECT_STATUS_LABELS } from "@/src/lib/api-labels";
 import type { ProjectListItem } from "@/src/server/api/schemas";
 import { plural } from "@/src/lib/plural";
-import type { IntroFact } from "@/src/ui/PageIntro";
 import scss from "./Projects.module.scss";
 
 // Names the filters that left nothing, so the client knows what to change.
@@ -18,24 +17,6 @@ const emptyText = (category: string | null, status: ProjectStatus | null): strin
     status !== null && `со статусом «${PROJECT_STATUS_LABELS[status]}»`,
   ].filter(Boolean);
   return filters.length > 0 ? `Нет проектов ${filters.join(" ")}.` : "Проектов пока нет.";
-};
-
-// Figures for the intro, as in the mockup: launched, directions, in work.
-const introFacts = (projects: ProjectListItem[], categories: string[]): IntroFact[] => {
-  const completed = projects.filter((project) => project.status === "Completed").length;
-  const inProgress = projects.filter((project) => project.status === "In_progress").length;
-  const facts = [
-    { count: completed, label: plural(completed, "проект запущен", "проекта запущено", "проектов запущено") },
-    {
-      count: categories.length,
-      label: `${plural(categories.length, "направление", "направления", "направлений")}: ${categories.join(", ")}`,
-    },
-    {
-      count: inProgress,
-      label: plural(inProgress, "проект сейчас в разработке", "проекта сейчас в разработке", "проектов сейчас в разработке"),
-    },
-  ].filter((fact) => fact.count > 0);
-  return facts.map((fact) => ({ value: String(fact.count), label: fact.label }));
 };
 
 // The list shows this many rows, then «Показать ещё».
@@ -105,7 +86,6 @@ const Projects: FC<{ projects: ProjectListItem[] }> = ({ projects }) => {
     <div>
       <div ref={filtersRef}>
         <Header
-          facts={introFacts(projects, categories)}
           tabs={tabs}
           category={category}
           onCategoryChange={changeCategory}

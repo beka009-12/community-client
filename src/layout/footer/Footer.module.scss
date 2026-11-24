@@ -1,13 +1,32 @@
 @use "../../styles/hover" as *;
 
-// An inset grey panel with rounded corners, 16px off the window edges and
+// An inset glass panel with rounded corners, 16px off the window edges and
 // off whatever ends the page above it. The container inside keeps the
 // content on the same edges as the page.
 .footer {
+  position: relative;
+  isolation: isolate;
+  // The haze ends with the page instead of making it taller.
+  overflow: clip;
   padding: 16px;
 
   @media (max-width: 640px) {
     padding: 8px;
+  }
+}
+
+// The mockup's 1440px frame, so the haze lines up with the page.
+.footer__haze {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: -1;
+  width: 1440px;
+  margin-left: -720px;
+  pointer-events: none;
+
+  span {
+    position: absolute;
   }
 }
 
@@ -58,16 +77,15 @@
   gap: 8px;
   min-height: 40px;
   padding: 0 16px 0 14px;
-  border: 1px solid var(--color-border);
   border-radius: 999px;
-  background: var(--color-bg);
+  background: var(--color-surface);
   font-size: var(--text-md);
   font-weight: 500;
-  transition: border-color 0.2s ease;
+  transition: background-color 0.2s ease;
 
   @at-root a#{&} {
     @include hover {
-      border-color: var(--color-text-subtle);
+      background: var(--color-fill-hover);
     }
   }
 }
@@ -92,8 +110,7 @@
 
 .column__label {
   font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--color-text-subtle);
+  color: var(--color-text-muted);
 }
 
 .links {
@@ -130,5 +147,5 @@
   padding-block: 24px;
   border-top: 1px solid var(--color-border);
   font-size: var(--text-sm);
-  color: var(--color-text-subtle);
+  color: var(--color-text-muted);
 }

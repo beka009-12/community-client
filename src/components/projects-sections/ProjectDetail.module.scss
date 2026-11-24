@@ -34,10 +34,6 @@
   text-align: end;
 }
 
-.cover {
-  background: linear-gradient(to bottom, var(--color-ink) 50%, var(--color-bg) 50%);
-}
-
 .cover__frame {
   position: relative;
   aspect-ratio: 1184 / 684;
@@ -115,11 +111,7 @@
   color: var(--color-text-muted);
 }
 
-// «Следующий проект»: a grey band, the whole of it one link.
-.next {
-  background: var(--color-surface);
-}
-
+// «Следующий проект»: the whole block is one link.
 .next__link {
   display: flex;
   align-items: center;

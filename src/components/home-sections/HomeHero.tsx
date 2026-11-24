@@ -4,7 +4,6 @@ import { FC, useRef } from "react";
 import HeroLogoParticles from "@/src/animation/HeroLogoParticles";
 import Button from "@/src/ui/Button";
 import { useMediaQuery } from "@/src/hooks/useMediaQuery";
-import { useDarkTop } from "@/src/hooks/useDarkTop";
 import { typograph } from "@/src/lib/typograph";
 import scss from "./HomeHero.module.scss";
 
@@ -13,16 +12,12 @@ const TITLE_LINES = ["Из академии —", "в команду.", "Из и
 // Dark first screen, the full height of the window: the pitch on the left,
 // the particle logo on the right.
 const HomeHero: FC = () => {
-  const heroRef = useRef<HTMLElement>(null);
   const markRef = useRef<HTMLDivElement>(null);
   // Stacked on tablets and phones, where the logo is left out.
   const isCompact = useMediaQuery("(max-width: 1024px)");
 
-  // The header stays dark while the hero is behind it.
-  useDarkTop(heroRef);
-
   return (
-    <section ref={heroRef} className={`theme-dark ${scss.hero}`} aria-labelledby="home-title">
+    <section className={scss.hero} aria-labelledby="home-title">
       {!isCompact && <HeroLogoParticles markRef={markRef} className={scss.canvas} />}
       <div className={`container ${scss.inner}`}>
         <div className={scss.copy}>

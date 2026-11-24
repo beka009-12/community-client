@@ -44,7 +44,7 @@ const MemberProfile: FC<{ member: MemberDetail }> = ({ member }) => {
     <article>
       <PageIntro
         className={scss.intro}
-        crumb="Вся команда"
+        crumb="Все участники"
         crumbHref="/team"
         tags={<Tag>{leads ? "Тимлид" : "Участник"}</Tag>}
         title={title}

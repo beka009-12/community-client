@@ -11,8 +11,6 @@ interface IHomeSectionProps {
   title: string;
   lead?: string;
   id?: string;
-  // Grey band, to set a section apart from its white neighbours.
-  band?: boolean;
   // Sits on the title's line, right-aligned, e.g. «Все проекты».
   aside?: ReactNode;
   // Content follows the title closely, as a lead would.
@@ -33,7 +31,6 @@ const HomeSection: FC<IHomeSectionProps> = ({
   title,
   lead,
   id,
-  band,
   aside,
   tight,
   children,
@@ -63,7 +60,7 @@ const HomeSection: FC<IHomeSectionProps> = ({
     <section
       id={id}
       aria-labelledby={headingId}
-      className={`${scss.section} ${band ? scss["section--band"] : ""}`}
+      className={scss.section}
     >
       <div className="container">
         {beside ? (

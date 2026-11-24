@@ -4,34 +4,65 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid var(--color-line);
-  background: var(--color-bg);
-  transition-property: background-color, border-color;
-  transition-duration: 200ms;
-  transition-timing-function: ease-out;
+  transition: translate 300ms cubic-bezier(0.2, 0, 0, 1);
+
+  // Black at 72% with the page blurred under it, on a layer of its own so
+  // background and blur fade together.
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgb(0 0 0 / 0.72);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    transition: opacity 200ms ease-out;
+  }
+
+  // Clear over the top of the page.
+  &[data-clear]::before {
+    opacity: 0;
+  }
+
+  // Slid up out of view while reading down; back on any scroll up, and as
+  // soon as the keyboard focus lands inside it.
+  &[data-away]:not(:focus-within) {
+    translate: 0 -100%;
+  }
 }
 
+// The menu stays in the middle of the window whatever the widths of the
+// logo and the button on its sides.
 .header__inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
+  gap: 24px;
   height: var(--header-height);
+
+  @media (max-width: 959px) {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
 }
 
 .logo {
   display: inline-flex;
   align-items: center;
+  justify-self: start;
   min-height: 44px;
 }
 
-// Five links and the button need ~760px, so phones and narrow tablets get
-// the burger.
+// Five links in a glass pill need ~450px, so phones and narrow tablets
+// get the burger.
 .nav {
   display: none;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--color-surface);
 
-  @media (min-width: 900px) {
+  @media (min-width: 960px) {
     display: flex;
   }
 }
@@ -39,11 +70,12 @@
 .nav__link {
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
+  min-height: 37px;
   padding: 0 14px;
   border-radius: 999px;
   font-size: var(--text-md);
   font-weight: 500;
+  line-height: 1.4;
   white-space: nowrap;
   color: var(--color-text-muted);
   transition:
@@ -57,11 +89,21 @@
 
 .nav__link--active {
   color: var(--color-text);
-  background: var(--color-surface);
+  background: var(--color-fill);
 }
 
-.nav__cta {
-  margin-left: 16px;
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+// Doubled class: outranks the button's own display.
+.actions .actions__cta {
+  @media (max-width: 959px) {
+    display: none;
+  }
 }
 
 .burger {
@@ -84,7 +126,7 @@
     transition: transform 0.2s ease;
   }
 
-  @media (min-width: 900px) {
+  @media (min-width: 960px) {
     display: none;
   }
 }
@@ -102,10 +144,11 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: var(--color-bg);
-  border-bottom: 1px solid var(--color-line);
+  background: rgb(0 0 0 / 0.92);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
 
-  @media (min-width: 900px) {
+  @media (min-width: 960px) {
     display: none;
   }
 }

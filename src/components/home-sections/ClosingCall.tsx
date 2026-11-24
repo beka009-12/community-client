@@ -3,9 +3,14 @@ import Form from "next/form";
 import Button from "@/src/ui/Button";
 import { TELEGRAM_URL } from "@/src/data/socials";
 import { typograph } from "@/src/lib/typograph";
+import { glowStyle } from "@/src/layout/backdrop/glow";
+import { CALL_GLOW } from "@/src/layout/backdrop/nebula-data";
 import scss from "./ClosingCall.module.scss";
 
-const TITLE_LINES = ["Есть идея?", "Соберём под неё", "команду."];
+// The last line is set in the accent.
+const TITLE_LINES = ["Есть идея?", "Соберём под неё"];
+const TITLE_ACCENT = "команду.";
+const GLOW_STYLE = glowStyle(CALL_GLOW);
 
 // Worded as the client would say it; each value is one of the request
 // form's project types (PROJECT_TYPES), which the form preselects.
@@ -20,12 +25,16 @@ const CHOICES = [
 // The same three steps as on the contact page.
 const STEPS = ["Разбираем заявку", "Собираем команду", "Созваниваемся с тимлидом"];
 
-// An inset dark panel that ends the page. The type picked here goes to the
+// An inset glass panel that ends the page, lit by one compact glow behind
+// its card. The type picked here goes to the
 // request form as ?type=…, so the client starts the request right away; a
 // plain GET form, it works before any JavaScript loads.
 const ClosingCall: FC = () => (
   <section className={scss.call} aria-labelledby="closing-title">
-    <div className={`theme-dark ${scss.panel}`}>
+    <div className={scss.call__glow} aria-hidden="true">
+      <span style={GLOW_STYLE} />
+    </div>
+    <div className={scss.panel}>
       <div className="container">
         <div className={scss.layout}>
           <div className={scss.pitch}>
@@ -35,6 +44,7 @@ const ClosingCall: FC = () => (
                   {typograph(line)}{" "}
                 </span>
               ))}
+              <span className={`${scss.title__line} ${scss.title__accent}`}>{TITLE_ACCENT}</span>
             </h2>
             <ol className={scss.steps}>
               {STEPS.map((step, index) => (
@@ -60,9 +70,10 @@ const ClosingCall: FC = () => (
                 ))}
               </div>
             </fieldset>
-            <Button type="submit" size="lg" className={scss.start__button}>
+            <Button type="submit" size="lg" arrow className={scss.start__button}>
               Обсудить проект
             </Button>
+            <p className={scss.start__note}>{typograph("Изучим заявку и вернёмся с вопросами или предложением.")}</p>
           </Form>
         </div>
 

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Button from "@/src/ui/Button";
 import ProjectCover from "@/src/ui/ProjectCover";
-import type { HomeProject } from "@/src/data/home-mock";
+import type { HomeProject } from "@/src/data/home";
 import { PROJECT_STATUS_LABELS } from "@/src/lib/api-labels";
 import { typograph } from "@/src/lib/typograph";
 import type { ProjectListItem } from "@/src/server/api/schemas";
@@ -11,7 +11,9 @@ import Tag from "@/src/ui/Tag";
 import HomeSection from "./HomeSection";
 import scss from "./HomeProjects.module.scss";
 
-export const projectFromApi = (project: ProjectListItem): HomeProject => ({
+const HOME_PROJECTS_LIMIT = 4;
+
+const projectFromApi = (project: ProjectListItem): HomeProject => ({
   key: String(project.id),
   title: project.name,
   image: project.image,
@@ -19,6 +21,12 @@ export const projectFromApi = (project: ProjectListItem): HomeProject => ({
   teamLabel: project.team ? `Команда: ${project.team.name}` : undefined,
   href: `/projects/${project.id}`,
 });
+
+// Projects with a cover go first: an empty plate reads as unfinished.
+export const homeProjectsFromApi = (projects: ProjectListItem[]): HomeProject[] =>
+  [...projects.filter((project) => project.image), ...projects.filter((project) => !project.image)]
+    .slice(0, HOME_PROJECTS_LIMIT)
+    .map(projectFromApi);
 
 // API covers come as URLs (ProjectCover), mock ones as bundled imports:
 // both are resized by next/image.
@@ -57,7 +65,6 @@ const HomeProjects: FC<IHomeProjectsProps> = ({ index, projects }) => (
     label="Практика, которую видно"
     title="Сделано в Community"
     lead="Примеры проектов и результатов команды."
-    band
     aside={
       <Button href="/projects" variant="link">
         Все проекты

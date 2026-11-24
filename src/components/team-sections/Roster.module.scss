@@ -1,4 +1,3 @@
-@use "../../styles/hover" as *;
 @use "../../styles/chip" as *;
 
 .roster {
@@ -42,95 +41,6 @@
   .filter[aria-pressed="true"] & {
     color: var(--color-on-inverse);
   }
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 32px 16px;
-  list-style: none;
-
-  @media (max-width: 1100px) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  @media (max-width: 767px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  @media (max-width: 479px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  border-radius: 12px;
-
-  &:focus-visible {
-    outline-offset: 6px;
-  }
-}
-
-.card__photo {
-  position: relative;
-  display: block;
-  aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 12px;
-  background: var(--color-surface);
-}
-
-.card__img {
-  object-fit: cover;
-  object-position: center 20%;
-  filter: grayscale(1);
-  transition: filter 300ms ease-out;
-
-  @include lit-by(".card") {
-    filter: grayscale(0);
-  }
-}
-
-// Doubled class: beats the Avatar fallback's own background.
-.card__initials.card__initials {
-  background: var(--color-surface);
-  transition: background-color 200ms ease-out;
-
-  span {
-    font-size: 25cqmin;
-    color: var(--color-border);
-    transition: color 200ms ease-out;
-  }
-
-  @include lit-by(".card") {
-    background: var(--color-accent);
-
-    span {
-      color: var(--color-on-accent);
-    }
-  }
-}
-
-.card__name {
-  margin-top: 14px;
-  font-size: var(--text-md);
-  font-weight: 500;
-  line-height: 1.4;
-  overflow-wrap: break-word;
-  transition: color 150ms ease-out;
-
-  @include lit-by(".card") {
-    color: var(--color-accent-text);
-  }
-}
-
-.card__position {
-  margin-top: 2px;
-  font-size: var(--text-xs);
-  line-height: 1.4;
-  color: var(--color-text-muted);
 }
 
 .more {

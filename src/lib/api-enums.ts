@@ -19,3 +19,7 @@ export type ProjectStatus = (typeof PROJECT_STATUSES)[number];
 
 export const MEMBERSHIP_ROLES = ["Team_Lead", "Member"] as const;
 export type MembershipRole = (typeof MEMBERSHIP_ROLES)[number];
+
+// An account's role in the community, not in a project.
+export const USER_ROLES = ["Admin", "Member"] as const;
+export type UserRole = (typeof USER_ROLES)[number];

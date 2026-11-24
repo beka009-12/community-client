@@ -1,5 +1,5 @@
 import { FC } from "react";
-import type { StatCard } from "@/src/data/home-mock";
+import type { StatCard } from "@/src/data/home";
 import { plural } from "@/src/lib/plural";
 import type { Stats } from "@/src/server/api/schemas";
 import scss from "./HomeStats.module.scss";
@@ -30,7 +30,7 @@ const HomeStats: FC<{ cards: StatCard[] }> = ({ cards }) => {
     <section className={scss.stats} aria-label="Сообщество в цифрах">
       <dl className={`container ${scss.stats__grid}`}>
         {cards.map((card) => (
-          <div key={card.label} className={`theme-dark ${scss.card}`}>
+          <div key={card.label} className={scss.card}>
             <dt className={scss.card__label}>{card.label}</dt>
             <dd className={scss.card__value}>{card.value}</dd>
           </div>

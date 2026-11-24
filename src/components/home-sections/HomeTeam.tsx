@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 import Link from "next/link";
 import Avatar from "@/src/ui/Avatar";
 import Button from "@/src/ui/Button";
-import type { HomePerson } from "@/src/data/home-mock";
+import type { HomePerson } from "@/src/data/home";
 import { positionsLabel } from "@/src/lib/api-labels";
 import { fullName } from "@/src/lib/people";
 import type { MemberListItem } from "@/src/server/api/schemas";
@@ -10,7 +10,8 @@ import Tag from "@/src/ui/Tag";
 import HomeSection from "./HomeSection";
 import scss from "./HomeTeam.module.scss";
 
-const HOME_TEAM_LIMIT = 4;
+// One row of five, as on /team.
+const HOME_TEAM_LIMIT = 5;
 
 // People with a photo go first: a row of initials reads as placeholders.
 export const peopleFromApi = (members: MemberListItem[]): HomePerson[] =>
@@ -47,7 +48,7 @@ const HomeTeam: FC<IHomeTeamProps> = ({ index, people }) => (
     lead="Выпускники академии работают в проектных командах, менторы помогают держать качество."
     aside={
       <Button href="/team" variant="link">
-        Вся команда
+        Все участники
       </Button>
     }
   >
@@ -59,7 +60,7 @@ const HomeTeam: FC<IHomeTeamProps> = ({ index, people }) => (
               <Avatar
                 src={person.photo}
                 name={person.name}
-                sizes="(max-width: 767px) 50vw, 340px"
+                sizes="(max-width: 767px) 50vw, (max-width: 1280px) 20vw, 240px"
                 imageClassName={scss.member__img}
                 fallbackClassName={scss.member__initials}
               />

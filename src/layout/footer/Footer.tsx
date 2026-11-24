@@ -7,13 +7,17 @@ import SocialIcon from "@/src/ui/SocialIcon";
 import { FOOTER_SOCIALS, socialHref } from "@/src/data/socials";
 import { ACADEMY_URL } from "@/src/data/academy";
 import { typograph } from "@/src/lib/typograph";
+import { glowStyle } from "@/src/layout/backdrop/glow";
+import { FOOTER_HAZE } from "@/src/layout/backdrop/nebula-data";
 import scss from "./Footer.module.scss";
+
+const HAZE_STYLE = glowStyle(FOOTER_HAZE);
 
 const NAV_LINKS = [
   { href: "/", label: "Главная" },
   { href: "/about", label: "О нас" },
   { href: "/projects", label: "Проекты" },
-  { href: "/team", label: "Команда" },
+  { href: "/team", label: "Участники" },
   { href: "/contact", label: "Контакты" },
 ];
 
@@ -29,12 +33,15 @@ interface FooterProps {
   loginHref: string;
 }
 
-// An inset grey panel, like the dark closing call above it.
+// An inset glass panel, like the closing call above it, over a low blue haze.
 const Footer: FC<FooterProps> = async ({ loginHref }) => {
   const year = await currentYear();
 
   return (
     <footer className={scss.footer}>
+      <div className={scss.footer__haze} aria-hidden="true">
+        <span style={HAZE_STYLE} />
+      </div>
       <div className={scss.panel}>
         <div className="container">
           <div className={scss.footer__top}>

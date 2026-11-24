@@ -19,7 +19,7 @@ const STEPS = [
 ];
 
 const Process: FC<{ index: number }> = ({ index }) => (
-  <HomeSection index={index} id="process" label="Как устроена работа" title="Понятный процесс. Общий результат." band>
+  <HomeSection index={index} id="process" label="Как устроена работа" title="Понятный процесс. Общий результат.">
     <ol className={scss.steps}>
       {STEPS.map((step, i) => (
         <li key={step.title} className={scss.step}>

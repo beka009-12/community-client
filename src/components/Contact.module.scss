@@ -1,16 +1,8 @@
-// The form card starts on the dark intro: the intro ends 120px early and
-// the dark continues behind the card's top.
-$overlap: 120px;
-
 .intro {
   :global(.container) {
     padding-top: clamp(56px, 6.1vw, 88px);
     padding-bottom: 48px;
   }
-}
-
-.request {
-  background: linear-gradient(to bottom, var(--color-ink) $overlap, var(--color-bg) $overlap);
 }
 
 .layout {
