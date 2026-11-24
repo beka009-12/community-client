@@ -16,15 +16,17 @@ const TOP_HAZE: DriftingGlow = {
   x: -287.3, y: -298.9, w: 1000, h: 520, rot: -10, color: "#0084ff", alpha: 0.26, blur: 190, x2: -207.3, y2: -268.9,
 };
 
-// Home: a dense nebula behind the particle logo.
+// Home: a nebula behind the particle logo, kept dim enough that the
+// logo's light-blue dots stand out on it (the mockup's alphas washed them
+// out: core 0.34→0.16, clump 0.32→0.12, the rest about two thirds).
 export const HOME_NEBULA: DriftingGlow[] = [
   TOP_HAZE,
-  { x: 572.4, y: 8.3, w: 1150, h: 720, rot: -12, color: "#0084ff", alpha: 0.2, blur: 200, x2: 622.4, y2: -16.7 },
-  { x: 791.1, y: 153.2, w: 640, h: 420, rot: -20, color: "#0084ff", alpha: 0.38, blur: 130, x2: 731.1, y2: 183.2 },
-  { x: 848.3, y: 359.5, w: 420, h: 300, rot: 15, color: "#55bbff", alpha: 0.34, blur: 110, x2: 883.3, y2: 384.5, alpha2: 0.425 },
-  { x: 447, y: 60.3, w: 760, h: 210, rot: -22, color: "#389fff", alpha: 0.26, blur: 120, x2: 377, y2: 35.3 },
-  { x: 1000.5, y: 712, w: 560, h: 180, rot: 28, color: "#55bbff", alpha: 0.22, blur: 110, x2: 1055.5, y2: 747 },
-  { x: 1035, y: 335, w: 170, h: 150, color: "#bfe6ff", alpha: 0.32, blur: 60, x2: 1055, y2: 315, alpha2: 0.4 },
+  { x: 572.4, y: 8.3, w: 1150, h: 720, rot: -12, color: "#0084ff", alpha: 0.14, blur: 200, x2: 622.4, y2: -16.7 },
+  { x: 791.1, y: 153.2, w: 640, h: 420, rot: -20, color: "#0084ff", alpha: 0.24, blur: 130, x2: 731.1, y2: 183.2 },
+  { x: 848.3, y: 359.5, w: 420, h: 300, rot: 15, color: "#55bbff", alpha: 0.16, blur: 110, x2: 883.3, y2: 384.5, alpha2: 0.2 },
+  { x: 447, y: 60.3, w: 760, h: 210, rot: -22, color: "#389fff", alpha: 0.18, blur: 120, x2: 377, y2: 35.3 },
+  { x: 1000.5, y: 712, w: 560, h: 180, rot: 28, color: "#55bbff", alpha: 0.15, blur: 110, x2: 1055.5, y2: 747 },
+  { x: 1035, y: 335, w: 170, h: 150, color: "#bfe6ff", alpha: 0.12, blur: 60, x2: 1055, y2: 315, alpha2: 0.15 },
   // Dust lanes: darker streaks across the bright core.
   { x: 743.7, y: 406.8, w: 620, h: 120, rot: -14, color: "#000000", alpha: 0.45, blur: 55, x2: 703.7, y2: 421.8 },
   { x: 1046.1, y: 342.7, w: 380, h: 90, rot: 20, color: "#000000", alpha: 0.35, blur: 45, x2: 1076.1, y2: 322.7 },
