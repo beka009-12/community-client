@@ -47,7 +47,7 @@ const HomeTeam: FC<IHomeTeamProps> = ({ index, people }) => (
     lead="Выпускники академии работают в проектных командах, менторы помогают держать качество."
     aside={
       <Button href="/team" variant="link">
-        Вся команда
+        Все участники
       </Button>
     }
   >

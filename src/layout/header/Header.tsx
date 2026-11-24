@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { href: "/", label: "Главная" },
   { href: "/about", label: "О нас" },
   { href: "/projects", label: "Проекты" },
-  { href: "/team", label: "Команда" },
+  { href: "/team", label: "Участники" },
   { href: "/contact", label: "Контакты" },
 ];
 

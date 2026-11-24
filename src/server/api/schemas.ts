@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { isPosition, MEMBERSHIP_ROLES, PROJECT_STATUSES } from "@/src/lib/api-enums";
+import { isPosition, MEMBERSHIP_ROLES, PROJECT_STATUSES, USER_ROLES } from "@/src/lib/api-enums";
 import { mediaUrl } from "@/src/lib/media";
 
 // Shapes of the public endpoints (Swagger: API_URL + /api/docs/). Objects
@@ -36,6 +36,9 @@ export const memberListItemSchema = z.object({
   last_name: text,
   positions,
   avatar: media,
+  // Requested from the backend (docs/backend-requests in community-service,
+  // 2026-11-24); until members/ sends it everyone reads as a member.
+  role: z.enum(USER_ROLES).catch("Member"),
 });
 
 const teamShortSchema = z.object({

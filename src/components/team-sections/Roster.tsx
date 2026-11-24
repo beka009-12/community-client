@@ -1,21 +1,20 @@
 "use client";
 
 import { FC, useMemo, useRef, useState } from "react";
-import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { motionTokens, springs } from "@/src/lib/motion-tokens";
-import Avatar from "@/src/ui/Avatar";
 import Button from "@/src/ui/Button";
 import { POSITIONS, type Position } from "@/src/lib/api-enums";
-import { POSITION_SHORT_LABELS, positionsLabel } from "@/src/lib/api-labels";
-import { fullName } from "@/src/lib/people";
+import { POSITION_SHORT_LABELS } from "@/src/lib/api-labels";
 import type { MemberListItem } from "@/src/server/api/schemas";
+import MemberCard from "./MemberCard";
+import cardScss from "./MemberCard.module.scss";
 import scss from "./Roster.module.scss";
 
 type FilterKey = "all" | Position;
 
-// Two rows of six; the rest behind «Показать всех участников».
-const FIRST_ROWS = 12;
+// Two rows of five; the rest behind «Показать всех участников».
+const FIRST_ROWS = 10;
 
 // «Участники»: the title with the direction filters on its line, then a
 // grid of square portraits. Hover lights the portrait up in the accent.
@@ -71,36 +70,20 @@ const Roster: FC<{ members: MemberListItem[] }> = ({ members }) => {
           )}
         </div>
 
-        <ul ref={gridRef} className={scss.grid}>
+        <ul ref={gridRef} className={cardScss.grid}>
           <AnimatePresence mode="popLayout" initial={false}>
-            {shown.map((member) => {
-              const name = fullName(member);
-              const position = positionsLabel(member.positions, POSITION_SHORT_LABELS) ?? "Участник";
-              return (
-                <motion.li
-                  key={member.id}
-                  layout={!reduce}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, transition: { duration: motionTokens.duration.fast } }}
-                  transition={springs.gentle}
-                >
-                  <Link href={`/team/${member.id}`} className={scss.card}>
-                    <span className={scss.card__photo}>
-                      <Avatar
-                        src={member.avatar}
-                        name={name}
-                        sizes="(max-width: 479px) 50vw, (max-width: 767px) 33vw, (max-width: 1100px) 25vw, 240px"
-                        imageClassName={scss.card__img}
-                        fallbackClassName={scss.card__initials}
-                      />
-                    </span>
-                    <span className={scss.card__name}>{name}</span>
-                    <span className={scss.card__position}>{position}</span>
-                  </Link>
-                </motion.li>
-              );
-            })}
+            {shown.map((member) => (
+              <motion.li
+                key={member.id}
+                layout={!reduce}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, transition: { duration: motionTokens.duration.fast } }}
+                transition={springs.gentle}
+              >
+                <MemberCard member={member} />
+              </motion.li>
+            ))}
           </AnimatePresence>
         </ul>
 
