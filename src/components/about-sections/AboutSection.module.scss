@@ -1,0 +1,128 @@
+// Shared by the /about story blocks: 104px above and below at 1440, a
+// 46px title, a 20px lead, glass cards with a caps label.
+.section {
+  padding-top: clamp(64px, 7.2vw, 104px);
+  padding-bottom: clamp(64px, 7.2vw, 104px);
+}
+
+.title {
+  font-size: clamp(2rem, 1.3rem + 2.1vw, 2.875rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  max-width: 38em;
+  margin-top: 32px;
+  font-size: var(--text-xl);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.label {
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 32px;
+  border-radius: 20px;
+  background: var(--color-surface);
+
+  @media (max-width: 639px) {
+    padding: 24px;
+  }
+}
+
+// «Как появилось сообщество»: the title on the left, the story on the right.
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 480px) minmax(0, 640px);
+  justify-content: space-between;
+  gap: 24px 64px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.story__text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.story__lead {
+  font-size: var(--text-xl);
+  line-height: 1.5;
+}
+
+.story__more {
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+.mission {
+  gap: 16px;
+  margin-top: 56px;
+  padding: 40px;
+
+  @media (max-width: 639px) {
+    padding: 24px;
+  }
+}
+
+.mission__text {
+  max-width: 28em;
+  font-size: clamp(1.5rem, 1.1rem + 1.1vw, 2rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.tech__label {
+  margin-top: 32px;
+  color: var(--color-text-subtle);
+}
+
+.tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 32px;
+  list-style: none;
+}
+
+.tech__item {
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: var(--color-surface);
+  font-size: var(--text-md);
+  line-height: 1.5;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 56px;
+  list-style: none;
+
+  @media (max-width: 767px) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+}
+
+.card__text {
+  font-size: var(--text-xl);
+  line-height: 1.5;
+}
