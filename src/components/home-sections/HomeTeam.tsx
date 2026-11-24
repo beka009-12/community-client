@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 import Link from "next/link";
 import Avatar from "@/src/ui/Avatar";
 import Button from "@/src/ui/Button";
-import type { HomePerson } from "@/src/data/home-mock";
+import type { HomePerson } from "@/src/data/home";
 import { positionsLabel } from "@/src/lib/api-labels";
 import { fullName } from "@/src/lib/people";
 import type { MemberListItem } from "@/src/server/api/schemas";

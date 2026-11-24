@@ -8,7 +8,7 @@ import HomeProjects from "./home-sections/HomeProjects";
 import HomeTeam from "./home-sections/HomeTeam";
 import Process from "./home-sections/Process";
 import ClosingCall from "./home-sections/ClosingCall";
-import { MOCK_PEOPLE, MOCK_PROJECTS, type StatCard } from "@/src/data/home-mock";
+import type { HomePerson, HomeProject, StatCard } from "@/src/data/home";
 
 interface IHomeBlock {
   key: string;
@@ -17,15 +17,11 @@ interface IHomeBlock {
 
 interface IHomeProps {
   stats: StatCard[];
+  projects: HomeProject[];
+  people: HomePerson[];
 }
 
-// TODO: projects and people still run on mock content (see src/data/home-mock.ts).
-// To go live: await getProjects/getMembers and pass them through
-// projectFromApi (first 4) and peopleFromApi.
-const Home: FC<IHomeProps> = ({ stats }) => {
-  const projects = MOCK_PROJECTS;
-  const people = MOCK_PEOPLE;
-
+const Home: FC<IHomeProps> = ({ stats, projects, people }) => {
   // Sections without data are left out, and the rest are numbered in order.
   const blocks: IHomeBlock[] = [
     { key: "who-we-are", render: (index) => <WhoWeAre index={index} /> },

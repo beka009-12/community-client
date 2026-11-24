@@ -1,5 +1,5 @@
 import { FC } from "react";
-import type { StatCard } from "@/src/data/home-mock";
+import type { StatCard } from "@/src/data/home";
 import { plural } from "@/src/lib/plural";
 import type { Stats } from "@/src/server/api/schemas";
 import scss from "./HomeStats.module.scss";
