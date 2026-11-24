@@ -65,7 +65,6 @@ const HomeProjects: FC<IHomeProjectsProps> = ({ index, projects }) => (
     label="Практика, которую видно"
     title="Сделано в Community"
     lead="Примеры проектов и результатов команды."
-    band
     aside={
       <Button href="/projects" variant="link">
         Все проекты

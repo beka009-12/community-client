@@ -1,13 +1,12 @@
 "use client";
 
-import { FC, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Button from "@/src/ui/Button";
 import LogoLockup from "@/src/ui/LogoLockup";
 import { motionTokens } from "@/src/lib/motion-tokens";
-import { heroTheme } from "@/src/lib/hero-theme";
 import scss from "./Header.module.scss";
 
 const NAV_LINKS = [
@@ -23,12 +22,8 @@ const NAV_LINKS = [
 const isActive = (pathname: string, href: string) =>
   pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
-// Pages that open on a dark block (home hero, PageIntro): the header is dark
-// over it. Every page does, project and member pages included.
-const DARK_TOP_PATHS = new Set(["/", "/about", "/projects", "/team", "/contact"]);
-const isDarkTop = (pathname: string) =>
-  DARK_TOP_PATHS.has(pathname) || /^\/(projects|team)\/[^/]+$/.test(pathname);
-
+// Translucent black over the page's nebula: the logo on the left, the menu
+// in a glass pill in the middle, the main action on the right.
 const Header: FC = () => {
   const pathname = usePathname();
   const reduce = useReducedMotion();
@@ -36,9 +31,6 @@ const Header: FC = () => {
   const [menuPath, setMenuPath] = useState<string | null>(null);
   const menuOpen = menuPath === pathname;
   const burgerRef = useRef<HTMLButtonElement>(null);
-  // Dark while the page's dark top block is behind it.
-  const heroDark = useSyncExternalStore(heroTheme.subscribe, heroTheme.get, () => true);
-  const overDark = isDarkTop(pathname) && heroDark;
   // Hidden on /contact, the page it leads to.
   const ctaHidden = pathname === "/contact";
 
@@ -57,9 +49,7 @@ const Header: FC = () => {
   const closeMenu = () => setMenuPath(null);
 
   return (
-    <header
-      className={`${scss.header} ${overDark ? "theme-dark" : ""}`}
-    >
+    <header className={scss.header}>
       <div className={`container ${scss.header__inner}`}>
         <Link href="/" className={scss.logo} aria-label="Motion Community — на главную">
           <LogoLockup />
@@ -79,25 +69,27 @@ const Header: FC = () => {
               </Link>
             );
           })}
+        </nav>
+
+        <div className={scss.actions}>
           {!ctaHidden && (
-            <Button href="/contact" className={scss.nav__cta}>
+            <Button href="/contact" arrow className={scss.actions__cta}>
               Обсудить проект
             </Button>
           )}
-        </nav>
-
-        <button
-          ref={burgerRef}
-          type="button"
-          className={scss.burger}
-          aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          onClick={() => setMenuPath(menuOpen ? null : pathname)}
-        >
-          <span className={menuOpen ? scss["burger__line--open1"] : ""} />
-          <span className={menuOpen ? scss["burger__line--open2"] : ""} />
-        </button>
+          <button
+            ref={burgerRef}
+            type="button"
+            className={scss.burger}
+            aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuPath(menuOpen ? null : pathname)}
+          >
+            <span className={menuOpen ? scss["burger__line--open1"] : ""} />
+            <span className={menuOpen ? scss["burger__line--open2"] : ""} />
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -131,7 +123,7 @@ const Header: FC = () => {
                 );
               })}
               {!ctaHidden && (
-                <Button href="/contact" className={scss.menu__cta}>
+                <Button href="/contact" arrow className={scss.menu__cta}>
                   Обсудить проект
                 </Button>
               )}

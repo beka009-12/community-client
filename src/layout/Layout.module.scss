@@ -1,4 +1,11 @@
+// Its own stacking context, so the backdrop at z-index −1 stays above the
+// body's black and under every block of the page.
 .Layout {
+  position: relative;
+  isolation: isolate;
+  // Glows reach past the window's edges; clip (not hidden) keeps the
+  // sticky header working.
+  overflow-x: clip;
   min-height: calc(100dvh / var(--page-zoom));
   display: flex;
   flex-direction: column;

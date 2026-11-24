@@ -1,0 +1,73 @@
+// Under everything in the layout (z-index −1 inside its isolated stacking
+// context), the full height of the page.
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+// The mockup's 1440px frame, centred on the window like the page content.
+.frame {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1440px;
+  margin-left: -720px;
+}
+
+// The page clouds fade out above the closing call and the footer, which
+// bring their own glows.
+.clouds {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 1900px), transparent calc(100% - 1150px));
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 1900px), transparent calc(100% - 1150px));
+
+  .frame {
+    bottom: 0;
+  }
+}
+
+.first {
+  height: 1000px;
+}
+
+.glow {
+  position: absolute;
+}
+
+// Figma's Smart Animate between phase 1 and 2: 9s each way, ~18s a loop.
+// Only transform and opacity change, so it stays on the compositor.
+.glow--drift {
+  opacity: var(--from-opacity);
+  animation: nebula-drift 9s ease-in-out infinite alternate;
+
+  .first[data-paused] & {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes nebula-drift {
+  from {
+    translate: 0 0;
+    opacity: var(--from-opacity);
+  }
+
+  to {
+    translate: var(--dx) var(--dy);
+    opacity: 1;
+  }
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}

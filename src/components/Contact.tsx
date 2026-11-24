@@ -12,7 +12,7 @@ const Contact = () => (
       title={"Расскажите\nо проекте."}
       lead="Изучим заявку и вернёмся с вопросами или предложением. Достаточно пары предложений — детали обсудим на созвоне."
     />
-    <div className={scss.request}>
+    <div>
       <div className={`container ${scss.layout}`}>
         <RequestForm />
         <NextSteps />

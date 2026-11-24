@@ -67,8 +67,8 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, team, next }) => {
         }
       />
 
-      {/* The cover sits on the seam: dark above its middle, light below. */}
-      <div className={scss.cover}>
+      {/* The cover right under the intro, over the page's nebula. */}
+      <div>
         <div className="container">
           <div className={scss.cover__frame}>
             <ProjectCover src={project.image} name={project.name} sizes="(max-width: 1440px) 100vw, 1400px" eager />
@@ -119,7 +119,7 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, team, next }) => {
       </div>
 
       {next && (
-        <nav className={scss.next} aria-label="Следующий проект">
+        <nav aria-label="Следующий проект">
           <Link href={`/projects/${next.id}`} className={`container ${scss.next__link}`}>
             <span className={scss.next__text}>
               <span className={scss.next__label}>Следующий проект</span>

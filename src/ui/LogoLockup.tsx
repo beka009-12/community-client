@@ -7,8 +7,9 @@ interface LogoLockupProps {
   className?: string;
 }
 
-// The community lockup: the M mark over «COMMUNITY», flat colours with no
-// gradient or glow. Decorative here, the link around it carries the name.
+// The community lockup: the M mark with «COMMUNITY» to its right, flat
+// colours with no gradient or glow. Decorative here, the link around it
+// carries the name.
 const LogoLockup: FC<LogoLockupProps> = ({ size = "sm", className = "" }) => (
   <span className={`${scss.lockup} ${scss[`lockup--${size}`]} ${className}`} aria-hidden="true">
     <svg className={scss.mark} viewBox="0 10 243 124" fill="none" xmlns="http://www.w3.org/2000/svg">

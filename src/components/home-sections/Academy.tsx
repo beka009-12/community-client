@@ -16,7 +16,6 @@ const Academy: FC<{ index: number }> = ({ index }) => (
     id="academy"
     label="Академия MotionWeb"
     title={"Академия, из которой\nмы выросли."}
-    band
     top={
       <div className={scss.intro__copy}>
         <p className={scss.lead}>

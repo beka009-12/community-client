@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 import scss from "./Tag.module.scss";
 
 // The mockup's «Метка»: a small uppercase label on a photo, a card or the
-// dark intro. «neutral» is grey on light pages and graphite on dark ones.
+// intro, in white glass; «accent» for the one that matters most.
 export type TagTone = "neutral" | "raised" | "accent" | "outline";
 
 interface TagProps {
