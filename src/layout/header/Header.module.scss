@@ -1,13 +1,34 @@
 @use "../../styles/hover" as *;
 
-// Black at 72% with the page blurred under it.
 .header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgb(0 0 0 / 0.72);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  transition: translate 300ms cubic-bezier(0.2, 0, 0, 1);
+
+  // Black at 72% with the page blurred under it, on a layer of its own so
+  // background and blur fade together.
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgb(0 0 0 / 0.72);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    transition: opacity 200ms ease-out;
+  }
+
+  // Clear over the top of the page.
+  &[data-clear]::before {
+    opacity: 0;
+  }
+
+  // Slid up out of view while reading down; back on any scroll up, and as
+  // soon as the keyboard focus lands inside it.
+  &[data-away]:not(:focus-within) {
+    translate: 0 -100%;
+  }
 }
 
 // The menu stays in the middle of the window whatever the widths of the
